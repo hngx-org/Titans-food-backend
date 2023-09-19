@@ -1172,16 +1172,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.7",
+            "version": "v0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "554e7d855a22e87942753d68e23b327ad79b2070"
+                "reference": "68dcc65babf92e1fb43cba0b3f78fc3d8002709c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/554e7d855a22e87942753d68e23b327ad79b2070",
-                "reference": "554e7d855a22e87942753d68e23b327ad79b2070",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/68dcc65babf92e1fb43cba0b3f78fc3d8002709c",
+                "reference": "68dcc65babf92e1fb43cba0b3f78fc3d8002709c",
                 "shasum": ""
             },
             "require": {
@@ -1214,9 +1214,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.7"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.8"
             },
-            "time": "2023-09-12T11:09:22+00:00"
+            "time": "2023-09-19T15:33:56+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -5810,16 +5810,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.13.1",
+            "version": "v1.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "22f204242d68095b3ba7dab5d3ef0240454a4652"
+                "reference": "bbb13460d7f8c5c0cd9a58109beedd79cd7331ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/22f204242d68095b3ba7dab5d3ef0240454a4652",
-                "reference": "22f204242d68095b3ba7dab5d3ef0240454a4652",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/bbb13460d7f8c5c0cd9a58109beedd79cd7331ff",
+                "reference": "bbb13460d7f8c5c0cd9a58109beedd79cd7331ff",
                 "shasum": ""
             },
             "require": {
@@ -5830,13 +5830,13 @@
                 "php": "^8.1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.21.1",
-                "illuminate/view": "^10.5.1",
+                "friendsofphp/php-cs-fixer": "^3.26.1",
+                "illuminate/view": "^10.23.1",
                 "laravel-zero/framework": "^10.1.2",
-                "mockery/mockery": "^1.5.1",
-                "nunomaduro/larastan": "^2.5.1",
+                "mockery/mockery": "^1.6.6",
+                "nunomaduro/larastan": "^2.6.4",
                 "nunomaduro/termwind": "^1.15.1",
-                "pestphp/pest": "^2.4.0"
+                "pestphp/pest": "^2.18.2"
             },
             "bin": [
                 "builds/pint"
@@ -5872,7 +5872,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-09-06T11:03:34+00:00"
+            "time": "2023-09-19T15:55:02+00:00"
         },
         {
             "name": "laravel/sail",

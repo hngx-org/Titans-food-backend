@@ -11,6 +11,7 @@ class OrganizationInvite extends Model
     use HasFactory;
 
     public function organization(): BelongsTo
+    
     {
         return $this->belongsTo(Organization::class);
     }

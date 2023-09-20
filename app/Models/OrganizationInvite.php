@@ -10,8 +10,18 @@ class OrganizationInvite extends Model
 {
     use HasFactory;
 
+    protected $table = "organization_invites";
+
+    protected $fillable = [
+        'email',
+        'token',
+        'TTl',
+        'org_id'
+    ];
+
+
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

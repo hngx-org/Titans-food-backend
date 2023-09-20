@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
-        Schema::create('organizations', function (Blueprint $table) {
-
-            $table->string('id')->primary(); 
-            $table->text('name');
-            $table->text('lunch_price');
-            $table->text('currency');
-            $table->timestamps(); // Adds 'created_at' and 'updated_at' columns
+        Schema::create('organization_lunch_wallets', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('organization_lunch_wallets');
     }
 };

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Organanization;
+use App\Models\OrganizationLunchWallet;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class OrgananizationPolicy
+class OrganizationLunchWalletPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class OrgananizationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Organanization $organanization): bool
+    public function view(User $user, OrganizationLunchWallet $organizationLunchWallet): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class OrgananizationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Organanization $organanization): bool
+    public function update(User $user, OrganizationLunchWallet $organizationLunchWallet): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class OrgananizationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Organanization $organanization): bool
+    public function delete(User $user, OrganizationLunchWallet $organizationLunchWallet): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class OrgananizationPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Organanization $organanization): bool
+    public function restore(User $user, OrganizationLunchWallet $organizationLunchWallet): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class OrgananizationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Organanization $organanization): bool
+    public function forceDelete(User $user, OrganizationLunchWallet $organizationLunchWallet): bool
     {
         //
     }

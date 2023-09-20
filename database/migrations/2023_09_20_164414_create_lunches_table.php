@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('lunches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('senderId');
-            $table->unsignedBigInteger('receiverId');
+            $table->unsignedBigInteger('org_id');
+            $table->unsignedBigInteger('sender_id');
+            $table->unsignedBigInteger('receiver_id');
             $table->integer('quantity');
             $table->boolean('redeemed')->default(false);
             $table->longText('note');
-            $table->foreign('senderId')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('receiverId')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('is_deleted')->default(false);
+            $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

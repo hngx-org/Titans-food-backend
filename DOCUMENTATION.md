@@ -92,3 +92,29 @@
           "data": null
         }
         ```
+
+## User Section
+
+1. Endpoint: `/api/user/profile`
+    - **Method:** GET
+    - **Headers: `Authorization: Bearer <access_token>`**
+    - **Request Response:**
+
+        ```json
+        // you could choose to return just the username or email depending on 
+        // your usecase
+        {
+          "message": "User data fetched successfully",
+          "statusCode": 200,
+          "data": {
+            "name": "John Doe",
+            "email": "john@mail.com",
+            "profile_picture": "user-profile-picture-url",
+            "phonenumber": "1234567890",
+            "bank_number": "1234-5678-9012-3456",
+            "bank_code": "123456",
+            "bank_name": "Bank Name",
+            "isAdmin": true | false
+          }
+        }
+        ```

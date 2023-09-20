@@ -14,11 +14,12 @@ return new class extends Migration
         
         Schema::create('organizations', function (Blueprint $table) {
 
-            $table->string('id')->primary(); 
-            $table->text('name');
-            $table->text('lunch_price');
-            $table->text('currency');
-            $table->timestamps(); // Adds 'created_at' and 'updated_at' columns
+            $table->id();
+            $table->string('name');
+            $table->decimal('lunch_price', 10, 2);
+            $table->string('currency_code', 4);
+            $table->timestamps();
+            $table->boolean('is_deleted')->default(false);
        
         });
     }

@@ -20,6 +20,6 @@ class Organization extends Model
     
     public function organizationinvite (): HasMany
     {
-        return $this->hasMany(OrganizationInvite::class, 'org_id');
+        return  $this->hasMany(OrganizationInvite::class, 'org_id');
     }
 }

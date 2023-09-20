@@ -17,6 +17,7 @@ class OrganizationInvite extends Model
         'token',
         'TTl',
         'org_id'
+    
     ];
 
 

@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Lunch;
+
 use Illuminate\Database\Seeder;
 
 class LunchSeeder extends Seeder
@@ -12,6 +13,6 @@ class LunchSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Lunch::factory(5)->create();
     }
 }

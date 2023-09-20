@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lunch>
  */
@@ -17,7 +18,11 @@ class LunchFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'senderId' => rand(1, 5),
+            'receiverId' => rand(1,5),
+            'quantity' => rand(10, 100),
+            'redeemed' => $this->faker->boolean,
+            'note' => $this->faker->sentence()
         ];
     }
 }

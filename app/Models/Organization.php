@@ -13,13 +13,4 @@ class Organization extends Model
 {
     use HasFactory;
 
-    public function organizationlunchwallet(): HasOne
-    {
-        return $this->hasOne(OrganizationLunchWallet::class, 'org_id');
-    }
-    
-    public function organizationinvite (): HasMany
-    {
-        return  $this->hasMany(OrganizationInvite::class, 'org_id');
-    }
 }

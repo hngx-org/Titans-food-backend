@@ -19,9 +19,7 @@ return new class extends Migration
             $table->text('lunch_price');
             $table->text('currency');
             $table->timestamps(); // Adds 'created_at' and 'updated_at' columns
-        Schema::create('organizations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+       
         });
     }
 

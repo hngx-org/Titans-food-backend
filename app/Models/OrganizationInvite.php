@@ -15,7 +15,7 @@ class OrganizationInvite extends Model
     protected $fillable = [
         'email',
         'token',
-        'TTl',
+        'TTL',
         'org_id'
     
     ];

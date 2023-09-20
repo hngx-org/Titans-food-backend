@@ -33,7 +33,7 @@ class LoginController extends Controller
         } // Attempt to authorize request using request email and password failed, so lets return
 
         $user = Auth::user(); // Grabbing the user details
-        $token = $user->createToken(env('APP_NAME'))->plainTextToken; // Creating access_token
+        $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
             "message" => "User authenticated successfully",

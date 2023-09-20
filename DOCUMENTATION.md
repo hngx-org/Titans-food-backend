@@ -118,3 +118,27 @@
           }
         }
         ```
+
+2. Add Bank Account: `/api/user/bank`
+    - **Method:** POST
+    - **Headers: `Authorization: Bearer <access_token>`**
+    - **Request Body:**
+
+        ```json
+        // you could choose to return just the username or email depending on 
+        // your usecase
+        {
+          "bank_number": "1234-5678-9012-3456",
+          "bank_code": "123456",
+          "bank_name": "Bank Name"
+        }
+        ```
+
+    - Response :
+
+        ```json
+        {
+          "message": "successfully created bank account",
+          "statusCode": 200
+        }
+        ```

@@ -170,3 +170,23 @@
             ]
         }
         ```
+
+2. Search Users: `/api/search/<nameoremail>`
+   - **Method:** GET
+   - **Headers: `Authorization: Bearer <access_token>`**
+   - **Request Body: None**
+   - Response :
+
+   ```json
+   {
+     "message": "User found",
+     "statusCode": 200,
+     "data":
+     {
+       "name": "John Doe",
+       "email": "john@mail.com",
+       "profile_picture": "user-profile-picture-url",
+       "user_id": ""
+     }
+   }
+   ```

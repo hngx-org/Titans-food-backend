@@ -15,20 +15,20 @@ return new class extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('org_id');
-            $table->string('firs_tname');
+            $table->unsignedBigInteger('org_id')->nullable();
+            $table->string('first_name');
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('phonenumber')->unique();
-            $table->string('password_hash');
-            $table->boolean('isAdmin')->default(false);
-            $table->string('lunch_credit_balance');
-            $table->string('refresh_token');
-            $table->string('bank_number');
-            $table->string('bank_code');
-            $table->string('bank_name');
-            $table->rememberToken();
+            $table->unsignedBigInteger('phonenumber')->unique()->nullable();
+            $table->string('password');
+            $table->boolean('is_admin')->default(false);
+            $table->string('lunch_credit_balance')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->string('bank_number')->nullable();
+            $table->string('bank_code')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->rememberToken()->nullable();
             $table->timestamps();
 
             $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');

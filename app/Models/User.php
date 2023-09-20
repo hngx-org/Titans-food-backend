@@ -27,7 +27,7 @@ class User extends Authenticatable
         'profile_pic',
         'email',
         'phone',
-        'password_hash',
+        'password',
         'is_admin',
         'lunch_credit_balance',
         'refresh_token',

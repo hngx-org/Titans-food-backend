@@ -27,7 +27,7 @@ class OrganisationSignupController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'is_admin' => true,
-            'password' => $password
+            'password_hash' => $password
         ]);
 
 

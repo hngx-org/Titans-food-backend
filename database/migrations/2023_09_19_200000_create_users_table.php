@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('phonenumber')->unique()->nullable();
-            $table->string('password');
+            $table->unsignedBigInteger('phone')->unique()->nullable();
+            $table->string('password_hash');
             $table->boolean('is_admin')->default(false);
             $table->string('lunch_credit_balance')->nullable();
             $table->string('refresh_token')->nullable();

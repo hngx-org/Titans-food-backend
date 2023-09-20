@@ -14,7 +14,8 @@ class OrganizationLunchWallet extends Model
 
     protected $fillable = [
         'balance',
-        'org_id'
+        'org_id',
+        'is_deleted'
     ];
 
     public function organization(): BelongsTo

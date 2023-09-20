@@ -11,6 +11,17 @@ class Withdrawal extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'status',
+        'amount',
+    ];
+
+    /**
      * Get the user that owns the withdrawal.
      */
     public function user(): BelongsTo

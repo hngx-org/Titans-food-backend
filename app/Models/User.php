@@ -21,9 +21,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'org_id',
+        'first_name',
+        'last_name',
+        'profile_pic',
         'email',
-        'password',
+        'phone',
+        'password_hash',
+        'is_admin',
+        'refresh_token',
+        'bank_number',
+        'bank_code',
+        'bank_name',
     ];
 
     /**
@@ -32,8 +41,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password_hash',
     ];
 
     /**
@@ -42,8 +50,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password_hash' => 'hashed',
     ];
 
     /**

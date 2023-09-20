@@ -41,3 +41,15 @@
           "phone_number": ""
         }
         ```
+
+3. Create Organization: `/api/organization/create`
+    - **Method:** POST
+    - **Headers: `Authorization: Bearer <access_token>`**
+    - **Request Body:**
+
+        ```json
+        {
+          "organization_name": "",
+          "lunch_price": "" // default to "#1000" if not set
+        }
+        ```

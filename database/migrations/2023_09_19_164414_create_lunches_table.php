@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('lunches', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('senderId');
+            $table->unsignedBigInteger('receiverId');
+            $table->integer('quantity');
+            $table->boolean('redeemed')->default(false);
+            $table->longText('note');
+            $table->foreign('senderId')->references('id')->on('users');
+            $table->foreign('receiverId')->references('id')->on('users');
             $table->timestamps();
         });
     }

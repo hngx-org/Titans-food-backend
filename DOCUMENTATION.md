@@ -42,23 +42,7 @@
         }
         ```
 
-3. **Staff Signup:** `/api/organization/staff/signup`   ( **Staff only** )
-    - **Method:** POST
-    - Description: An  `OTP` code would be sent to user email, the token sent would be used within the `otp_token` field
-    - **Request Body:**
-
-        ```json
-        {
-          "email": "user@example.com",
-          "password": "password123",
-          "otp_token": "", // 6-digit token sent to inbox
-          "first_name": "",
-          "last_name": "",
-          "phone_number": ""
-        }
-        ```
-
-4. Create Organization: `/api/organization/create`
+3. Create Organization: `/api/organization/create`
     - **Method:** POST
     - **Headers: `Authorization: Bearer <access_token>`**
     - **Request Body:**
@@ -70,7 +54,7 @@
         }
         ```
 
-5. **Create Organization Invite (Admin Only)**
+4. **Create Organization Invite (Admin Only)**
     - Endpoint: `/api/organization/invite`
     - Method: POST
     - **Headers: `Authorization: Bearer <access_token>`**
@@ -92,7 +76,22 @@
           "data": null
         }
         ```
+5. **Staff Signup:** `/api/organization/staff/signup`   ( **Staff only** )
+    - **Method:** POST
+    - Description: An  `OTP` code would be sent to user email, the token sent would be used within the `otp_token` field
+    - **Request Body:**
 
+        ```json
+        {
+          "email": "user@example.com",
+          "password": "password123",
+          "otp_token": "", // 6-digit token sent to inbox during invitation
+          "first_name": "",
+          "last_name": "",
+          "phone_number": ""
+        }
+        ```
+      
 ## User Section
 
 1. Endpoint: `/api/user/profile`
@@ -101,20 +100,19 @@
     - **Request Response:**
 
         ```json
-        // you could choose to return just the username or email depending on 
-        // your usecase
         {
           "message": "User data fetched successfully",
           "statusCode": 200,
           "data": {
-            "name": "John Doe",
+            "first_name": "John",
+            "last_name": "Doe",
             "email": "john@mail.com",
             "profile_picture": "user-profile-picture-url",
             "phonenumber": "1234567890",
             "bank_number": "1234-5678-9012-3456",
             "bank_code": "123456",
             "bank_name": "Bank Name",
-            "isAdmin": true | false
+            "isAdmin": true
           }
         }
         ```
@@ -125,8 +123,6 @@
     - **Request Body:**
 
         ```json
-        // you could choose to return just the username or email depending on 
-        // your usecase
         {
           "bank_number": "1234-5678-9012-3456",
           "bank_code": "123456",
@@ -144,7 +140,7 @@
         ```
 
 
-1. Get all Users: `/api/users`
+3. Get all Users: `/api/users`
     - **Method:** GET
     - **Headers: `Authorization: Bearer <access_token>`**
     - **Request Body: None**
@@ -156,13 +152,15 @@
           "statusCode": 200,
           "data": [
               {
-                "name": "John Doe",
+                "first_name": "John",
+                "last_name": "Doe",
                 "email": "john@mail.com",
                 "profile_picture": "user-profile-picture-url",
                 "user_id": ""
               },
               {
-                "name": "John Doe",
+                "first_name": "John",
+                "last_name": "Doe",
                 "email": "john@mail.com",
                 "profile_picture": "user-profile-picture-url",
                 "user_id": ""
@@ -171,9 +169,11 @@
         }
         ```
 
-2. Search Users: `/api/search/<nameoremail>`
+4. Search Users: `/api/search/:param`
    - **Method:** GET
    - **Headers: `Authorization: Bearer <access_token>`**
+   - **Parameters**:
+     - `name|email` (path parameter, string) - The Name or Email of the person to search.
    - **Request Body: None**
    - Response :
 
@@ -183,7 +183,8 @@
      "statusCode": 200,
      "data":
      {
-       "name": "John Doe",
+       "first_name": "John",
+       "last_name": "Doe",
        "email": "john@mail.com",
        "profile_picture": "user-profile-picture-url",
        "user_id": ""
@@ -199,17 +200,15 @@
 
     - **Method:** POST
     - **Description:** Create a new lunch request.
-    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Headers:** `Authorization: Bearer <access_token>`
     - **Request Body:**
 
         ```json
         {
-          "receivers": ["user_id"], // this could contain multiple users
+          "receivers": ["user_id"],
           "quantity": 5,
           "note": "Special instructions for the lunch"
         }
-        
-        // prevent the user from sending lunch to him/herself.
         ```
 
       **Response:**
@@ -230,7 +229,9 @@
 
     - **Method:** GET
     - **Description:** Get a specific lunch
-    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Headers:** `Authorization: Bearer <access_token>`
+    - **Parameters**:
+      - `id` (path parameter, integer) - The ID of the lunch.
     - **Request Body: None**
 
       **Response:**
@@ -259,7 +260,7 @@
 
     - **Method:** GET
     - **Description:** Get all lunch requests available for that user
-    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Headers:** `Authorization: Bearer <access_token>`
     - **Request Body: None**
 
       **Response:**
@@ -270,8 +271,8 @@
           "statusCode": 200,
           "data": [
             {
-              "receiverId": "",
-              "senderId": "",
+              "receiverId": 2,
+              "senderId": 1,
               "quantity": 5,
               "redeemed": false,
               "note": "Special instructions for the lunch",
@@ -279,8 +280,8 @@
               "id": ""
             },
             {
-              "receiverId": "",
-              "senderId": "",
+              "receiverId": 1,
+              "senderId": 2,
               "quantity": 5,
               "redeemed": false,
               "note": "Special instructions for the lunch",
@@ -292,31 +293,12 @@
         
         ```
 
-
-4. Redeem a specific user lunch
-
-   **Endpoint:** `/api/lunch/redeem/:id`
-
-    - **Method:** PUT
-    - **Description:** Redeem a specific user's lunch
-    - **Headers:** `Authorization: Bearer your-auth-token-here`
-    - **Request Body: None**
-    - **Response:**
-
-        ```json
-        {
-          "message": "Lunch redeemed successfully",
-          "statusCode": 200,
-          "data": null
-        }
-        ```
-
 # Withdrawal Request
 
 1. **Endpoint:** `/api/withdrawal/request`
     - **Method:** POST
     - **Description:** Create a withdrawal request.
-    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Headers:** `Authorization: Bearer <access_token>`
     - **Request Body:**
 
     ```json
@@ -337,7 +319,7 @@
       "data": {
         "id": "unique-withdrawal-id",
         "user_id": "user-id",
-        "status": "success", // the status should be updated from pending to successful state assuming we integrated a payment provider.
+        "status": "success",
         "amount": 100,
         "created_at": "2023-09-19T12:00:00Z"
       }

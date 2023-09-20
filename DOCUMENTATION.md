@@ -27,3 +27,17 @@
       }
     }
     ```
+
+2. **User Signup:** `/api/auth/user/signup`   ( **organization only** )
+    - **Method:** POST
+    - **Request Body:**
+
+        ```json
+        {
+          "email": "user@example.com",
+          "password": "password123",
+          "first_name": "",
+          "last_name": "",
+          "phone_number": ""
+        }
+        ```

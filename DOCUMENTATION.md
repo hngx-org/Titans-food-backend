@@ -190,3 +190,157 @@
      }
    }
    ```
+
+# Lunch Section
+
+1. Send a Lunch
+
+   **Endpoint:** `/api/lunch/send`
+
+    - **Method:** POST
+    - **Description:** Create a new lunch request.
+    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Request Body:**
+
+        ```json
+        {
+          "receivers": ["user_id"], // this could contain multiple users
+          "quantity": 5,
+          "note": "Special instructions for the lunch"
+        }
+        
+        // prevent the user from sending lunch to him/herself.
+        ```
+
+      **Response:**
+
+        ```json
+        {
+          "message": "Lunch request created successfully",
+          "statusCode": 201,
+          "data": {}
+        }
+        
+        ```
+
+
+2. Get a Lunch
+
+   **Endpoint:** `/api/lunch/:id`
+
+    - **Method:** GET
+    - **Description:** Get a specific lunch
+    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Request Body: None**
+
+      **Response:**
+
+        ```json
+        {
+          "message": "Lunch request fetched successfully",
+          "statusCode": 200,
+          "data": {
+            "receiverId": "",
+            "senderId": "",
+            "quantity": 5,
+            "redeemed": false,
+            "note": "Special instructions for the lunch",
+            "created_at": "",
+            "id": ""
+          }
+        }
+        
+        ```
+
+
+3. Get all Lunches
+
+   **Endpoint:** `/api/lunch/all`
+
+    - **Method:** GET
+    - **Description:** Get all lunch requests available for that user
+    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Request Body: None**
+
+      **Response:**
+
+        ```json
+        {
+          "message": "Lunch requests fetched successfully",
+          "statusCode": 200,
+          "data": [
+            {
+              "receiverId": "",
+              "senderId": "",
+              "quantity": 5,
+              "redeemed": false,
+              "note": "Special instructions for the lunch",
+              "created_at": "",
+              "id": ""
+            },
+            {
+              "receiverId": "",
+              "senderId": "",
+              "quantity": 5,
+              "redeemed": false,
+              "note": "Special instructions for the lunch",
+              "created_at": "",
+              "id": ""
+            }
+          ]
+        }
+        
+        ```
+
+
+4. Redeem a specific user lunch
+
+   **Endpoint:** `/api/lunch/redeem/:id`
+
+    - **Method:** PUT
+    - **Description:** Redeem a specific user's lunch
+    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Request Body: None**
+    - **Response:**
+
+        ```json
+        {
+          "message": "Lunch redeemed successfully",
+          "statusCode": 200,
+          "data": null
+        }
+        ```
+
+# Withdrawal Request
+
+1. **Endpoint:** `/api/withdrawal/request`
+    - **Method:** POST
+    - **Description:** Create a withdrawal request.
+    - **Headers:** `Authorization: Bearer your-auth-token-here`
+    - **Request Body:**
+
+    ```json
+    {
+      "bank_name": "bank",
+      "bank_number": "",
+      "bank_code": "",
+      "amount": 100
+    }
+    ```
+
+   **Response:**
+
+    ```json
+    {
+      "message": "Withdrawal request created successfully",
+      "statusCode": 201,
+      "data": {
+        "id": "unique-withdrawal-id",
+        "user_id": "user-id",
+        "status": "success", // the status should be updated from pending to successful state assuming we integrated a payment provider.
+        "amount": 100,
+        "created_at": "2023-09-19T12:00:00Z"
+      }
+    }
+    
+    ```

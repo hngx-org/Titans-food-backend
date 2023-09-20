@@ -16,9 +16,7 @@ class OrganizationInvite extends Model
         'email',
         'token',
         'ttl',
-        'org_id',
-        'is_deleted'
-    
+        'org_id'
     ];
 
 

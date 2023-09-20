@@ -29,10 +29,14 @@ class User extends Authenticatable
         'phone',
         'password_hash',
         'is_admin',
+        'lunch_credit_balance',
         'refresh_token',
         'bank_number',
         'bank_code',
         'bank_name',
+        'bank_region',
+        'currency',
+        'currency_code',
     ];
 
     /**

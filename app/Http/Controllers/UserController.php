@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreOrgananizationRequest;
-use App\Http\Requests\UpdateOrgananizationRequest;
-use App\Models\Organanization;
+use Illuminate\Http\Request;
 
-class OrgananizationController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +25,7 @@ class OrgananizationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrgananizationRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +33,7 @@ class OrgananizationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Organanization $organanization)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +41,7 @@ class OrgananizationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Organanization $organanization)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +49,7 @@ class OrgananizationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrgananizationRequest $request, Organanization $organanization)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +57,7 @@ class OrgananizationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Organanization $organanization)
+    public function destroy(string $id)
     {
         //
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->boolean('redeemed')->default(false);
             $table->longText('note');
-            $table->foreign('senderId')->references('id')->on('users');
-            $table->foreign('receiverId')->references('id')->on('users');
+            $table->foreign('senderId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('receiverId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

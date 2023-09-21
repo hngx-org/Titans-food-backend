@@ -51,8 +51,8 @@ class LunchController extends Controller
         $lunchData = Lunch::where('id', $Id)->first();
 
 //        {
-//            "receiverId": "",
-//		      "senderId": "",
+//            "receiver_id": "",
+//		      "sender_id": "",
 //	          "quantity": 5,
 //		      "redeemed": false,
 //	          "note": "Special instructions for the lunch",

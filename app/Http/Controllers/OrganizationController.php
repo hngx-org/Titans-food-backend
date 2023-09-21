@@ -67,7 +67,7 @@ class OrganizationController extends Controller
                 
             }else{
                 return response()->json([
-                    'message' => 'You are not authorized to create an Organization'
+                    'message' => 'You are not authorized to perform this action!'
                 ], 403);
             }
     }

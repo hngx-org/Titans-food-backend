@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('/organization/create',[OrganizationController::class, 'store']);
+Route::put('/organization/create',[OrganizationController::class, 'update']);
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 

@@ -63,8 +63,8 @@ class LunchController extends Controller
         // return the response with only the above fields
 
         $lunchResponse = $lunchData->only([
-            'receiverId',
-            'senderId',
+            'receiver_id',
+            'sender_id',
             'quantity',
             'redeemed',
             'note',

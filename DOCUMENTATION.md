@@ -23,7 +23,7 @@
         "access_token": "your-auth-token-here",
         "email": "email@mail.com",
         "id": "random_id",
-        "isAdmin": true | false
+        "isAdmin": false
       }
     }
     ```
@@ -36,9 +36,9 @@
         {
           "email": "user@example.com",
           "password": "password123",
-          "first_name": "",
-          "last_name": "",
-          "phone_number": ""
+          "first_name": "John",
+          "last_name": "Doe",
+          "phonenumber": "1234567890"
         }
         ```
 
@@ -46,13 +46,14 @@
     - **Method:** POST
     - **Headers: `Authorization: Bearer <access_token>`**
     - **Request Body:**
-
-        ```json
-        {
-          "organization_name": "",
-          "lunch_price": "" // default to "#1000" if not set
-        }
-        ```
+      - lunch_price (decimal nullable) - Defaults to 1000.
+      - organization_name (string required) - Name of the organisation
+    ```json
+      {
+        "organization_name": "HNG",
+        "lunch_price": 1000
+      }
+    ```
 
 4. **Create Organization Invite (Admin Only)**
     - Endpoint: `/api/organization/invite`
@@ -78,17 +79,17 @@
         ```
 5. **Staff Signup:** `/api/organization/staff/signup`   ( **Staff only** )
     - **Method:** POST
-    - Description: An  `OTP` code would be sent to user email, the token sent would be used within the `otp_token` field
+    - Description: A 6 digit `OTP` code would be sent to user email during invitation, the token sent would be used within the `otp_token` field
     - **Request Body:**
 
         ```json
         {
           "email": "user@example.com",
           "password": "password123",
-          "otp_token": "", // 6-digit token sent to inbox during invitation
-          "first_name": "",
-          "last_name": "",
-          "phone_number": ""
+          "otp_token": 134256,
+          "first_name": "John",
+          "last_name": "Doe",
+          "phonenumber": "1234567890"
         }
         ```
       
@@ -106,9 +107,9 @@
           "data": {
             "first_name": "John",
             "last_name": "Doe",
+            "phonenumber": "1234567890",
             "email": "john@mail.com",
             "profile_picture": "user-profile-picture-url",
-            "phonenumber": "1234567890",
             "bank_number": "1234-5678-9012-3456",
             "bank_code": "123456",
             "bank_name": "Bank Name",
@@ -222,7 +223,6 @@
         
         ```
 
-
 2. Get a Lunch
 
    **Endpoint:** `/api/lunch/:id`
@@ -252,6 +252,13 @@
         }
         
         ```
+       ```json
+        {
+          "message": "Lunch not found",
+          "statusCode": 404
+        }
+        
+        ```
 
 
 3. Get all Lunches
@@ -277,7 +284,7 @@
               "redeemed": false,
               "note": "Special instructions for the lunch",
               "created_at": "",
-              "id": ""
+              "id": 1
             },
             {
               "receiverId": 1,
@@ -286,7 +293,7 @@
               "redeemed": false,
               "note": "Special instructions for the lunch",
               "created_at": "",
-              "id": ""
+              "id": 2
             }
           ]
         }
@@ -304,8 +311,8 @@
     ```json
     {
       "bank_name": "bank",
-      "bank_number": "",
-      "bank_code": "",
+      "bank_number": "232113445",
+      "bank_code": "1234",
       "amount": 100
     }
     ```
@@ -324,5 +331,4 @@
         "created_at": "2023-09-19T12:00:00Z"
       }
     }
-    
     ```

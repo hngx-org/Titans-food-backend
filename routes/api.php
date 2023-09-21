@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LunchController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

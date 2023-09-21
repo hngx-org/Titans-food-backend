@@ -24,7 +24,7 @@ class UserFactory extends Factory
             */
 
             // 'org_id' => fake()->numberBetween(1, 10), 
-            'first_tname' => fake()->name(),
+            'first_name' => fake()->name(),
             'last_name' => fake()->name(),
             'profile_pic' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo
             'email' => fake()->unique()->safeEmail(),

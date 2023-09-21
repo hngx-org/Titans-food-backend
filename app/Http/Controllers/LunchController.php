@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lunch;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OrganizationLunchWallet;
 use App\Http\Requests\StoreLunchRequest;
 use App\Http\Requests\UpdateLunchRequest;
 
@@ -30,7 +31,6 @@ class LunchController extends Controller
      */
     public function store(StoreLunchRequest $request)
     {
-
         #Ensure user cannot appraise self
         if(in_array(Auth::user()->id, $request->input('receivers'))){
             return $this->error('You cannot appraise your self', 422);

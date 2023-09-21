@@ -15,9 +15,6 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-// Public Endpoints
-Route::post("/auth/login", [LoginController::class, 'login']);
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

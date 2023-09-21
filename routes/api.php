@@ -37,3 +37,4 @@ Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 
 Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
+

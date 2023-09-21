@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\OrganisationSignupController;
+use App\Http\Controllers\OrganizationController;
+use App\Models\Organanization;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,4 @@ Route::post('/organization/create',[OrganizationController::class, 'store']);
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 
+Route::get('/organization/', [OrganizationController::class, 'getOrganization']);

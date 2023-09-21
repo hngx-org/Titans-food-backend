@@ -79,4 +79,11 @@ class OrganizationController extends Controller
     {
         //
     }
+
+    public function getOrganization() {
+        // Retrieve all organizations that are not deleted
+        $organizations = Organization::where('is_deleted', false)->get();
+
+        return response()->json(['data' => $organizations]);
+    }
 }

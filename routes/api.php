@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +13,6 @@ use App\Http\Controllers\Auth\LoginController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-// Public Endpoints
-Route::post("/auth/login", [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+

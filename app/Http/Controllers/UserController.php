@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -60,5 +61,19 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Search for a user using name or email
+     */
+
+    public function search($nameOrEmail)
+    {
+        $users = User::where('name', 'like', '%' . $nameOrEmail . '%')
+                ->orWhere('email', 'like', '%' . $nameOrEmail . '%')
+                ->get();
+        $message = 'User found';
+
+        return response()->json(['message' => $message, 'data' => $users], 200);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lunch;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLunchRequest;
 use App\Http\Requests\UpdateLunchRequest;
-use App\Models\Lunch;
 
 class LunchController extends Controller
 {
@@ -29,8 +30,9 @@ class LunchController extends Controller
      */
     public function store(StoreLunchRequest $request)
     {
+
         #Ensure user cannot appraise self
-        if(in_array(auth()->user()->id, $request->input('receivers'))){
+        if(in_array(Auth::user()->id, $request->input('receivers'))){
             return $this->error('You cannot appraise your self', 422);
         }
         

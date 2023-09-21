@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
-use App\Models\Organanization;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Auth;
 
 class OrganizationController extends Controller
@@ -52,7 +52,7 @@ class OrganizationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrganizationRequest $request, Organanization $organization)
+    public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
         if(Auth::user()->isAdmin === true){
         
@@ -63,11 +63,11 @@ class OrganizationController extends Controller
             return response()->json([
                 'organization_name' => $organization->name,
                 'lunch_price'  => $organization->lunch_price
-            ]);
+            ], 200);
                 
             }else{
                 return response()->json([
-                    'message' => 'You are not authorized to create an Organization'
+                    'message' => 'You are not authorized to perform this action!'
                 ], 403);
             }
     }

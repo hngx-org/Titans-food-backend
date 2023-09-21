@@ -11,7 +11,7 @@ class StoreLunchRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreLunchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'receivers' => ['array'],
+            'receivers.*' => ['sometimes', 'distinct'],
+            'quantity' => ['numeric', 'required'],
+            'note' => ['string']
         ];
     }
 }

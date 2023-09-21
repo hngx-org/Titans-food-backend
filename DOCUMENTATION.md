@@ -41,6 +41,14 @@
           "phonenumber": "1234567890"
         }
         ```
+   - **Response :**
+
+   ```json
+       {
+         "message": "User created successfully",
+         "statusCode": 201
+       }
+   ```
 
 3. Create Organization: `/api/organization/create`
     - **Method:** POST
@@ -54,13 +62,20 @@
         "lunch_price": 1000
       }
     ```
+   - **Response :**
 
+   ```json
+       {
+         "message": "Organisation created successfully",
+         "statusCode": 201
+       }
+   ```
 4. **Create Organization Invite (Admin Only)**
     - Endpoint: `/api/organization/invite`
     - Method: POST
     - **Headers: `Authorization: Bearer <access_token>`**
     - Description: Allows an admin user to send an invitation to join the organization.
-    - Request Body:
+    - **Request Body:**
 
         ```json
         {
@@ -68,7 +83,7 @@
         }
         ```
 
-    - Response Body:
+    - **Response Body:**
 
         ```json
         {
@@ -92,13 +107,30 @@
           "phonenumber": "1234567890"
         }
         ```
+      **Response:**
+
+        ```json
+        {
+          "message": "Staff created successfully",
+          "statusCode": 201,
+          "data": {
+            "email": "user@example.com",
+            "password": "password123",
+            "otp_token": 134256,
+            "first_name": "John",
+            "last_name": "Doe",
+            "phonenumber": "1234567890"
+          }
+        }
+        
+        ```
       
 ## User Section
 
 1. Endpoint: `/api/user/profile`
     - **Method:** GET
     - **Headers: `Authorization: Bearer <access_token>`**
-    - **Request Response:**
+    - **Response:**
 
         ```json
         {
@@ -131,7 +163,7 @@
         }
         ```
 
-    - Response :
+    - **Response :**
 
         ```json
         {

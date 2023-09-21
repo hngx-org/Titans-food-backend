@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -26,24 +27,18 @@ class LoginController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         } // request body validation failed, so lets return
 
+        // Attempt to find the user by email
+        $user = User::where('email', $request->email)->first();
 
-        if(!Auth::attempt($request->only('email'))){
+        // Check if the user exists and the provided password matches the hashed password
+        if (!$user || !Hash::check($request->password, $user->password_hash)) {
             return response()->json([
-                'message' => 'Incorrect Email',
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // Attempt to authorize request using request email failed, so lets return
-
-        $user = Auth::user(); // Grabbing the user details
-
-        if((Hash::check($request->password, $user->password)) === false){
-            return response()->json([
-                'message' => 'Incorrect Password',
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // Attempt to authorize request using request passward failed, so lets return
-      
-        $user = Auth::user(); // Grabbing the user details
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Authentication failed',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lunch;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrganizationLunchWallet;
 use App\Http\Requests\StoreLunchRequest;
@@ -49,7 +50,7 @@ class LunchController extends Controller
             $balance_key = 'lunch_credit_balance';
         }
 
-        $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->lunch_price;
+        $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->first()->lunch_price;
         $total_debit = count($request->input('receivers')) * $request->quantity * $lunch_price;
 
         $lunch_wallet = $model->where($key, $val);

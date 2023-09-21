@@ -20,4 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search']);
 });
 
+
+Route::post('/organization/create',[OrganizationController::class, 'store']);
+
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+

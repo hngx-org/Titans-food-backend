@@ -38,8 +38,17 @@ class LunchController extends Controller
     public function show(int $Id)
     {
 
-        //get the lunch from the database
-        $lunchData = Lunch::find($Id);
+        //get the lunch from the database using the id, if it doesn't exist, return a 404
+        if (!Lunch::find($Id)) {
+            return response()->json([
+                'message' => 'Lunch request not found',
+                'statusCode' => 404,
+            ], 404);
+        }
+
+        //get the lunch from the database using the id
+
+        $lunchData = Lunch::where('id', $Id)->first();
 
 //        {
 //            "receiverId": "",

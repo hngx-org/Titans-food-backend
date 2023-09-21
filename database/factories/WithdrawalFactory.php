@@ -14,20 +14,20 @@ class WithdrawalFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    protected $model = \App\Models\Withdrawal::class;
+    // protected $model = \App\Models\Withdrawal::class;
    
-    public function definition()
+    public function definition(): array
     {
     return [
               
                 'user_id' => function () {
                     return \App\Models\User::factory()->create()->id;
                 },
-                'status' => $this->faker->randomElement(['redeemed', 'not_redeemed']),
-                'amount' => $this->faker->randomFloat(2, 1, 10000),
+                'status' => fake()->randomElement(['redeemed', 'not_redeemed']),
+                'amount' => fake()->numberBetween(1000, 9999),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'is_deleted' => $this->faker->boolean(), 
+                'is_deleted' => fake()->boolean(), 
             ];
         }
 }

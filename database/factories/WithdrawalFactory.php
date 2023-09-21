@@ -27,7 +27,7 @@ class WithdrawalFactory extends Factory
                 'amount' => $this->faker->randomFloat(2, 1, 10000),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'is_deleted' => $this->faker->boolean(10), 
+                'is_deleted' => $this->faker->boolean(), 
             ];
         }
 }

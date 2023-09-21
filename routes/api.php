@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LunchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\OrganisationSignupController;
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');

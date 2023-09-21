@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('org_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_pic')->nullable();
             $table->string('email')->unique();
             $table->unsignedBigInteger('phone')->unique()->nullable();
             $table->string('password_hash');

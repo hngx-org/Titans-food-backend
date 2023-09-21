@@ -23,10 +23,10 @@ class UserFactory extends Factory
             but I have tested it without the org_id and it's working
             */
 
-            // 'org_id' => fake()->numberBetween(1, 10), 
+            'org_id' => fake()->numberBetween(1, 10),
             'first_name' => fake()->name(),
             'last_name' => fake()->name(),
-            'profile_picture' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo
+            'profile_pic' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->numerify('###########'),
             'password_hash' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // all fake user has this same password

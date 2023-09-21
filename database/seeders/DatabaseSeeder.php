@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LunchSeeder;
-use Database\Factories\LunchFactory;
+
 
 class DatabaseSeeder extends Seeder
 {

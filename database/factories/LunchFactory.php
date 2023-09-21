@@ -18,8 +18,8 @@ class LunchFactory extends Factory
     public function definition(): array
     {
         return [
-            'senderId' => rand(1, 5),
-            'receiverId' => rand(1,5),
+            'sender_id' => rand(1, 5),
+            'receiver_id' => rand(1,5),
             'quantity' => rand(10, 100),
             'redeemed' => $this->faker->boolean,
             'note' => $this->faker->sentence()

@@ -23,7 +23,7 @@ class UserFactory extends Factory
             but I have tested it without the org_id and it's working
             */
 
-            // 'org_id' => fake()->numberBetween(1, 10), 
+            'org_id' => fake()->numberBetween(1, 10),
             'first_name' => fake()->name(),
             'last_name' => fake()->name(),
             'profile_picture' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo

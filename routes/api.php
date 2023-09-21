@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search']);
+    Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
 });
 
 
@@ -34,6 +35,3 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
-
-
-Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');

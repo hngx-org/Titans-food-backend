@@ -35,9 +35,9 @@ class LoginController extends Controller
 
         $user = Auth::user(); // Grabbing the user details
 
-        if((Hash::check($request->only('passward'), $user->passward)) === false){
+        if((Hash::check($request->password, $user->password)) === false){
             return response()->json([
-                'message' => 'Incorrect Passward',
+                'message' => 'Incorrect Password',
                 'statusCode' => Response::HTTP_UNAUTHORIZED,
             ], Response::HTTP_UNAUTHORIZED); // 401
         } // Attempt to authorize request using request passward failed, so lets return

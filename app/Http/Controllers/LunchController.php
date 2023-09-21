@@ -74,9 +74,9 @@ class LunchController extends Controller
 
         return response()->json([
             'message' => 'Lunch request created successfully',
-            'statusCode' => 201,
+            'statusCode' => 200,
             'data' => $lunchResponse
-        ], 201);
+        ], 200);
 
     }
 

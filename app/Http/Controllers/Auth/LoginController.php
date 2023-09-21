@@ -26,6 +26,7 @@ class LoginController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         } // request body validation failed, so lets return
 
+
         if(!Auth::attempt($request->only('email'))){
             return response()->json([
                 'message' => 'Incorrect Email',
@@ -41,7 +42,8 @@ class LoginController extends Controller
                 'statusCode' => Response::HTTP_UNAUTHORIZED,
             ], Response::HTTP_UNAUTHORIZED); // 401
         } // Attempt to authorize request using request passward failed, so lets return
-
+      
+        $user = Auth::user(); // Grabbing the user details
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Hash;
+
 
 class LoginController extends Controller
 {
@@ -52,7 +54,6 @@ class LoginController extends Controller
         } // Attempt to authorize request using request email failed, so lets return
 
         $user = Auth::user(); // Grabbing the user details
-
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
@@ -68,3 +69,4 @@ class LoginController extends Controller
         ], Response::HTTP_OK); // returning response
     }
 }
+

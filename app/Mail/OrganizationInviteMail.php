@@ -13,12 +13,18 @@ class OrganizationInviteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $token;
+    public $organizationName;
+
     /**
      * Create a new message instance.
+     *
+     *  @param string $token, $organizationName
      */
-    public function __construct()
+    public function __construct($token, $organizationName)
     {
-        //
+        $this->token = $token;
+        $this->organizationName = $organizationName;
     }
 
     /**
@@ -27,7 +33,7 @@ class OrganizationInviteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Organization Invite Mail',
+            subject: "{$this->organizationName} Invite Mail",
         );
     }
 
@@ -37,7 +43,7 @@ class OrganizationInviteMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.organization-invite',
         );
     }
 

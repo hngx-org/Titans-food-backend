@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LunchController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/organization/create',[OrganizationController::class, 'store']);
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+
 

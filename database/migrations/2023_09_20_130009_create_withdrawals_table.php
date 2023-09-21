@@ -16,9 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->enum('status', ['redeemed', 'not_redeemed'])->default('not_redeemed');
             $table->decimal('amount', 10, 2);
-            $table->timestamp('created_at')->default(now());
-            $table->timestamp('updated_at')->default(now())->onUpdate(now());
-            $table->boolean('is_deleted')->default(false);
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

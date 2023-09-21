@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -96,7 +96,7 @@ class UserController extends Controller
                 "data" => $user
             ]);
         }
-
+        //------------Error message if bank details are not updated
         return response()->json([
             "message"=> "Error, please try again",
              "statusCode"=> 400            

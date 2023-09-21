@@ -63,7 +63,7 @@ class OrganizationController extends Controller
             return response()->json([
                 'organization_name' => $organization->name,
                 'lunch_price'  => $organization->lunch_price
-            ]);
+            ], 200);
                 
             }else{
                 return response()->json([

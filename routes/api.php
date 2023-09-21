@@ -34,5 +34,6 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
+
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 

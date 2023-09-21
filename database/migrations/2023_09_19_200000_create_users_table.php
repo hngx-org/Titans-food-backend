@@ -25,9 +25,14 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->string('lunch_credit_balance')->nullable();
             $table->string('refresh_token')->nullable();
-            $table->string('bank_number')->nullable();
+            $table->string('bank_number')->nullable()->unique();
             $table->string('bank_code')->nullable();
             $table->string('bank_name')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_region')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('currency_code')->nullable();
+
             $table->rememberToken()->nullable();
             $table->timestamps();
 

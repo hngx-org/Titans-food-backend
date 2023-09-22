@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\Organization;
+use App\Models\OrganizationInvite;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrganizationController extends Controller
 {
@@ -85,11 +91,54 @@ class OrganizationController extends Controller
                 'lunch_price'  => $organization->lunch_price
             ], 200);
 
-            }else{
-                return response()->json([
-                    'message' => 'You are not authorized to perform this action!'
-                ], 403);
-            }
+        } else {
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
+    }
+
+    public function createOrganizationUser(StoreUserRequest $request)
+    {
+
+        $invite = OrganizationInvite::where('email', $request->email)->where('token', $request->otp_token)->first();
+        if (!$invite) {
+            return response()->json([
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Authentication failed',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        $filename = '';
+        
+        if($request->hasFile('profile_pic')) {
+            $newFile = $request->file('profile_pic');
+            $filename = $newFile->getClientOriginalName();
+            $newFile->move('images', $filename);
+        }
+       
+
+        $password = Hash::make($request->password);
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'otp_token' => $request->otp_token,
+            'is_admin' => false,
+            'org_id' => $invite->org_id,
+            'phone' => $request->phone,
+            'password_hash' => $password,
+            'profile_pic' => $filename
+        ]);
+        return response()->json(
+            [
+                'status_code' => Response::HTTP_CREATED,
+                'status' => 'success',
+                'message' => 'User signed up successfully',
+                'data' => $user
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -99,6 +148,7 @@ class OrganizationController extends Controller
     {
         //
     }
+
 
     /**
      * Retrieve a list of organizations.

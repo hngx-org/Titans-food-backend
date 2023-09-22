@@ -97,7 +97,7 @@ class LunchController extends Controller
 
         #Process-Sender End of the transaction
         if(auth()->user()->is_admin){
-            $model = OrganizationLunchWallet::class;
+            $model = new OrganizationLunchWallet;
             $key = 'org_id';
             $val = auth()->user()->org_id;
             $balance_key = 'balance';

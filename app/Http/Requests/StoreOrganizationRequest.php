@@ -23,7 +23,7 @@ class StoreOrganizationRequest extends FormRequest
     {
         return [
             'organization_name' => ['required','string'],
-            'lunch_price' => ['required', 'numeric']
+            'lunch_price' => ['required', 'numeric'],
         ];
     }
 }

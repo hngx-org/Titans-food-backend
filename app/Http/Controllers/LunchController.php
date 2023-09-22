@@ -33,6 +33,7 @@ class LunchController extends Controller
      * Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers.
      *
      * @group Lunch
+     * @authenticated
      * @param \App\Http\Requests\StoreLunchRequest $request
      * @return \Illuminate\Http\JsonResponse
      *
@@ -130,6 +131,7 @@ private function error($message, $code)
      * Retrieves a lunch request by its unique ID and returns its details.
      *
      * @group Lunch
+     * @authenticated
      * @param int $Id The ID of the lunch request to retrieve.
      * @return \Illuminate\Http\JsonResponse
      *

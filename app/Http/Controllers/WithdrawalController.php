@@ -17,6 +17,7 @@ class WithdrawalController extends Controller
      * Retrieves the withdrawal history for the authenticated user.
      *
      * @group Withdrawal
+     * @authenticated
      * @return \Illuminate\Http\JsonResponse
      *
      * @response {

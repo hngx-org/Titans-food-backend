@@ -13,6 +13,7 @@ class UserController extends Controller
      * Retrieves a list of users with their basic information.
      *
      * @group Users
+     * @authenticated
      * @return \Illuminate\Http\JsonResponse
      *
      * @response {
@@ -138,6 +139,7 @@ class UserController extends Controller
      * Searches for users based on the provided name or email and returns a list of matching users.
      *
      * @group Users
+     * @authenticated
      * @param string $nameOrEmail The name or email to search for.
      * @return \Illuminate\Http\JsonResponse
      *

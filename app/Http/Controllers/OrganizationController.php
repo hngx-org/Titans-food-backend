@@ -55,6 +55,7 @@ class OrganizationController extends Controller
      * Updates an organization's information if the authenticated user is an admin.
      *
      * @group Organizations
+     * @authenticated
      * @param \App\Http\Requests\UpdateOrganizationRequest $request
      * @param \App\Models\Organization $organization
      * @return \Illuminate\Http\JsonResponse
@@ -105,6 +106,7 @@ class OrganizationController extends Controller
      * Retrieves a list of organizations that are not marked as deleted.
      *
      * @group Organizations
+     * @authenticated
      * @return \Illuminate\Http\JsonResponse
      *
      * @response {

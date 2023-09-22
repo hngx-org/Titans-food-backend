@@ -83,8 +83,8 @@ class LoginController extends Controller
                 "access_token" => $token,
                 "email" => $user->email,
                 "id" => $user->id,
-                "isAdmin" => $user->isAdmin,
-                "org_id " => $user->org_id
+                "isAdmin" => $user->is_admin,
+                "org_id" => $user->org_id
             ]
         ], Response::HTTP_OK); // returning response
     }

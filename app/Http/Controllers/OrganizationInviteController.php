@@ -36,6 +36,7 @@ class OrganizationInviteController extends Controller
      * Creates an organization invitation with a generated token and sends an email invitation to the specified email address.
      *
      * @group Organizations
+     * @authenticated
      * @param \App\Http\Requests\StoreOrganizationInviteRequest $request
      * @return \Illuminate\Http\JsonResponse
      *

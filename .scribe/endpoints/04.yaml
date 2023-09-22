@@ -1,17 +1,17 @@
-name: Withdrawal
+name: Authentication
 description: ''
 endpoints:
   -
     httpMethods:
       - POST
-    uri: api/withdrawal/request
+    uri: api/auth/user/signup
     metadata:
-      groupName: Withdrawal
+      groupName: Authentication
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Create a new withdrawal request.'
-      description: 'Creates a new withdrawal request for the authenticated user.'
+      title: 'Register a new user.'
+      description: 'Registers a new user with the provided information and returns a success response upon successful registration.'
       authenticated: false
       custom: []
     headers:
@@ -22,40 +22,68 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      amount:
-        name: amount
-        description: 'The withdrawal amount.'
+      first_name:
+        name: first_name
+        description: "User's first name."
+        required: false
+        example: John
+        type: required
+        enumValues: []
+        custom: []
+      last_name:
+        name: last_name
+        description: "User's last name."
+        required: false
+        example: Doe
+        type: required
+        enumValues: []
+        custom: []
+      email:
+        name: email
+        description: "User's email address."
         required: true
-        example: deleniti
-        type: numeric
+        example: user@example.com
+        type: string
+        enumValues: []
+        custom: []
+      password:
+        name: password
+        description: "User's password."
+        required: true
+        example: mypassword
+        type: string
+        enumValues: []
+        custom: []
+      phone_number:
+        name: phone_number
+        description: ''
+        required: false
+        example: null
+        type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      amount: deleniti
+      first_name: John
+      last_name: Doe
+      email: user@example.com
+      password: mypassword
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "Withdrawal request created",
-              "statusCode": 201,
+              "status_code": 201,
+              "status": "success",
+              "message": "User signed up successfully",
               "data": {
-                  "withdrawal_id": "xxxx",
-                  "user_id": 1,
-                  "status": "success",
-                  "amount": 100.00,
-                  "created_at": "2023-09-22T12:34:56Z"
+                  "id": 1,
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "email": "user@example.com",
+                  "is_admin": true,
+                  "password_hash": "$2y$10$..."
               }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 200
-        content: |-
-          {
-              "error": "Withdrawal request not Created"
           }
         headers: []
         description: ''
@@ -68,15 +96,15 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: api/withdrawal/request
+      - POST
+    uri: api/auth/user/signin
     metadata:
-      groupName: Withdrawal
+      groupName: Authentication
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: "Retrieve a user's withdrawal history."
-      description: 'Retrieves the withdrawal history for the authenticated user.'
+      title: 'User Login.'
+      description: 'Authenticates a user by validating their email and password and provides an access token upon success.'
       authenticated: false
       custom: []
     headers:
@@ -86,37 +114,65 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: "User's email address."
+        required: true
+        example: alfredo.reynolds@example.net
+        type: string
+        enumValues: []
+        custom: []
+      password:
+        name: password
+        description: "User's password."
+        required: true
+        example: 'DIv)odSpa}DOAzmdln+'
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      email: alfredo.reynolds@example.net
+      password: 'DIv)odSpa}DOAzmdln+'
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "User details fetched",
-              "status": "success",
+              "message": "User authenticated successfully",
               "statusCode": 200,
               "data": {
-                  "withdrawals": [
-                      {
-                          "withdrawal_id": "xxxx",
-                          "user_id": 1,
-                          "amount": 100.00,
-                          "created_at": "2023-09-22T12:34:56Z"
-                      },
-                      // Add other withdrawal objects here
-                  ]
+                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...",
+                  "email": "user@example.com",
+                  "id": 1,
+                  "isAdmin": false,
+                  "org_id": 123
               }
           }
         headers: []
         description: ''
         custom: []
       -
-        status: 200
+        status: 401
         content: |-
           {
-              "error": "user not found"
+              "status_code": 401,
+              "status": "error",
+              "message": "Authentication failed"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+              "message": {
+                  "email": ["The email field is required."],
+                  "password": ["The password field is required."]
+              },
+              "statusCode": 422
           }
         headers: []
         description: ''

@@ -13,6 +13,7 @@ class BankDetailController extends Controller
      * Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.
      *
      * @group User
+     * @authenticated
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      *
@@ -79,6 +80,7 @@ class BankDetailController extends Controller
      * Retrieves and displays the bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.
      *
      * @group User
+     * @authenticated
      * @return \Illuminate\Http\JsonResponse
      *
      * @response {

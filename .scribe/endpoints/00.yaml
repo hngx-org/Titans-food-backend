@@ -12,7 +12,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Search for users by name or email.'
       description: 'Searches for users based on the provided name or email and returns a list of matching users.'
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -96,7 +96,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Retrieve a list of users.'
       description: 'Retrieves a list of users with their basic information.'
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json

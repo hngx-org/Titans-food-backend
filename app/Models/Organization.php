@@ -43,4 +43,14 @@ class Organization extends Model
     {
         return $this->hasMany(OrganizationInvite::class, 'org_id');
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($organization) {
+            // Check if the currency_code is empty or null, then set the default value
+            if (empty($organization->currency_code)) {
+                $organization->currency_code = 'NGN';
+            }
+        });
+    }
 }

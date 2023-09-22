@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
     Route::put('/organization/create',[OrganizationController::class, 'update']);
+    Route::post('/organization/create',[OrganizationController::class, 'store']);
     Route::get('/organization', [OrganizationController::class, 'getOrganization']);
 
     Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');

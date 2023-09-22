@@ -12,11 +12,55 @@ use Illuminate\Support\Str;
 class WithdrawalController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieve a user's withdrawal history.
+     *
+     * Retrieves the withdrawal history for the authenticated user.
+     *
+     * @group Withdrawal
+     * @authenticated
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @response {
+     *     "message": "User details fetched",
+     *     "status": "success",
+     *     "statusCode": 200,
+     *     "data": {
+     *         "withdrawals": [
+     *             {
+     *                 "withdrawal_id": "xxxx",
+     *                 "user_id": 1,
+     *                 "amount": 100.00,
+     *                 "created_at": "2023-09-22T12:34:56Z"
+     *             },
+     *              {
+     *                  "withdrawal_id": "xxxx",
+     *                  "user_id": 1,
+     *                  "amount": 200.00,
+     *                  "created_at": "2023-09-22T12:34:56Z"
+     *              },
+     *         ]
+     *     }
+     * }
+     * @response {
+     *     "error": "user not found"
+     * }
      */
     public function index()
     {
-        //
+        $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
+        if ($withdrawal->isEmpty()) :
+            return response()->json([
+                "error" => "user not found"
+            ]);
+        endif;
+        return response()->json([
+            "message" => "User details fetched",
+            "status" => "success",
+            "statusCode" => 200,
+            "data" => [
+                "withdrawals"=>$withdrawal
+            ]
+        ]);
     }
 
     /**
@@ -28,7 +72,31 @@ class WithdrawalController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new withdrawal request.
+     *
+     * Creates a new withdrawal request for the authenticated user.
+     *
+     * @group Withdrawal
+     * @param \App\Http\Requests\StoreWithdrawalRequest $request
+     * @param \App\Models\Withdrawal $withdrawal
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam amount numeric required The withdrawal amount.
+     *
+     * @response {
+     *     "message": "Withdrawal request created",
+     *     "statusCode": 201,
+     *     "data": {
+     *         "withdrawal_id": "xxxx",
+     *         "user_id": 1,
+     *         "status": "success",
+     *         "amount": 100.00,
+     *         "created_at": "2023-09-22T12:34:56Z"
+     *     }
+     * }
+     * @response {
+     *     "error": "Withdrawal request not Created"
+     * }
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {
@@ -52,25 +120,9 @@ class WithdrawalController extends Controller
             ]
         ]);
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show()
     {
-        $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
-        if ($withdrawal->isEmpty()) :
-            return response()->json([
-                "error" => "user not found"
-            ]);
-        endif;
-        return response()->json([
-            "message" => "User details fetched",
-            "status" => "success",
-            "statusCode" => 200,
-            "data" => [
-                "withdrawals"=>$withdrawal
-            ]
-        ]);
     }
 
     /**

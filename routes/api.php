@@ -42,7 +42,7 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 Route::post('/withdrawal/request',[WithdrawalController::class,'store']);
-Route::get('/withdrawal/request',[WithdrawalController::class,'show']);
+Route::get('/withdrawal/request',[WithdrawalController::class,'index']);
 
 Route::get('/user/all', [UserController::class, 'index']);
 

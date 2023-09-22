@@ -16,7 +16,17 @@ class LoginTest extends TestCase
     /**
      * A basic feature test for UserController.
      */
-    
+    public function testNoUserRecords()
+    {
+
+        $response = $this->getJson('api/user/all')
+        ->assertOk()
+        ->assertExactJson([
+            "status": 404,
+            "status_message": "No records found"
+        ]);
+    }
+
     public function testUsersRetrievedSuccessfully()
     {
         $user= User::factory()->create();

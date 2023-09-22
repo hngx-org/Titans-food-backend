@@ -1,1 +1,39 @@
 
+<?php
+
+namespace Tests\Feature\Auth;
+
+use Tests\TestCase;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
+
+class LoginTest extends TestCase
+{
+    use RefreshDatabase;
+    /**
+     * A basic feature test example.
+     */
+    
+    public function testUsersRetrieved()
+    {
+        $user= User::factory()->create();
+
+        $response = $this->getJson('api/user/all')
+        ->assertOk()
+        ->assertJsonStructure([
+            "message",
+            "statusCode",
+            "data" => [
+                "*" => [
+                    "id",
+                    "first_name"
+                ]
+               
+            ]
+        ]);
+    }
+
+}

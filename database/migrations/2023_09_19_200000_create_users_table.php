@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('phone')->unique()->nullable();
             $table->string('password_hash');
             $table->boolean('is_admin')->default(false);
-            $table->string('lunch_credit_balance')->nullable();
+            $table->decimal('lunch_credit_balance', 10,2)->nullable()->default(20000);
             $table->string('refresh_token')->nullable();
             $table->string('bank_number')->nullable()->unique();
             $table->string('bank_code')->nullable();

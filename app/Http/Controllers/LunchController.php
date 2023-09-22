@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Lunch;
 use App\Models\Organization;
+use App\Traits\MessageTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrganizationLunchWallet;
 use App\Http\Requests\StoreLunchRequest;
@@ -11,6 +13,7 @@ use App\Http\Requests\UpdateLunchRequest;
 
 class LunchController extends Controller
 {
+    use MessageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +42,7 @@ class LunchController extends Controller
         
         #Process-Sender End of the transaction
         if(auth()->user()->is_admin){
-            $model = OrganizationLunchWallet::query();
+            $model = OrganizationLunchWallet::class;
             $key = 'org_id';
             $val = auth()->user()->org_id;
             $balance_key = 'balance';
@@ -53,9 +56,10 @@ class LunchController extends Controller
         $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->first()->lunch_price;
         $total_debit = count($request->input('receivers')) * $request->quantity * $lunch_price;
 
-        $lunch_wallet = $model->where($key, $val);
-        $wallet_balance = $lunch_wallet->value($balance_key);
-        $remainder = $wallet_balance - $total_debit;
+        return $lunch_wallet = $model->where($key, $val)->first()->balance;
+        return $balance_key;
+        return $wallet_balance = $lunch_wallet->value($balance_key);
+        return $remainder = $wallet_balance - $total_debit;
 
         if($remainder < 0) return $this->error('Insufficient fund!', 422);
         $lunch_wallet->update([$balance_key => $remainder]);
@@ -69,7 +73,7 @@ class LunchController extends Controller
             $total_balance = $credit_amount + $receiver_balance;
     
             $receiver->update(['lunch_credit_balance' => $total_balance]);
-    
+
             $lunch = Lunch::create([
                 'org_id' => auth()->user()->org_id,
                 'sender_id' => auth()->user()->id,
@@ -78,25 +82,8 @@ class LunchController extends Controller
                 'note' => $request->note,
             ]);
         }    
-        return $this->success('Lunch request created successfully', 201, $lunch);
+        return $this->success('Lunch request created successfully', 200, $lunch);
     }
-
-private function success($message, $code = 200, $data = [])
-{
-    return response()->json([
-        'status' => 'success',
-        'message' => $message,
-        'data' => $data
-    ], $code);
-}
-
-private function error($message, $code)
-{
-    return response()->json([
-        'status' => 'failed',
-        'message' => $message
-    ], $code);
-}
 
     /**
      * Display the specified resource.

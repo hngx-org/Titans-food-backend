@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('organization_lunch_wallets', function (Blueprint $table) {
             $table->id();
+            $table->decimal('balance', 10, 2);
+            $table->unsignedBigInteger('org_id');
             $table->timestamps();
         });
     }

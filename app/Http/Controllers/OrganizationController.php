@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Organization;
+use App\Traits\MessageTrait;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
-use App\Models\Organization;
-use Illuminate\Support\Facades\Auth;
 
 class OrganizationController extends Controller
 {
+    use MessageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +31,7 @@ class OrganizationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrganizationRequest $request)
+    public function update(StoreOrganizationRequest $request)
     {
         //
     }
@@ -52,24 +55,24 @@ class OrganizationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrganizationRequest $request, Organization $organization)
+    public function store(StoreOrganizationRequest $request)
     {
-        if(Auth::user()->isAdmin === true){
-        
-            $validated = $request->validated();
-    
-            $organization->update($validated);
-
-            return response()->json([
-                'organization_name' => $organization->name,
-                'lunch_price'  => $organization->lunch_price
-            ], 200);
-                
-            }else{
-                return response()->json([
-                    'message' => 'You are not authorized to perform this action!'
-                ], 403);
+        if(!Auth::user()->is_admin){
+            $data = Organization::create([
+                'name' => $request->organization_name,
+                'currency_code' => $request->currency_code,
+                'lunch_price' => $request->lunch_price
+            ]);
+            
+            if($data){
+                User::query()->where('id', Auth::user()->id)->update([
+                    'is_admin' => true,
+                    'org_id' => $data->id,
+                ]);
             }
+            return $this->success('Organization Created Successfully', 200, $data);                
+        }
+        return $this->error('Unable to setup multiple organizations', 422);
     }
 
     /**

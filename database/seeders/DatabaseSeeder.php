@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             OrganizationSeeder::class,
-            UserSeeder::class,
-            WithdrawalSeeder::class,
+            OrganizationLunchWalletSeeder::class
+            // OrganizationSeeder::class,
+            // UserSeeder::class,
+            // WithdrawalSeeder::class,
         ]);
     }
 }

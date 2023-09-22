@@ -14,10 +14,10 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
     /**
-     * A basic feature test example.
+     * A basic feature test for UserController.
      */
     
-    public function testUsersRetrieved()
+    public function testUsersRetrievedSuccessfully()
     {
         $user= User::factory()->create();
 
@@ -29,7 +29,15 @@ class LoginTest extends TestCase
             "data" => [
                 "*" => [
                     "id",
-                    "first_name"
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phonenumber",
+                    "profile_picture",
+                    "bank_number",
+                    "bank_code",
+                    "bank_name",
+                    "isAdmin"
                 ]
                
             ]

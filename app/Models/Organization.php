@@ -17,6 +17,10 @@ class Organization extends Model
         'currency_code'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     /**
      * Users in an organization
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

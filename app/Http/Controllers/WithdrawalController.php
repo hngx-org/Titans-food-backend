@@ -16,7 +16,14 @@ class WithdrawalController extends Controller
      * @OA\Get(
      *     path="/api/withdrawal/request",
      *     summary="Get Withdrawal Requests from User",
-     *     @OA\Response(response="200", description="Display a list of user's withdrawal requests.")
+     *     @OA\Response(response="200", description="Display a list of user's withdrawal requests."),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User details fetched", "statusCode": 200, "data":{}}, summary="Get Withdrawal Requests"),
+     *         )
+     *     )
      * )
     */
     public function index(Withdrawal $withdrawal)

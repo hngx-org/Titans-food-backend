@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    
+    /**
+     * @OA\Get(
+     *     path="/api/user/profile",
+     *     summary="Get User Profile Details",
+     *     @OA\Response(statusCode="200", description="Display a list of user's withdrawal requests.")
+     * )
+    */
     public function index()
     {
         try {

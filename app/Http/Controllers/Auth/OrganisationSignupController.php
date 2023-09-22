@@ -69,8 +69,8 @@ class OrganisationSignupController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=200,
-     *         description="OK",
+     *         response=201,
+     *         description="CREATED",
      *         @OA\JsonContent(
      *             @OA\Examples(example="result", value={"message":"User signed up successfully", "statusCode": 201, "data":{}}, summary="User Signup response"),
      *         )

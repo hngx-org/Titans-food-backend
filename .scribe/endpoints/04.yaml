@@ -3,98 +3,8 @@ description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/organization/create
-    metadata:
-      groupName: Organizations
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Create a new organization.'
-      description: 'Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.'
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'The name of the organization.'
-        required: true
-        example: autem
-        type: string
-        enumValues: []
-        custom: []
-      lunch_price:
-        name: lunch_price
-        description: ''
-        required: true
-        example: possimus
-        type: string
-        enumValues: []
-        custom: []
-      currency_code:
-        name: currency_code
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        custom: []
-      description:
-        name: description
-        description: 'The description of the organization (optional).'
-        required: false
-        example: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      name: autem
-      lunch_price: possimus
-      description: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-              "data": {
-                  "id": 1,
-                  "name": "Example Organization",
-                  "description": "A sample organization",
-                  // Add other organization fields here
-              },
-              "message": "success",
-              "statusCode": 200
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 403
-        content: |-
-          {
-              "message": "You are not authorized to perform this action!"
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - GET
-    uri: api/organization
+    uri: api/v1/organization
     metadata:
       groupName: Organizations
       groupDescription: ''
@@ -132,6 +42,56 @@ endpoints:
                    },
 
               ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/organization/invite
+    metadata:
+      groupName: Organizations
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store an organization invitation.'
+      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email address to which the invitation will be sent.'
+        required: true
+        example: fabiola.beier@example.net
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      email: fabiola.beier@example.net
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "success",
+              "statusCode": 200,
+              "data": null
           }
         headers: []
         description: ''

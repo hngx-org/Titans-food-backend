@@ -35,9 +35,9 @@ endpoints:
           <head>
               <meta charset="UTF-8">
               <title>L5 Swagger UI</title>
-              <link rel="stylesheet" type="text/css" href="http://titans-food-backend.onrender.com/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
-              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
-              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
+              <link rel="stylesheet" type="text/css" href="http://localhost:8000/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
+              <link rel="icon" type="image/png" href="http://localhost:8000/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
+              <link rel="icon" type="image/png" href="http://localhost:8000/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
               <style>
               html
               {
@@ -62,18 +62,18 @@ endpoints:
           <body>
           <div id="swagger-ui"></div>
 
-          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69"></script>
-          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b"></script>
+          <script src="http://localhost:8000/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69"></script>
+          <script src="http://localhost:8000/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b"></script>
           <script>
               window.onload = function() {
                   // Build a system
                   const ui = SwaggerUIBundle({
                       dom_id: '#swagger-ui',
-                      url: "http://titans-food-backend.onrender.com/docs/api-docs.json",
+                      url: "http://localhost:8000/docs/api-docs.json",
                       operationsSorter: null,
                       configUrl: null,
                       validatorUrl: null,
-                      oauth2RedirectUrl: "http://titans-food-backend.onrender.com/api/oauth2-callback",
+                      oauth2RedirectUrl: "http://localhost:8000/api/oauth2-callback",
 
                       requestInterceptor: function(request) {
                           request.headers['X-CSRF-TOKEN'] = '';
@@ -236,48 +236,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/all
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 404
-        content: '{"status":404,"lunch":"no record found"}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/lunch
+    uri: api/v1/user/profile
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -316,7 +275,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/user/profile
+    uri: api/v1/lunch
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -355,7 +314,7 @@ endpoints:
   -
     httpMethods:
       - PUT
-    uri: api/organization/create
+    uri: api/v1/organization/create
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -372,8 +331,34 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: ''
+        required: true
+        example: tenetur
+        type: string
+        enumValues: []
+        custom: []
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: nostrum
+        type: string
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      name: tenetur
+      lunch_price: nostrum
     fileParameters: []
     responses: []
     responseFields: []
@@ -385,7 +370,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/withdrawal/request
+    uri: api/v1/withdrawal/request
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -415,7 +400,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/withdrawal/request
+    uri: api/v1/withdrawal/request
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -454,7 +439,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/auth/user/signup
+    uri: api/v1/auth/user/signup
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -476,7 +461,7 @@ endpoints:
         name: first_name
         description: ''
         required: true
-        example: rerum
+        example: minima
         type: string
         enumValues: []
         custom: []
@@ -484,7 +469,7 @@ endpoints:
         name: last_name
         description: ''
         required: true
-        example: veritatis
+        example: illum
         type: string
         enumValues: []
         custom: []
@@ -492,7 +477,7 @@ endpoints:
         name: email
         description: ''
         required: true
-        example: accusamus
+        example: iusto
         type: string
         enumValues: []
         custom: []
@@ -500,7 +485,7 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters.'
         required: true
-        example: Zqbu2W
+        example: '9UL*aiiHS`'
         type: string
         enumValues: []
         custom: []
@@ -513,10 +498,10 @@ endpoints:
         enumValues: []
         custom: []
     cleanBodyParameters:
-      first_name: rerum
-      last_name: veritatis
-      email: accusamus
-      password: Zqbu2W
+      first_name: minima
+      last_name: illum
+      email: iusto
+      password: '9UL*aiiHS`'
     fileParameters: []
     responses: []
     responseFields: []
@@ -528,7 +513,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/auth/user/signin
+    uri: api/v1/auth/user/signin
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -550,7 +535,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: norris60@example.com
+        example: tremblay.brooks@example.org
         type: string
         enumValues: []
         custom: []
@@ -558,13 +543,13 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: gP^Nb|-BDZ
+        example: 'PE+Sn*C^nz|)G'
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      email: norris60@example.com
-      password: gP^Nb|-BDZ
+      email: tremblay.brooks@example.org
+      password: 'PE+Sn*C^nz|)G'
     fileParameters: []
     responses: []
     responseFields: []

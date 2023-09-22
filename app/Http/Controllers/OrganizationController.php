@@ -149,7 +149,6 @@ class OrganizationController extends Controller
             return $this->success('Organization Created Successfully', 200, $data);
         }
         return $this->error('Unable to setup multiple organizations', 422);
-
     }
 
 

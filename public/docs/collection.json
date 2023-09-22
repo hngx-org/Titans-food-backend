@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "https:\/\/titans-food-backend.onrender.com"
+            "value": "http:\/\/localhost:8000"
         }
     ],
     "info": {
         "name": "Team Titan Api Documentation",
-        "_postman_id": "eadb7416-ec2e-4262-9719-09085d4b37f5",
+        "_postman_id": "52a318ad-9c88-492b-bdb1-00f9cb7375b9",
         "description": "This is an internal Api documentation for team titan",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -62,7 +62,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI<\/title>\n    <link rel=\"stylesheet\" type=\"text\/css\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27\">\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"\/>\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"\/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    <\/style>\n<\/head>\n\n<body>\n<div id=\"swagger-ui\"><\/div>\n\n<script src=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69\"><\/script>\n<script src=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b\"><\/script>\n<script>\n    window.onload = function() {\n        \/\/ Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http:\/\/titans-food-backend.onrender.com\/docs\/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http:\/\/titans-food-backend.onrender.com\/api\/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n<\/script>\n<\/body>\n<\/html>\n",
+                            "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI<\/title>\n    <link rel=\"stylesheet\" type=\"text\/css\" href=\"http:\/\/localhost:8000\/docs\/asset\/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27\">\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/localhost:8000\/docs\/asset\/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"\/>\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/localhost:8000\/docs\/asset\/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"\/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    <\/style>\n<\/head>\n\n<body>\n<div id=\"swagger-ui\"><\/div>\n\n<script src=\"http:\/\/localhost:8000\/docs\/asset\/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69\"><\/script>\n<script src=\"http:\/\/localhost:8000\/docs\/asset\/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b\"><\/script>\n<script>\n    window.onload = function() {\n        \/\/ Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http:\/\/localhost:8000\/docs\/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http:\/\/localhost:8000\/api\/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n<\/script>\n<\/body>\n<\/html>\n",
                             "name": ""
                         }
                     ]
@@ -116,69 +116,13 @@
                     ]
                 },
                 {
-                    "name": "GET api\/all",
+                    "name": "GET api\/v1\/user\/profile",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/all",
+                            "path": "api\/v1\/user\/profile",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/all"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "59"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 404,
-                            "body": "{\"status\":404,\"lunch\":\"no record found\"}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "GET api\/lunch",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/lunch",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/profile"
                         },
                         "method": "GET",
                         "header": [
@@ -220,13 +164,13 @@
                     ]
                 },
                 {
-                    "name": "GET api\/user\/profile",
+                    "name": "GET api\/v1\/lunch",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/profile",
+                            "path": "api\/v1\/lunch",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/profile"
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch"
                         },
                         "method": "GET",
                         "header": [
@@ -268,13 +212,13 @@
                     ]
                 },
                 {
-                    "name": "PUT api\/organization\/create",
+                    "name": "PUT api\/v1\/organization\/create",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization\/create",
+                            "path": "api\/v1\/organization\/create",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/create"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/create"
                         },
                         "method": "PUT",
                         "header": [
@@ -287,7 +231,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"tenetur\",\"lunch_price\":\"nostrum\"}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -296,13 +243,13 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/withdrawal\/request",
+                    "name": "POST api\/v1\/withdrawal\/request",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
+                            "path": "api\/v1\/withdrawal\/request",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                            "raw": "{{baseUrl}}\/api\/v1\/withdrawal\/request"
                         },
                         "method": "POST",
                         "header": [
@@ -324,13 +271,13 @@
                     "response": []
                 },
                 {
-                    "name": "GET api\/withdrawal\/request",
+                    "name": "GET api\/v1\/withdrawal\/request",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
+                            "path": "api\/v1\/withdrawal\/request",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                            "raw": "{{baseUrl}}\/api\/v1\/withdrawal\/request"
                         },
                         "method": "GET",
                         "header": [
@@ -372,13 +319,13 @@
                     ]
                 },
                 {
-                    "name": "POST api\/auth\/user\/signup",
+                    "name": "POST api\/v1\/auth\/user\/signup",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signup",
+                            "path": "api\/v1\/auth\/user\/signup",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signup"
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/user\/signup"
                         },
                         "method": "POST",
                         "header": [
@@ -393,7 +340,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"first_name\":\"rerum\",\"last_name\":\"veritatis\",\"email\":\"accusamus\",\"password\":\"Zqbu2W\"}"
+                            "raw": "{\"first_name\":\"minima\",\"last_name\":\"illum\",\"email\":\"iusto\",\"password\":\"9UL*aiiHS`\"}"
                         },
                         "description": "",
                         "auth": {
@@ -403,13 +350,13 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/auth\/user\/signin",
+                    "name": "POST api\/v1\/auth\/user\/signin",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signin",
+                            "path": "api\/v1\/auth\/user\/signin",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signin"
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/user\/signin"
                         },
                         "method": "POST",
                         "header": [
@@ -424,7 +371,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"norris60@example.com\",\"password\":\"gP^Nb|-BDZ\"}"
+                            "raw": "{\"email\":\"tremblay.brooks@example.org\",\"password\":\"PE+Sn*C^nz|)G\"}"
                         },
                         "description": "",
                         "auth": {
@@ -444,9 +391,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/lunch",
+                            "path": "api\/v1\/lunch",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch"
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch"
                         },
                         "method": "POST",
                         "header": [
@@ -461,7 +408,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"receivers\":[\"velit\"],\"quantity\":17,\"note\":\"amet\"}"
+                            "raw": "{\"receivers\":[\"sint\"],\"quantity\":6,\"note\":\"sed\"}"
                         },
                         "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
                     },
@@ -485,20 +432,20 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/lunch\/:id",
+                            "path": "api\/v1\/lunch\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch\/:id",
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch\/:id",
                             "variable": [
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "quod",
                                     "description": "The ID of the lunch."
                                 },
                                 {
                                     "id": "Id",
                                     "key": "Id",
-                                    "value": "10",
+                                    "value": "4",
                                     "description": "The ID of the lunch request to retrieve."
                                 }
                             ]
@@ -539,57 +486,13 @@
             "description": "",
             "item": [
                 {
-                    "name": "Create a new organization.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/organization\/create",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/create"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"name\":\"autem\",\"lunch_price\":\"possimus\",\"description\":\"Culpa dolor quam esse eligendi ducimus libero omnis dolorem.\"}"
-                        },
-                        "description": "Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Example Organization\",\n        \"description\": \"A sample organization\",\n        \/\/ Add other organization fields here\n    },\n    \"message\": \"success\",\n    \"statusCode\": 200\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 403,
-                            "body": "{\n    \"message\": \"You are not authorized to perform this action!\"\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
                     "name": "Retrieve a list of organizations.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization",
+                            "path": "api\/v1\/organization",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization"
                         },
                         "method": "GET",
                         "header": [
@@ -613,6 +516,41 @@
                             "name": ""
                         }
                     ]
+                },
+                {
+                    "name": "Store an organization invitation.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/organization\/invite",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/invite"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"fabiola.beier@example.net\"}"
+                        },
+                        "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"success\",\n    \"statusCode\": 200,\n    \"data\": null\n}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         },
@@ -625,9 +563,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/bank",
+                            "path": "api\/v1\/user\/bank",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/bank"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/bank"
                         },
                         "method": "PATCH",
                         "header": [
@@ -642,7 +580,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"bank_name\":\"aut\",\"bank_number\":\"culpa\",\"bank_code\":\"sint\",\"bank_region\":\"culpa\",\"currency\":\"dolores\",\"currency_code\":\"sit\"}"
+                            "raw": "{\"bank_name\":\"eos\",\"bank_number\":\"culpa\",\"bank_code\":\"quod\",\"bank_region\":\"qui\",\"currency\":\"consequatur\",\"currency_code\":\"aut\"}"
                         },
                         "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
                     },
@@ -666,17 +604,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/:user\/bank_details",
+                            "path": "api\/v1\/bank_details",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/:user\/bank_details",
-                            "variable": [
-                                {
-                                    "id": "user",
-                                    "key": "user",
-                                    "value": "est",
-                                    "description": ""
-                                }
-                            ]
+                            "raw": "{{baseUrl}}\/api\/v1\/bank_details"
                         },
                         "method": "GET",
                         "header": [
@@ -718,9 +648,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/search\/:nameOrEmail",
+                            "path": "api\/v1\/search\/:nameOrEmail",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/search\/:nameOrEmail",
+                            "raw": "{{baseUrl}}\/api\/v1\/search\/:nameOrEmail",
                             "variable": [
                                 {
                                     "id": "nameOrEmail",
@@ -764,9 +694,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/all",
+                            "path": "api\/v1\/user\/all",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/all"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/all"
                         },
                         "method": "GET",
                         "header": [
@@ -802,9 +732,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization\/staff\/signup",
+                            "path": "api\/v1\/organization\/staff\/signup",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/staff\/signup"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/staff\/signup"
                         },
                         "method": "POST",
                         "header": [
@@ -822,37 +752,37 @@
                             "formdata": [
                                 {
                                     "key": "first_name",
-                                    "value": "ratione",
+                                    "value": "commodi",
                                     "type": "text",
                                     "description": "The first name of the user."
                                 },
                                 {
                                     "key": "last_name",
-                                    "value": "dicta",
+                                    "value": "at",
                                     "type": "text",
                                     "description": "The last name of the user."
                                 },
                                 {
                                     "key": "email",
-                                    "value": "adelia.upton@example.org",
+                                    "value": "jast.danyka@example.org",
                                     "type": "text",
                                     "description": "The email address of the user."
                                 },
                                 {
                                     "key": "phone",
-                                    "value": "aliquam",
+                                    "value": "minima",
                                     "type": "text",
                                     "description": "The phone number of the user."
                                 },
                                 {
                                     "key": "otp_token",
-                                    "value": "iste",
+                                    "value": "eaque",
                                     "type": "text",
                                     "description": "The OTP token for authentication."
                                 },
                                 {
                                     "key": "password",
-                                    "value": "{T~971MCl9dZ&cAFOx\/",
+                                    "value": "9yHCnG@thCBus?lM]",
                                     "type": "text",
                                     "description": "The user's password."
                                 },

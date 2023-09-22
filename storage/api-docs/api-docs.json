@@ -129,13 +129,18 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/organization/create": {
             "put": {
                 "summary": "Create Organization",
-                "operationId": "61912c1e427a9d32336f8429c5620bcc",
+                "operationId": "3ea93f0601f7239848915b6413ced52d",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -208,7 +213,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/withdrawal/request": {
@@ -234,7 +244,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "summary": "Withdrawal Request",
@@ -275,7 +290,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },

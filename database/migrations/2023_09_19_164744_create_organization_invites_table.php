@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('token');
-            $table->integer('org_id');  
+            $table->dateTime('ttl');
+            $table->integer('org_id');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

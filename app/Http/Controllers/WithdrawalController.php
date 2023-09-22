@@ -17,7 +17,7 @@ class WithdrawalController extends Controller
      */
     public function index(Withdrawal $withdrawal)
     {
-        $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
+        $withdrawal = Withdrawal::where('user_id',4)->get();
         if ($withdrawal->isEmpty()) :
             return response()->json([
                 "status"=>"Invalid",
@@ -49,7 +49,7 @@ class WithdrawalController extends Controller
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {
-        $get_bank_details=User::where('id',Auth::id())->get('bank_number','bank_code','bank_name');// Checking if user has bank details inserted
+        $get_bank_details=User::where('id',4)->get('bank_number','bank_code','bank_name');
         if($get_bank_details->isEmpty()):
             return response()->json([
                 "status"=>"Invalid",

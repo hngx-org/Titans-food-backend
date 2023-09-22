@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\OrganisationSignupController;
 use App\Http\Controllers\OrganizationInviteController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('all', [LunchController::class, 'index']);
@@ -29,6 +30,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search']);
     Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
     Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.bank');
+
+    Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
+    Route::get('/user/profile', [ProfileController::class, 'index']);
+});
+
+Route::put('/organization/create',[OrganizationController::class, 'update']);
+
+Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+
 
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
     Route::put('/organization/create',[OrganizationController::class, 'update']);
@@ -51,6 +61,10 @@ Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'
 
 Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
 Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
+
+
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+
 
 
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\LunchController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BankDetailController;
+use App\Http\Controllers\WithdrawalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\OrganisationSignupController;
@@ -38,7 +39,8 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
-
+Route::post('/withdrawal/request',[WithdrawalController::class,'store']);
+Route::get('/withdrawal/request',[WithdrawalController::class,'show']);
 
 Route::get('/user/all', [UserController::class, 'index']);
 

@@ -42,3 +42,9 @@ Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 Route::get('/user/all', [UserController::class, 'index']);
 
+
+
+
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+
+

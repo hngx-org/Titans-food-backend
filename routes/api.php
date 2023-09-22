@@ -33,28 +33,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
     Route::get('/user/profile', [ProfileController::class, 'index']);
-});
 
+
+Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
 Route::put('/organization/create',[OrganizationController::class, 'update']);
-
-Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
-
-
-    Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
-    Route::put('/organization/create',[OrganizationController::class, 'update']);
-    Route::get('/organization', [OrganizationController::class, 'getOrganization']);
-
-    Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
-
-    Route::post('/withdrawal/request',[WithdrawalController::class,'store']);
-    Route::get('/withdrawal/request',[WithdrawalController::class,'index']);
-
-    Route::get('/user/all', [UserController::class, 'index']);
-
-
-    Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
+Route::get('/organization', [OrganizationController::class, 'getOrganization']);
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+
+Route::post('/withdrawal/request',[WithdrawalController::class,'store']);
+Route::get('/withdrawal/request',[WithdrawalController::class,'index']);
+
+Route::get('/user/all', [UserController::class, 'index']);
+
+
+Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
+
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+});
+
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 
@@ -64,7 +61,6 @@ Route::post('/organization/staff/signup', [OrganizationController::class, 'creat
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 Route::get('/lunch', [LunchController::class,'index'])->name('lunch.index');
-
 
 
 

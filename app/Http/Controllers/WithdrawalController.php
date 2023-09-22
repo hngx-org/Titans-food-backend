@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWithdrawalRequest;
 use App\Http\Requests\UpdateWithdrawalRequest;
 use App\Models\Withdrawal;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class WithdrawalController extends Controller
 {
@@ -30,47 +27,17 @@ class WithdrawalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
+    public function store(StoreWithdrawalRequest $request)
     {
-        $withdrawal->user_id =Auth::id(); //Getting Authenticated user Id not Request
-        $withdrawal->amount = $request->amount;
-        $checking=$withdrawal->save();
-        if (!$checking) :
-            return response()->json([
-                "error" => "Withdrawal request not Created"
-            ]);
-        endif;
-        return response()->json([
-            "message" => "Withdrawal request created ",
-            "statusCode" => 201,
-            "data" => [
-                "withdrawal_id" => Str::uuid(),
-                "user_id" => $withdrawal->user->id,
-                "status" => "success",
-                "amount" => $request->amount,
-                "created_at" => Carbon::now()
-            ]
-        ]);
+        //
     }
+
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Withdrawal $withdrawal)
     {
-        $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
-        if ($withdrawal->isEmpty()) :
-            return response()->json([
-                "error" => "user not found"
-            ]);
-        endif;
-        return response()->json([
-            "message" => "User details fetched",
-            "status" => "success",
-            "statusCode" => 200,
-            "data" => [
-                "withdrawals"=>$withdrawal
-            ]
-        ]);
+        //
     }
 
     /**
@@ -78,7 +45,7 @@ class WithdrawalController extends Controller
      */
     public function edit(Withdrawal $withdrawal)
     {
-
+        //
     }
 
     /**

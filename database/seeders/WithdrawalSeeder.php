@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Withdrawal;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class WithdrawalSeeder extends Seeder
 {
@@ -13,6 +12,6 @@ class WithdrawalSeeder extends Seeder
      */
     public function run(): void
     {
-        Withdrawal::factory()->count(50)->create();
+        //
     }
 }

@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
         Schema::create('organizations', function (Blueprint $table) {
-
             $table->id();
-            $table->string('name');
-            $table->decimal('lunch_price', 10, 2);
-            $table->string('currency_code', 4);
             $table->timestamps();
-            $table->boolean('is_deleted')->default(false);
-       
         });
     }
 

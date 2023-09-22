@@ -62,46 +62,23 @@ class UserController extends Controller
         //
     }
 
-    public function updateBank(Request $request)
+    /**
+     * Search for a user using name or email
+     */
+
+    public function search($nameOrEmail)
     {
-        //--Get authenticated user
-        //$user = auth()->user();        
-        $user = User::find(1);
-        
-        //--validate the request parameters------
-        $validated= $request->validate([
-            'bank_name'=>'required|string',
-            'bank_number'=>'required|string|unique:users,bank_number',
-            'bank_code' => 'required|string',
-            'bank_region' => 'required|string',
-            'currency' => 'required|string',
-            'currency_code' => 'required|string',
-        ]);
+        $users = User::where('name', 'like', '%' . $nameOrEmail . '%')
+                ->orWhere('email', 'like', '%' . $nameOrEmail . '%')
+                ->get();
 
-        //------If successful validation update the bank details
-        $updated = $user->update([
-            'bank_name' => $validated['bank_name'],
-            'bank_number' => $validated['bank_number'],
-            'bank_code' => $validated['bank_code'],
-            'bank_region' => $validated['bank_region'],
-            'currency' => $validated['currency'],
-            'currency_code' => $validated['currency_code']
-        ]);
-
-        //----Check for successful update-----------
-        if ($updated) {
-            return response()->json([
-                "message"=> "successfully added bank account details",
-                 "statusCode"=> 200,
-                "data" => $user
-            ]);
+        if ($users->isEmpty()) {
+            $message = 'No users found for the given name or email.';
+            return response()->json(['message' => $message], 404);
         }
-        //------------Error message if bank details are not updated
-        return response()->json([
-            "message"=> "Error, please try again",
-             "statusCode"=> 400            
-        ]);
- 
-       
+        
+        $message = 'User found';
+
+        return response()->json(['message' => $message, 'data' => $users], 200);
     }
 }

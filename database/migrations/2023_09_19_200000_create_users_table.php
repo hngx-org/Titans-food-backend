@@ -18,16 +18,20 @@ return new class extends Migration
             $table->unsignedBigInteger('org_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_pic')->nullable();
             $table->string('email')->unique();
             $table->unsignedBigInteger('phone')->unique()->nullable();
             $table->string('password_hash');
             $table->boolean('is_admin')->default(false);
             $table->string('lunch_credit_balance')->nullable();
             $table->string('refresh_token')->nullable();
-            $table->string('bank_number')->nullable();
+            $table->string('bank_number')->nullable()->unique();
             $table->string('bank_code')->nullable();
             $table->string('bank_name')->nullable();
+            $table->string('bank_region')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('currency_code')->nullable();
+
             $table->rememberToken()->nullable();
             $table->timestamps();
 

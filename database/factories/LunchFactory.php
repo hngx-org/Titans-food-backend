@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Organization;
 use App\Models\Lunch;
 use App\Models\User;
+
 use Illuminate\Support\Str;
 
 /**
@@ -20,8 +22,9 @@ class LunchFactory extends Factory
     public function definition(): array
     {
         return [
-            'senderId' => User::factory(),
-            'receiverId' => User::factory(),
+            'org_id' => Organization::factory(),
+            'sender_id' => User::factory(),
+            'receiver_id' => User::factory(),
             'quantity' => $this->faker->numberBetween(1, 10),
             'redeemed' => $this->faker->boolean,
             'note' => $this->faker->text,

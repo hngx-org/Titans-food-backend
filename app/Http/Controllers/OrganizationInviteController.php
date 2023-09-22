@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationInviteRequest;
 use App\Http\Requests\UpdateOrganizationInviteRequest;
+use App\Mail\OrganizationInviteMail;
+use App\Models\Organization;
 use App\Models\OrganizationInvite;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class OrganizationInviteController extends Controller
 {
@@ -29,7 +35,45 @@ class OrganizationInviteController extends Controller
      */
     public function store(StoreOrganizationInviteRequest $request)
     {
-        //
+        //retrieve authenticated user
+        $authUser = auth()->user();
+
+
+    // Validate the request
+    // $request->validate([
+    //     'email' => [
+    //         'required',
+    //         'email',
+    //         'unique:organization_invites,email,NULL,id,org_id,' . auth()->user()->org_id
+    //     ],
+    // ], [
+    //     'email.required' => 'The email field is required.',
+    //     'email.email' => 'Invalid email format.',
+    //     'email.unique' => 'This email has already been invited.',
+    // ]);
+
+        //generate token
+        $token = Str::random(8);
+
+        //create organization invite
+        OrganizationInvite::create([
+            'email' => $request->input('email'),
+            'token' => $token,
+            'org_id' => $authUser->org_id
+        ]);
+
+        //retrieve organization name
+        $organization = Organization::where('id', $authUser->org_id)->first();
+        $organizationName = $organization ? $organization->name : '';
+
+        Mail::to($request->input('email'))->send(new OrganizationInviteMail($token, $organizationName));
+
+        return response()->json([
+            'message' => 'success',
+            'statusCode' => 200,
+            'data' => null,
+        ], 200);
+
     }
 
     /**

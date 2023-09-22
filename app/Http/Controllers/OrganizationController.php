@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\Organization;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizationController extends Controller
 {
@@ -53,7 +54,22 @@ class OrganizationController extends Controller
      */
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
-        //
+        if(Auth::user()->isAdmin === true){
+        
+            $validated = $request->validated();
+    
+            $organization->update($validated);
+
+            return response()->json([
+                'organization_name' => $organization->name,
+                'lunch_price'  => $organization->lunch_price
+            ], 200);
+                
+            }else{
+                return response()->json([
+                    'message' => 'You are not authorized to perform this action!'
+                ], 403);
+            }
     }
 
     /**
@@ -62,5 +78,12 @@ class OrganizationController extends Controller
     public function destroy(Organization $organization)
     {
         //
+    }
+
+    public function getOrganization() {
+        // Retrieve all organizations that are not deleted
+        $organizations = Organization::where('is_deleted', false)->get();
+
+        return response()->json(['data' => $organizations]);
     }
 }

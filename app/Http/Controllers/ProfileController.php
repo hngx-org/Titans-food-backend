@@ -7,7 +7,22 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    
+    /**
+     * @OA\Get(
+     *     path="/api/user/profile",
+     *     summary="Get User Profile Details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User data fetched successfully", "statusCode": 200, "data":{}}, summary="Get User Profile"),
+     *         )
+     *     )
+     * )
+    */
     public function index()
     {
         try {

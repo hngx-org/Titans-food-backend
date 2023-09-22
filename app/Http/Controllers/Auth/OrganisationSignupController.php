@@ -12,10 +12,70 @@ use App\Http\Requests\OrganizationSignUpRequest;
 
 class OrganisationSignupController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+    /**
+     * Register a new user.
      *
-     * @return JsonResponse
+     * Registers a new user with the provided information and returns a success response upon successful registration.
+     *
+     * @group Authentication
+     * @param \App\Http\Requests\OrganizationSignUpRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam first_name required User's first name. Example: John
+     * @bodyParam last_name required User's last name. Example: Doe
+     * @bodyParam email string required User's email address. Example: user@example.com
+     * @bodyParam password string required User's password. Example: mypassword
+     *
+     * @response {
+     *     "status_code": 201,
+     *     "status": "success",
+     *     "message": "User signed up successfully",
+     *     "data": {
+     *         "id": 1,
+     *         "first_name": "John",
+     *         "last_name": "Doe",
+     *         "email": "user@example.com",
+     *         "is_admin": true,
+     *         "password_hash": "$2y$10$..."
+     *     }
+     * }
+     */
+           /**
+     * @OA\Post(
+     *     path="/api/auth/user/signup",
+     *     summary="User Signup (Organization only)",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="first_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="last_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="CREATED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User signed up successfully", "statusCode": 201, "data":{}}, summary="User Signup response"),
+     *         )
+     *     )
+     * )
      */
     public function register(OrganizationSignUpRequest $request)
     {
@@ -24,7 +84,7 @@ class OrganisationSignupController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'is_admin' => true,
+            'is_admin' => false,
             'password_hash' => $password
         ]);
 

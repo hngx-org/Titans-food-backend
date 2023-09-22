@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\OrganizationInvite;
+use App\Mail\OrganizationInviteMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreOrganizationInviteRequest;
 use App\Http\Requests\UpdateOrganizationInviteRequest;
-use App\Mail\OrganizationInviteMail;
-use App\Models\Organization;
-use App\Models\OrganizationInvite;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 
 class OrganizationInviteController extends Controller
@@ -31,38 +33,40 @@ class OrganizationInviteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store an organization invitation.
+     *
+     * Creates an organization invitation with a generated token and sends an email invitation to the specified email address.
+     *
+     * @group Organizations
+     * @authenticated
+     * @param \App\Http\Requests\StoreOrganizationInviteRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam email string required The email address to which the invitation will be sent.
+     *
+     * @response {
+     *     "message": "success",
+     *     "statusCode": 200,
+     *     "data": null
+     * }
      */
     public function store(StoreOrganizationInviteRequest $request)
     {
         //retrieve authenticated user
         $authUser = auth()->user();
 
-
-    // Validate the request
-    // $request->validate([
-    //     'email' => [
-    //         'required',
-    //         'email',
-    //         'unique:organization_invites,email,NULL,id,org_id,' . auth()->user()->org_id
-    //     ],
-    // ], [
-    //     'email.required' => 'The email field is required.',
-    //     'email.email' => 'Invalid email format.',
-    //     'email.unique' => 'This email has already been invited.',
-    // ]);
-
         //generate token
         $token = Str::random(8);
+        if(Auth::user()->is_admin){
 
-        //create organization invite
-        OrganizationInvite::create([
+                    OrganizationInvite::create([
             'email' => $request->input('email'),
             'token' => $token,
+            'ttl' => Carbon::now()->addDays(7),
             'org_id' => $authUser->org_id
         ]);
 
-        //retrieve organization name
+            //retrieve organization name
         $organization = Organization::where('id', $authUser->org_id)->first();
         $organizationName = $organization ? $organization->name : '';
 
@@ -73,6 +77,17 @@ class OrganizationInviteController extends Controller
             'statusCode' => 200,
             'data' => null,
         ], 200);
+
+        } else {
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
+
+        //create organization invite
+
+
+
 
     }
 

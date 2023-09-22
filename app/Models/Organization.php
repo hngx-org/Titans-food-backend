@@ -17,6 +17,10 @@ class Organization extends Model
         'currency_code'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     /**
      * Users in an organization
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -42,5 +46,15 @@ class Organization extends Model
     public function invites(): HasMany
     {
         return $this->hasMany(OrganizationInvite::class, 'org_id');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($organization) {
+            // Check if the currency_code is empty or null, then set the default value
+            if (empty($organization->currency_code)) {
+                $organization->currency_code = 'NGN';
+            }
+        });
     }
 }

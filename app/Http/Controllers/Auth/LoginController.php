@@ -13,6 +13,70 @@ use Symfony\Component\HttpFoundation\Response;
 class LoginController extends Controller
 {
 
+    /**
+     * User Login.
+     *
+     * Authenticates a user by validating their email and password and provides an access token upon success.
+     *
+     * @group Authentication
+     * @bodyParam email string required User's email address.
+     * @bodyParam password string required User's password.
+     * @response {
+     *     "message": "User authenticated successfully",
+     *     "statusCode": 200,
+     *     "data": {
+     *         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...",
+     *         "email": "user@example.com",
+     *         "id": 1,
+     *         "isAdmin": false,
+     *         "org_id": 123
+     *     }
+     * }
+     * @response 401 {
+     *     "status_code": 401,
+     *     "status": "error",
+     *     "message": "Authentication failed"
+     * }
+     * @response 422 {
+     *     "message": {
+     *         "email": ["The email field is required."],
+     *         "password": ["The password field is required."]
+     *     },
+     *     "statusCode": 422
+     * }
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    /**
+     * @OA\Post(
+     *     path="/api/auth/user/signin",
+     *     summary="User/Organization login",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 example={"email": "user@example.com", "password":"1Password"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User authenticated successfully", "statusCode": 200, "data":{}}, summary="User/Organization login response"),
+     *         )
+     *     )
+     * )
+     */
     public function login(Request $request){
 
         $fields = Validator::make($request->all(), [
@@ -38,7 +102,7 @@ class LoginController extends Controller
                 'message' => 'Authentication failed',
             ], Response::HTTP_UNAUTHORIZED);
         }
-        
+
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
@@ -49,8 +113,7 @@ class LoginController extends Controller
                 "email" => $user->email,
                 "id" => $user->id,
                 "isAdmin" => $user->is_admin,
-                "org_id" => $user->org_id 
-
+                "org_id" => $user->org_id
             ]
         ], Response::HTTP_OK); // returning response
     }

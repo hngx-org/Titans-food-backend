@@ -44,8 +44,6 @@ class UserFactory extends Factory
             'bank_region' => fake()->country(),
             'currency' => fake()->numberBetween(100, 999),
             'currency_code' => 'NGN',
-
-            'remember_token' => Str::random(10),
         ];
     }
 

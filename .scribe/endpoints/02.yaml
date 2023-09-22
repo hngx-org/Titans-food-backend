@@ -1,17 +1,90 @@
-name: Lunch
+name: User
 description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/lunch
+      - GET
+    uri: api/v1/user/profile
     metadata:
-      groupName: Lunch
+      groupName: User
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Send lunch credits.'
-      description: 'Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers.'
+      title: 'Authenticated user profile.'
+      description: "Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status."
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "User data fetched successfully",
+              "statusCode": 200,
+              "data": {
+                        "id": 1,
+                        "email": "john@example.com",
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "phonenumber": "1234567890",
+                        "profile_picture": "user-profile-picture-url",
+                        "bank_number": "1234-5678-9012-3456",
+                        "bank_code": "123456",
+                        "bank_name": "Bank Name",
+                        "isAdmin": true
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "message": "User not authenticated",
+              "statusCode": 401
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+              "message": "An error occurred while fetching user data",
+              "statusCode": 500,
+              "error": "Error message"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: api/v1/user/bank
+    metadata:
+      groupName: User
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add bank account details for the authenticated user.'
+      description: 'Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
       authenticated: true
       custom: []
     headers:
@@ -22,61 +95,79 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      receivers:
-        name: receivers
-        description: 'An array of user IDs who will receive the lunch.'
+      bank_name:
+        name: bank_name
+        description: 'The name of the bank.'
         required: true
-        example:
-          - velit
-        type: 'string[]'
+        example: veritatis
+        type: string
         enumValues: []
         custom: []
-      quantity:
-        name: quantity
-        description: 'The quantity of lunches to send.'
+      bank_number:
+        name: bank_number
+        description: 'The bank account number.'
         required: true
-        example: 17
-        type: integer
+        example: tempora
+        type: string
         enumValues: []
         custom: []
-      note:
-        name: note
-        description: 'Additional note for the lunch request.'
-        required: false
-        example: amet
+      bank_code:
+        name: bank_code
+        description: 'The bank code.'
+        required: true
+        example: est
+        type: string
+        enumValues: []
+        custom: []
+      bank_region:
+        name: bank_region
+        description: 'The bank region.'
+        required: true
+        example: dolorem
+        type: string
+        enumValues: []
+        custom: []
+      currency:
+        name: currency
+        description: 'The currency used in the bank account.'
+        required: true
+        example: praesentium
+        type: string
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: 'The currency code.'
+        required: true
+        example: quis
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      receivers:
-        - velit
-      quantity: 17
-      note: amet
+      bank_name: veritatis
+      bank_number: tempora
+      bank_code: est
+      bank_region: dolorem
+      currency: praesentium
+      currency_code: quis
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "Lunch request created successfully",
-              "statusCode": 201,
-              "data": {
-                  "lunch_id": 1,
-                  "org_id" => 1,
-                  "sender_id" => 3,
-                  "receiver_id" => 2,
-                  "quantity" => 2,
-                  "note" => "Thank you for the good work",
-              }
+              "message": "successfully added bank account details",
+              "statusCode": 200
           }
         headers: []
         description: ''
         custom: []
       -
-        status: 422
+        status: 200
         content: |-
           {
-              "error": "You cannot appraise yourself" // Or "Insufficient fund!"
+              "message": "Error, please try again",
+              "statusCode": 400
           }
         headers: []
         description: ''
@@ -90,39 +181,21 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/lunch/{id}'
+    uri: api/v1/bank_details
     metadata:
-      groupName: Lunch
+      groupName: User
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Retrieve a lunch by its ID.'
-      description: 'Retrieves a lunch request by its unique ID and returns its details.'
+      title: 'View bank account details for the authenticated user.'
+      description: 'Retrieves and displays the bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
       authenticated: true
       custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the lunch.'
-        required: true
-        example: 19
-        type: integer
-        enumValues: []
-        custom: []
-      Id:
-        name: Id
-        description: 'The ID of the lunch request to retrieve.'
-        required: true
-        example: 10
-        type: integer
-        enumValues: []
-        custom: []
-    cleanUrlParameters:
-      id: 19
-      Id: 10
+    urlParameters: []
+    cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -133,17 +206,16 @@ endpoints:
         status: 200
         content: |-
           {
-              "message": "Lunch request created successfully",
-              "statusCode": 200,
+              "message": "Bank details found",
               "data": {
-                  "receiver_id": 1,
-                  "sender_id": 2,
-                  "quantity": 3,
-                  "redeemed": false,
-                  "note": "Additional note",
-                  "created_at": "2023-09-22T12:34:56Z",
-                  "id": 1
-              }
+                  "bank_name": "Bank Name",
+                  "bank_number": "Bank Account Number",
+                  "bank_code": "Bank Code",
+                  "bank_region": "Bank Region",
+                  "currency": "Currency",
+                  "currency_code": "Currency Code"
+              },
+              "statusCode": 200
           }
         headers: []
         description: ''
@@ -152,8 +224,7 @@ endpoints:
         status: 404
         content: |-
           {
-              "message": "Lunch request not found",
-              "statusCode": 404
+              "message": "No bank details found for the given user."
           }
         headers: []
         description: ''

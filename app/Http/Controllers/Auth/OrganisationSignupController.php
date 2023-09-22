@@ -40,43 +40,6 @@ class OrganisationSignupController extends Controller
      *     }
      * }
      */
-           /**
-     * @OA\Post(
-     *     path="/api/auth/user/signup",
-     *     summary="User Signup (Organization only)",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="first_name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="last_name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string"
-     *                 ),
-     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="CREATED",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"User signed up successfully", "statusCode": 201, "data":{}}, summary="User Signup response"),
-     *         )
-     *     )
-     * )
-     */
     public function register(OrganizationSignUpRequest $request)
     {
         $password= Hash::make($request->password);

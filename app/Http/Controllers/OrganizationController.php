@@ -154,9 +154,10 @@ class OrganizationController extends Controller
                 }
             return $this->success('Organization Created Successfully', 200, $data);
         }
+
         return $this->error('You already belong to a company', 422);
-         
      }
+
     /**
      * Create a user within an organization using an invitation token.
      *

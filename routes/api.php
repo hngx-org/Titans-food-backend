@@ -35,6 +35,13 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('/user/all', [UserController::class, 'index'])->name('user.index');
 
     Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
+    Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.bank');
+
+    Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
+    Route::put('/organization/create',[OrganizationController::class, 'update']);
+    Route::post('/organization/create',[OrganizationController::class, 'store']);
+    Route::get('/organization', [OrganizationController::class, 'getOrganization']);
+
     Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
     Route::get('/lunch', [LunchController::class,'index'])->name('lunch.index');
     Route::put('/organization/create',[OrganizationController::class, 'store'])->name('organization.store');

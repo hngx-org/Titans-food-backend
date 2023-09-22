@@ -39,7 +39,23 @@ class OrganizationController extends Controller
      */
     public function update(StoreOrganizationRequest $request)
     {
-        //
+        $user = Auth::user();
+        if($user->is_admin === 1){
+            $organization = Organization::create($request->validated());
+
+            $user->org_id = $organization->id;
+            $user->save();
+
+            return response()->json([
+                'organization_name' => $request->name,
+                'lunch_price'  => $request->lunch_price
+            ], 200);
+
+        }else{
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
     }
 
     /**

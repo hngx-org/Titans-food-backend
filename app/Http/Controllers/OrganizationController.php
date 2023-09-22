@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\Organanization;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class OrganizationController extends Controller
@@ -54,23 +55,36 @@ class OrganizationController extends Controller
      */
     public function update(UpdateOrganizationRequest $request, Organanization $organization)
     {
-        if(Auth::user()->isAdmin === true){
-        
-            $validated = $request->validated();
-    
-            $organization->update($validated);
+         
+        $user_id = Auth::user()->id;
 
+        $getUser = User::find($user_id);
+        
+        if ($getUser->org_id === null) {
+
+            $validated = $request->validate();
+
+            $organization = Organanization::create($validated);
+     
+            $org_id = $organization->id;
+
+            $getUser->update([
+                'org_id' => $org_id,
+                'is_admin' => true
+            ]);
+        
             return response()->json([
                 'organization_name' => $organization->name,
-                'lunch_price'  => $organization->lunch_price
+                'lunch_price' => $organization->lunch_price
             ], 200);
-                
-            }else{
-                return response()->json([
-                    'message' => 'You are not authorized to perform this action!'
-                ], 403);
-            }
+        } else {
+            return response()->json([
+                'message' => 'You are admin of an Organization already!'
+            ], 201);
+        }
+        
     }
+        
 
     /**
      * Remove the specified resource from storage.

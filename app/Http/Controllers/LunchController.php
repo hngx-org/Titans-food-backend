@@ -14,6 +14,19 @@ class LunchController extends Controller
     /**
      * Display a listing of the resource.
      */
+       /**
+     * @OA\Get(
+     *     path="/api/lunch",
+     *     summary="Get All Lunch for User",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status": 200, "lunch":{}}, summary="Get All Lunch for User"),
+     *         )
+     *     )
+     * )
+    */
     public function index()
     {
         $lunch = lunch::all();

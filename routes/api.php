@@ -63,6 +63,7 @@ Route::post('/organization/staff/signup', [OrganizationController::class, 'creat
 
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+Route::get('/lunch', [LunchController::class,'index'])->name('lunch.index');
 
 
 

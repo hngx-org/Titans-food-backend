@@ -28,12 +28,12 @@ endpoints:
         name: amount
         description: 'The withdrawal amount.'
         required: true
-        example: eligendi
+        example: quis
         type: numeric
         enumValues: []
         custom: []
     cleanBodyParameters:
-      amount: eligendi
+      amount: quis
     fileParameters: []
     responses:
       -

@@ -26,7 +26,7 @@ endpoints:
         name: bank_name
         description: 'The name of the bank.'
         required: true
-        example: ullam
+        example: commodi
         type: string
         enumValues: []
         custom: []
@@ -34,7 +34,7 @@ endpoints:
         name: bank_number
         description: 'The bank account number.'
         required: true
-        example: laboriosam
+        example: ut
         type: string
         enumValues: []
         custom: []
@@ -42,7 +42,7 @@ endpoints:
         name: bank_code
         description: 'The bank code.'
         required: true
-        example: et
+        example: minima
         type: string
         enumValues: []
         custom: []
@@ -50,7 +50,7 @@ endpoints:
         name: bank_region
         description: 'The bank region.'
         required: true
-        example: consequuntur
+        example: nihil
         type: string
         enumValues: []
         custom: []
@@ -58,7 +58,7 @@ endpoints:
         name: currency
         description: 'The currency used in the bank account.'
         required: true
-        example: sapiente
+        example: quo
         type: string
         enumValues: []
         custom: []
@@ -66,17 +66,17 @@ endpoints:
         name: currency_code
         description: 'The currency code.'
         required: true
-        example: atque
+        example: dolores
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      bank_name: ullam
-      bank_number: laboriosam
-      bank_code: et
-      bank_region: consequuntur
-      currency: sapiente
-      currency_code: atque
+      bank_name: commodi
+      bank_number: ut
+      bank_code: minima
+      bank_region: nihil
+      currency: quo
+      currency_code: dolores
     fileParameters: []
     responses:
       -

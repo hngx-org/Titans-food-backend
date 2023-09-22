@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'localhost:8000'
+    url: ''
 paths:
   /api/auth/user/signup:
     post:
@@ -206,11 +206,11 @@ paths:
                 email:
                   type: string
                   description: "User's email address."
-                  example: alfredo.reynolds@example.net
+                  example: jschimmel@example.com
                 password:
                   type: string
                   description: "User's password."
-                  example: 'DIv)odSpa}DOAzmdln+'
+                  example: 'e0:SU:W'
               required:
                 - email
                 - password
@@ -249,17 +249,17 @@ paths:
                   type: array
                   description: 'An array of user IDs who will receive the lunch.'
                   example:
-                    - consequatur
+                    - est
                   items:
                     type: string
                 quantity:
                   type: integer
                   description: 'The quantity of lunches to send.'
-                  example: 9
+                  example: 17
                 note:
                   type: string
                   description: 'Additional note for the lunch request.'
-                  example: enim
+                  example: sapiente
               required:
                 - receivers
                 - quantity
@@ -341,7 +341,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the lunch.'
-        example: repellendus
+        example: culpa
         required: true
         schema:
           type: string
@@ -349,7 +349,7 @@ paths:
         in: path
         name: Id
         description: 'The ID of the lunch request to retrieve.'
-        example: 1
+        example: 15
         required: true
         schema:
           type: integer
@@ -392,7 +392,7 @@ paths:
                 email:
                   type: string
                   description: 'The email address to which the invitation will be sent.'
-                  example: bauch.blair@example.net
+                  example: newton.bogan@example.org
               required:
                 - email
   /api/organization/create:
@@ -442,11 +442,11 @@ paths:
                 name:
                   type: string
                   description: 'The new name of the organization.'
-                  example: ut
+                  example: quam
                 lunch_price:
                   type: numeric
                   description: 'The new lunch price for the organization.'
-                  example: est
+                  example: commodi
               required:
                 - name
                 - lunch_price
@@ -510,27 +510,27 @@ paths:
                 bank_name:
                   type: string
                   description: 'The name of the bank.'
-                  example: ullam
+                  example: commodi
                 bank_number:
                   type: string
                   description: 'The bank account number.'
-                  example: laboriosam
+                  example: ut
                 bank_code:
                   type: string
                   description: 'The bank code.'
-                  example: et
+                  example: minima
                 bank_region:
                   type: string
                   description: 'The bank region.'
-                  example: consequuntur
+                  example: nihil
                 currency:
                   type: string
                   description: 'The currency used in the bank account.'
-                  example: sapiente
+                  example: quo
                 currency_code:
                   type: string
                   description: 'The currency code.'
-                  example: atque
+                  example: dolores
               required:
                 - bank_name
                 - bank_number
@@ -888,7 +888,7 @@ paths:
                 amount:
                   type: numeric
                   description: 'The withdrawal amount.'
-                  example: eligendi
+                  example: quis
               required:
                 - amount
       security: []

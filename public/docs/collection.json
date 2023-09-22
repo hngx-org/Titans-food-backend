@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "localhost:8000"
+            "value": "http:\/\/localhost:8000"
         }
     ],
     "info": {
         "name": "Team Titan Api Documentation",
-        "_postman_id": "e4ed055a-beb9-4fba-a258-aaabc6a2ceea",
+        "_postman_id": "051b20e9-5ee6-4c8a-a47d-d4e96ed483d3",
         "description": "This is an internal Api documentation for team titan",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -79,7 +79,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"alfredo.reynolds@example.net\",\"password\":\"DIv)odSpa}DOAzmdln+\"}"
+                            "raw": "{\"email\":\"jschimmel@example.com\",\"password\":\"e0:SU:W\"}"
                         },
                         "description": "Authenticates a user by validating their email and password and provides an access token upon success.",
                         "auth": {
@@ -135,7 +135,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"receivers\":[\"consequatur\"],\"quantity\":9,\"note\":\"enim\"}"
+                            "raw": "{\"receivers\":[\"est\"],\"quantity\":17,\"note\":\"sapiente\"}"
                         },
                         "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
                     },
@@ -166,13 +166,13 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "repellendus",
+                                    "value": "culpa",
                                     "description": "The ID of the lunch."
                                 },
                                 {
                                     "id": "Id",
                                     "key": "Id",
-                                    "value": "1",
+                                    "value": "15",
                                     "description": "The ID of the lunch request to retrieve."
                                 }
                             ]
@@ -234,7 +234,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bauch.blair@example.net\"}"
+                            "raw": "{\"email\":\"newton.bogan@example.org\"}"
                         },
                         "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
                     },
@@ -277,7 +277,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"ut\",\"lunch_price\":\"est\"}"
+                            "raw": "{\"name\":\"quam\",\"lunch_price\":\"commodi\"}"
                         },
                         "description": "Updates an organization's information if the authenticated user is an admin."
                     },
@@ -356,7 +356,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"bank_name\":\"ullam\",\"bank_number\":\"laboriosam\",\"bank_code\":\"et\",\"bank_region\":\"consequuntur\",\"currency\":\"sapiente\",\"currency_code\":\"atque\"}"
+                            "raw": "{\"bank_name\":\"commodi\",\"bank_number\":\"ut\",\"bank_code\":\"minima\",\"bank_region\":\"nihil\",\"currency\":\"quo\",\"currency_code\":\"dolores\"}"
                         },
                         "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
                     },
@@ -539,7 +539,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"amount\":\"eligendi\"}"
+                            "raw": "{\"amount\":\"quis\"}"
                         },
                         "description": "Creates a new withdrawal request for the authenticated user.",
                         "auth": {

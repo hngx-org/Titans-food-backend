@@ -28,12 +28,12 @@ endpoints:
         name: email
         description: 'The email address to which the invitation will be sent.'
         required: true
-        example: bauch.blair@example.net
+        example: newton.bogan@example.org
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      email: bauch.blair@example.net
+      email: newton.bogan@example.org
     fileParameters: []
     responses:
       -
@@ -87,7 +87,7 @@ endpoints:
         name: name
         description: 'The new name of the organization.'
         required: true
-        example: ut
+        example: quam
         type: string
         enumValues: []
         custom: []
@@ -95,13 +95,13 @@ endpoints:
         name: lunch_price
         description: 'The new lunch price for the organization.'
         required: true
-        example: est
+        example: commodi
         type: numeric
         enumValues: []
         custom: []
     cleanBodyParameters:
-      name: ut
-      lunch_price: est
+      name: quam
+      lunch_price: commodi
     fileParameters: []
     responses:
       -

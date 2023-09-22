@@ -119,7 +119,7 @@ endpoints:
         name: email
         description: "User's email address."
         required: true
-        example: alfredo.reynolds@example.net
+        example: jschimmel@example.com
         type: string
         enumValues: []
         custom: []
@@ -127,13 +127,13 @@ endpoints:
         name: password
         description: "User's password."
         required: true
-        example: 'DIv)odSpa}DOAzmdln+'
+        example: 'e0:SU:W'
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      email: alfredo.reynolds@example.net
-      password: 'DIv)odSpa}DOAzmdln+'
+      email: jschimmel@example.com
+      password: 'e0:SU:W'
     fileParameters: []
     responses:
       -

@@ -4,15 +4,15 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/organization/invite
+    uri: api/organization/create
     metadata:
       groupName: Organizations
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store an organization invitation.'
-      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
-      authenticated: true
+      title: 'Create a new organization.'
+      description: 'Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.'
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -22,92 +22,56 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      email:
-        name: email
-        description: 'The email address to which the invitation will be sent.'
-        required: true
-        example: mae19@example.org
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      email: mae19@example.org
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-              "message": "success",
-              "statusCode": 200,
-              "data": null
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: api/organization/create
-    metadata:
-      groupName: Organizations
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: "Update an organization's information."
-      description: "Updates an organization's information if the authenticated user is an admin."
-      authenticated: true
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      organization:
-        name: organization
-        description: 'The ID of the organization to update.'
-        required: true
-        example: '1'
-        type: string
-        enumValues: []
-        custom: []
-    cleanUrlParameters:
-      organization: '1'
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
       name:
         name: name
-        description: 'The new name of the organization.'
+        description: 'The name of the organization.'
         required: true
-        example: cumque
+        example: autem
         type: string
         enumValues: []
         custom: []
       lunch_price:
         name: lunch_price
-        description: 'The new lunch price for the organization.'
+        description: ''
         required: true
-        example: suscipit
-        type: numeric
+        example: possimus
+        type: string
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+      description:
+        name: description
+        description: 'The description of the organization (optional).'
+        required: false
+        example: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
+        type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      name: cumque
-      lunch_price: suscipit
+      name: autem
+      lunch_price: possimus
+      description: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "organization_name": "Updated Organization Name",
-              "lunch_price": 15.99
+              "data": {
+                  "id": 1,
+                  "name": "Example Organization",
+                  "description": "A sample organization",
+                  // Add other organization fields here
+              },
+              "message": "success",
+              "statusCode": 200
           }
         headers: []
         description: ''

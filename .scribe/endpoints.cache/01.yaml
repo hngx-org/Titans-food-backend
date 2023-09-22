@@ -164,3 +164,129 @@ endpoints:
     method: null
     route: null
     custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/organization/staff/signup
+    metadata:
+      groupName: Users
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create a user within an organization using an invitation token.'
+      description: 'Creates a user within an organization based on the provided invitation token and user details.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        name: first_name
+        description: 'The first name of the user.'
+        required: true
+        example: ratione
+        type: string
+        enumValues: []
+        custom: []
+      last_name:
+        name: last_name
+        description: 'The last name of the user.'
+        required: true
+        example: dicta
+        type: string
+        enumValues: []
+        custom: []
+      email:
+        name: email
+        description: 'The email address of the user.'
+        required: true
+        example: adelia.upton@example.org
+        type: string
+        enumValues: []
+        custom: []
+      phone:
+        name: phone
+        description: 'The phone number of the user.'
+        required: false
+        example: aliquam
+        type: string
+        enumValues: []
+        custom: []
+      otp_token:
+        name: otp_token
+        description: 'The OTP token for authentication.'
+        required: true
+        example: iste
+        type: string
+        enumValues: []
+        custom: []
+      profile_pic:
+        name: profile_pic
+        description: "The user's profile picture (optional)."
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        custom: []
+      password:
+        name: password
+        description: "The user's password."
+        required: true
+        example: '{T~971MCl9dZ&cAFOx/'
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      first_name: ratione
+      last_name: dicta
+      email: adelia.upton@example.org
+      phone: aliquam
+      otp_token: iste
+      password: '{T~971MCl9dZ&cAFOx/'
+    fileParameters:
+      profile_pic: null
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "status_code": 201,
+              "status": "success",
+              "message": "User signed up successfully",
+              "data": {
+                  "id": 1,
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "email": "john.doe@example.com",
+                  "otp_token": "123456",
+                  "is_admin": false,
+                  "org_id": 1,
+                  "phone": "1234567890",
+                  "profile_pic": "example.jpg" // URL or file path
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "status_code": 401,
+              "status": "error",
+              "message": "Authentication failed"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

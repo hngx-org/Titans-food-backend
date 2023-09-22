@@ -13,8 +13,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 
 
-Route::get('all', [LunchController::class, 'index']);
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,8 +24,8 @@ Route::get('all', [LunchController::class, 'index']);
 |
 */
 
-
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+
 
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user_profile.index');
@@ -52,10 +50,3 @@ Route::prefix('v1')->group(function(){
     Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
     Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 });
-
-
-
-
-
-
-

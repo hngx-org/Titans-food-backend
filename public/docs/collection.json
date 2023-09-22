@@ -10,25 +10,25 @@
     ],
     "info": {
         "name": "Team Titan Api Documentation",
-        "_postman_id": "7099377a-e1ba-445d-bb34-9b99f2a46636",
+        "_postman_id": "eadb7416-ec2e-4262-9719-09085d4b37f5",
         "description": "This is an internal Api documentation for team titan",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
         {
-            "name": "Authentication",
+            "name": "Endpoints",
             "description": "",
             "item": [
                 {
-                    "name": "Register a new user.",
+                    "name": "Display Swagger API page.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signup",
+                            "path": "api\/docs",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signup"
+                            "raw": "{{baseUrl}}\/api\/docs"
                         },
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -39,34 +39,44 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"first_name\":\"John\",\"last_name\":\"Doe\",\"email\":\"user@example.com\",\"password\":\"mypassword\"}"
-                        },
-                        "description": "Registers a new user with the provided information and returns a success response upon successful registration.",
+                        "body": null,
+                        "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n    \"status_code\": 201,\n    \"status\": \"success\",\n    \"message\": \"User signed up successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"user@example.com\",\n        \"is_admin\": true,\n        \"password_hash\": \"$2y$10$...\"\n    }\n}",
+                            "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI<\/title>\n    <link rel=\"stylesheet\" type=\"text\/css\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27\">\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"\/>\n    <link rel=\"icon\" type=\"image\/png\" href=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"\/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    <\/style>\n<\/head>\n\n<body>\n<div id=\"swagger-ui\"><\/div>\n\n<script src=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69\"><\/script>\n<script src=\"http:\/\/titans-food-backend.onrender.com\/docs\/asset\/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b\"><\/script>\n<script>\n    window.onload = function() {\n        \/\/ Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http:\/\/titans-food-backend.onrender.com\/docs\/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http:\/\/titans-food-backend.onrender.com\/api\/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n<\/script>\n<\/body>\n<\/html>\n",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "User Login.",
+                    "name": "Display Oauth2 callback pages.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signin",
+                            "path": "api\/oauth2-callback",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signin"
+                            "raw": "{{baseUrl}}\/api\/oauth2-callback"
                         },
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -77,44 +87,36 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"email\":\"shania.buckridge@example.net\",\"password\":\"mtLJT-~`tC\"}"
-                        },
-                        "description": "Authenticates a user by validating their email and password and provides an access token upon success.",
+                        "body": null,
+                        "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
                     "response": [
                         {
-                            "header": [],
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "text\/html; charset=UTF-8"
+                                },
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
                             "code": 200,
-                            "body": "{\n    \"message\": \"User authenticated successfully\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...\",\n        \"email\": \"user@example.com\",\n        \"id\": 1,\n        \"isAdmin\": false,\n        \"org_id\": 123\n    }\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{\n    \"status_code\": 401,\n    \"status\": \"error\",\n    \"message\": \"Authentication failed\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\n    \"message\": {\n        \"email\": [\"The email field is required.\"],\n        \"password\": [\"The password field is required.\"]\n    },\n    \"statusCode\": 422\n}",
+                            "body": "<!doctype html>\n<html lang=\"en-US\">\n<head>\n    <title>Swagger UI: OAuth2 Redirect<\/title>\n<\/head>\n<body>\n<script>\n    'use strict';\n    function run () {\n        var oauth2 = window.opener.swaggerUIRedirectOauth2;\n        var sentState = oauth2.state;\n        var redirectUrl = oauth2.redirectUrl;\n        var isValid, qp, arr;\n\n        if (\/code|token|error\/.test(window.location.hash)) {\n            qp = window.location.hash.substring(1).replace('?', '&');\n        } else {\n            qp = location.search.substring(1);\n        }\n\n        arr = qp.split(\"&\");\n        arr.forEach(function (v,i,_arr) { _arr[i] = '\"' + v.replace('=', '\":\"') + '\"';});\n        qp = qp ? JSON.parse('{' + arr.join() + '}',\n                function (key, value) {\n                    return key === \"\" ? value : decodeURIComponent(value);\n                }\n        ) : {};\n\n        isValid = qp.state === sentState;\n\n        if ((\n          oauth2.auth.schema.get(\"flow\") === \"accessCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorizationCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorization_code\"\n        ) && !oauth2.auth.code) {\n            if (!isValid) {\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"warning\",\n                    message: \"Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.\"\n                });\n            }\n\n            if (qp.code) {\n                delete oauth2.state;\n                oauth2.auth.code = qp.code;\n                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});\n            } else {\n                let oauthErrorMsg;\n                if (qp.error) {\n                    oauthErrorMsg = \"[\"+qp.error+\"]: \" +\n                        (qp.error_description ? qp.error_description+ \". \" : \"no accessCode received from the server. \") +\n                        (qp.error_uri ? \"More info: \"+qp.error_uri : \"\");\n                }\n\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"error\",\n                    message: oauthErrorMsg || \"[Authorization failed]: no accessCode received from the server.\"\n                });\n            }\n        } else {\n            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});\n        }\n        window.close();\n    }\n\n    if (document.readyState !== 'loading') {\n        run();\n    } else {\n        document.addEventListener('DOMContentLoaded', function () {\n            run();\n        });\n    }\n<\/script>\n<\/body>\n<\/html>\n",
                             "name": ""
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "Endpoints",
-            "description": "",
-            "item": [
+                },
                 {
-                    "name": "Display a listing of the resource.",
+                    "name": "GET api\/all",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -168,6 +170,268 @@
                             "name": ""
                         }
                     ]
+                },
+                {
+                    "name": "GET api\/lunch",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/lunch",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/lunch"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "GET api\/user\/profile",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/profile",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/profile"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "PUT api\/organization\/create",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/organization\/create",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/organization\/create"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/withdrawal\/request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/withdrawal\/request",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET api\/withdrawal\/request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/withdrawal\/request",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "POST api\/auth\/user\/signup",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/user\/signup",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/user\/signup"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"rerum\",\"last_name\":\"veritatis\",\"email\":\"accusamus\",\"password\":\"Zqbu2W\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/auth\/user\/signin",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/user\/signin",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/user\/signin"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"norris60@example.com\",\"password\":\"gP^Nb|-BDZ\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
                 }
             ]
         },
@@ -197,7 +461,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"receivers\":[\"sit\"],\"quantity\":2,\"note\":\"quia\"}"
+                            "raw": "{\"receivers\":[\"velit\"],\"quantity\":17,\"note\":\"amet\"}"
                         },
                         "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
                     },
@@ -205,7 +469,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"lunch_id\": 1,\n        'org_id' => 1,\n        'sender_id' => 3,\n        'receiver_id' => 2,\n        'quantity' => 2,\n        'note' => \"Thank you for the good work\",\n    }\n}",
+                            "body": "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"lunch_id\": 1,\n        \"org_id\" => 1,\n        \"sender_id\" => 3,\n        \"receiver_id\" => 2,\n        \"quantity\" => 2,\n        \"note\" => \"Thank you for the good work\",\n    }\n}",
                             "name": ""
                         },
                         {
@@ -228,13 +492,13 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "19",
                                     "description": "The ID of the lunch."
                                 },
                                 {
                                     "id": "Id",
                                     "key": "Id",
-                                    "value": "15",
+                                    "value": "10",
                                     "description": "The ID of the lunch request to retrieve."
                                 }
                             ]
@@ -275,13 +539,13 @@
             "description": "",
             "item": [
                 {
-                    "name": "Store an organization invitation.",
+                    "name": "Create a new organization.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization\/invite",
+                            "path": "api\/organization\/create",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/invite"
+                            "raw": "{{baseUrl}}\/api\/organization\/create"
                         },
                         "method": "POST",
                         "header": [
@@ -296,58 +560,18 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"mae19@example.org\"}"
+                            "raw": "{\"name\":\"autem\",\"lunch_price\":\"possimus\",\"description\":\"Culpa dolor quam esse eligendi ducimus libero omnis dolorem.\"}"
                         },
-                        "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n    \"message\": \"success\",\n    \"statusCode\": 200,\n    \"data\": null\n}",
-                            "name": ""
+                        "description": "Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
-                },
-                {
-                    "name": "Update an organization's information.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/organization\/create",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/create",
-                            "variable": [
-                                {
-                                    "id": "organization",
-                                    "key": "organization",
-                                    "value": "1",
-                                    "description": "The ID of the organization to update."
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"name\":\"cumque\",\"lunch_price\":\"suscipit\"}"
-                        },
-                        "description": "Updates an organization's information if the authenticated user is an admin."
                     },
                     "response": [
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n    \"organization_name\": \"Updated Organization Name\",\n    \"lunch_price\": 15.99\n}",
+                            "body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Example Organization\",\n        \"description\": \"A sample organization\",\n        \/\/ Add other organization fields here\n    },\n    \"message\": \"success\",\n    \"statusCode\": 200\n}",
                             "name": ""
                         },
                         {
@@ -418,7 +642,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"bank_name\":\"consectetur\",\"bank_number\":\"voluptates\",\"bank_code\":\"deleniti\",\"bank_region\":\"ratione\",\"currency\":\"optio\",\"currency_code\":\"consequatur\"}"
+                            "raw": "{\"bank_name\":\"aut\",\"bank_number\":\"culpa\",\"bank_code\":\"sint\",\"bank_region\":\"culpa\",\"currency\":\"dolores\",\"currency_code\":\"sit\"}"
                         },
                         "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
                     },
@@ -449,7 +673,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "deserunt",
+                                    "value": "est",
                                     "description": ""
                                 }
                             ]
@@ -572,27 +796,21 @@
                             "name": ""
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "Withdrawal",
-            "description": "",
-            "item": [
+                },
                 {
-                    "name": "Create a new withdrawal request.",
+                    "name": "Create a user within an organization using an invitation token.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
+                            "path": "api\/organization\/staff\/signup",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                            "raw": "{{baseUrl}}\/api\/organization\/staff\/signup"
                         },
                         "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",
-                                "value": "application\/json"
+                                "value": "multipart\/form-data"
                             },
                             {
                                 "key": "Accept",
@@ -600,10 +818,52 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\"amount\":\"perspiciatis\"}"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "first_name",
+                                    "value": "ratione",
+                                    "type": "text",
+                                    "description": "The first name of the user."
+                                },
+                                {
+                                    "key": "last_name",
+                                    "value": "dicta",
+                                    "type": "text",
+                                    "description": "The last name of the user."
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "adelia.upton@example.org",
+                                    "type": "text",
+                                    "description": "The email address of the user."
+                                },
+                                {
+                                    "key": "phone",
+                                    "value": "aliquam",
+                                    "type": "text",
+                                    "description": "The phone number of the user."
+                                },
+                                {
+                                    "key": "otp_token",
+                                    "value": "iste",
+                                    "type": "text",
+                                    "description": "The OTP token for authentication."
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "{T~971MCl9dZ&cAFOx\/",
+                                    "type": "text",
+                                    "description": "The user's password."
+                                },
+                                {
+                                    "key": "profile_pic",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
                         },
-                        "description": "Creates a new withdrawal request for the authenticated user.",
+                        "description": "Creates a user within an organization based on the provided invitation token and user details.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -612,51 +872,13 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n    \"message\": \"Withdrawal request created\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"withdrawal_id\": \"xxxx\",\n        \"user_id\": 1,\n        \"status\": \"success\",\n        \"amount\": 100.00,\n        \"created_at\": \"2023-09-22T12:34:56Z\"\n    }\n}",
+                            "body": "{\n    \"status_code\": 201,\n    \"status\": \"success\",\n    \"message\": \"User signed up successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"otp_token\": \"123456\",\n        \"is_admin\": false,\n        \"org_id\": 1,\n        \"phone\": \"1234567890\",\n        \"profile_pic\": \"example.jpg\" \/\/ URL or file path\n    }\n}",
                             "name": ""
                         },
                         {
                             "header": [],
-                            "code": 200,
-                            "body": "{\n    \"error\": \"Withdrawal request not Created\"\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "Retrieve a user's withdrawal history.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "Retrieves the withdrawal history for the authenticated user."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n    \"message\": \"User details fetched\",\n    \"status\": \"success\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"withdrawals\": [\n            {\n                \"withdrawal_id\": \"xxxx\",\n                \"user_id\": 1,\n                \"amount\": 100.00,\n                \"created_at\": \"2023-09-22T12:34:56Z\"\n            },\n             {\n                 \"withdrawal_id\": \"xxxx\",\n                 \"user_id\": 1,\n                 \"amount\": 200.00,\n                 \"created_at\": \"2023-09-22T12:34:56Z\"\n             },\n        ]\n    }\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n    \"error\": \"user not found\"\n}",
+                            "code": 401,
+                            "body": "{\n    \"status_code\": 401,\n    \"status\": \"error\",\n    \"message\": \"Authentication failed\"\n}",
                             "name": ""
                         }
                     ]

@@ -57,13 +57,12 @@ class OrganizationInviteController extends Controller
 
         //generate token
         $token = Str::random(8);
-        if(Auth::user()->is_admin === true){
-
+        if(Auth::user()->is_admin){
 
                     OrganizationInvite::create([
             'email' => $request->input('email'),
             'token' => $token,
-            'ttl' => Carbon::now()->addYear(),
+            'ttl' => Carbon::now()->addDays(7),
             'org_id' => $authUser->org_id
         ]);
 

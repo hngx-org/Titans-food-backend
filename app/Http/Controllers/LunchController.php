@@ -47,7 +47,7 @@ class LunchController extends Controller
                 'lunch' => 'no record found'
             ], 404);
         }
-        
+
     }
 
     /**
@@ -77,11 +77,11 @@ class LunchController extends Controller
      *     "statusCode": 201,
      *     "data": {
      *         "lunch_id": 1,
-     *         'org_id' => 1,
-     *         'sender_id' => 3,
-     *         'receiver_id' => 2,
-     *         'quantity' => 2,
-     *         'note' => "Thank you for the good work",
+     *         "org_id" => 1,
+     *         "sender_id" => 3,
+     *         "receiver_id" => 2,
+     *         "quantity" => 2,
+     *         "note" => "Thank you for the good work",
      *     }
      * }
      * @response 422 {

@@ -28,7 +28,7 @@ endpoints:
         name: bank_name
         description: 'The name of the bank.'
         required: true
-        example: consectetur
+        example: aut
         type: string
         enumValues: []
         custom: []
@@ -36,7 +36,7 @@ endpoints:
         name: bank_number
         description: 'The bank account number.'
         required: true
-        example: voluptates
+        example: culpa
         type: string
         enumValues: []
         custom: []
@@ -44,7 +44,7 @@ endpoints:
         name: bank_code
         description: 'The bank code.'
         required: true
-        example: deleniti
+        example: sint
         type: string
         enumValues: []
         custom: []
@@ -52,7 +52,7 @@ endpoints:
         name: bank_region
         description: 'The bank region.'
         required: true
-        example: ratione
+        example: culpa
         type: string
         enumValues: []
         custom: []
@@ -60,7 +60,7 @@ endpoints:
         name: currency
         description: 'The currency used in the bank account.'
         required: true
-        example: optio
+        example: dolores
         type: string
         enumValues: []
         custom: []
@@ -68,17 +68,17 @@ endpoints:
         name: currency_code
         description: 'The currency code.'
         required: true
-        example: consequatur
+        example: sit
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      bank_name: consectetur
-      bank_number: voluptates
-      bank_code: deleniti
-      bank_region: ratione
-      currency: optio
-      currency_code: consequatur
+      bank_name: aut
+      bank_number: culpa
+      bank_code: sint
+      bank_region: culpa
+      currency: dolores
+      currency_code: sit
     fileParameters: []
     responses:
       -
@@ -128,12 +128,12 @@ endpoints:
         name: user
         description: ''
         required: true
-        example: deserunt
+        example: est
         type: string
         enumValues: []
         custom: []
     cleanUrlParameters:
-      user: deserunt
+      user: est
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

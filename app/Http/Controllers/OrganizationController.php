@@ -35,11 +35,51 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new organization.
+     *
+     * Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.
+     *
+     * @group Organizations
+     * @param \App\Http\Requests\StoreOrganizationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam name string required The name of the organization.
+     * @bodyParam description string The description of the organization (optional).
+     *
+     * @response {
+     *     "data": {
+     *         "id": 1,
+     *         "name": "Example Organization",
+     *         "description": "A sample organization",
+     *         // Add other organization fields here
+     *     },
+     *     "message": "success",
+     *     "statusCode": 200
+     * }
+     * @response 403 {
+     *     "message": "You are not authorized to perform this action!"
+     * }
      */
     public function update(StoreOrganizationRequest $request)
     {
-        //
+        $user = Auth::user();
+        if(is_null($user->org_id)){
+            $organization = Organization::create($request->validated());
+
+            $user->org_id = $organization->id;
+            $user->save();
+
+            return response()->json([
+                'data' => $organization,
+                "message"=> "success",
+                "statusCode"=> 200,
+            ], 200);
+
+        }else{
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
     }
 
     /**
@@ -92,25 +132,66 @@ class OrganizationController extends Controller
      */
     public function store(StoreOrganizationRequest $request)
     {
+
         if(!Auth::user()->is_admin){
             $data = Organization::create([
                 'name' => $request->organization_name,
                 'currency_code' => $request->currency_code,
                 'lunch_price' => $request->lunch_price
             ]);
-            
+
             if($data){
                 User::query()->where('id', Auth::user()->id)->update([
                     'is_admin' => true,
                     'org_id' => $data->id,
                 ]);
             }
-            return $this->success('Organization Created Successfully', 200, $data);                
+            return $this->success('Organization Created Successfully', 200, $data);
         }
         return $this->error('Unable to setup multiple organizations', 422);
-         
-     }
 
+    }
+
+
+    /**
+     * Create a user within an organization using an invitation token.
+     *
+     * Creates a user within an organization based on the provided invitation token and user details.
+     *
+     * @group Users
+     * @param \App\Http\Requests\StoreUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam first_name string required The first name of the user.
+     * @bodyParam last_name string required The last name of the user.
+     * @bodyParam email string required The email address of the user.
+     * @bodyParam otp_token string required The OTP token for authentication.
+     * @bodyParam phone string The phone number of the user.
+     * @bodyParam profile_pic file The user's profile picture (optional).
+     * @bodyParam password string required The user's password.
+     *
+     * @response {
+     *     "status_code": 201,
+     *     "status": "success",
+     *     "message": "User signed up successfully",
+     *     "data": {
+     *         "id": 1,
+     *         "first_name": "John",
+     *         "last_name": "Doe",
+     *         "email": "john.doe@example.com",
+     *         "otp_token": "123456",
+     *         "is_admin": false,
+     *         "org_id": 1,
+     *         "phone": "1234567890",
+     *         "profile_pic": "example.jpg" // URL or file path
+     *     }
+     * }
+     * @response 401 {
+     *     "status_code": 401,
+     *     "status": "error",
+     *     "message": "Authentication failed"
+     * }
+     */
     public function createOrganizationUser(StoreUserRequest $request)
     {
 
@@ -123,13 +204,13 @@ class OrganizationController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
         $filename = '';
-        
+
         if($request->hasFile('profile_pic')) {
             $newFile = $request->file('profile_pic');
             $filename = $newFile->getClientOriginalName();
             $newFile->move('images', $filename);
         }
-       
+
 
         $password = Hash::make($request->password);
         $user = User::create([
@@ -153,7 +234,7 @@ class OrganizationController extends Controller
             Response::HTTP_CREATED
         );
     }
-        
+
 
     /**
      * Remove the specified resource from storage.

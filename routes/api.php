@@ -27,12 +27,22 @@ Route::get('all', [LunchController::class, 'index']);
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/search/{nameOrEmail}', [UserController::class, 'search']);
+    Route::get('/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');
     Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
-    Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.bank');
+    Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.addBankDetails');
+    Route::put('/organization/create',[OrganizationController::class, 'store'])->name('organization.store');
+    Route::get('/user/all', [UserController::class, 'index'])->name('user.index');
+    Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+    Route::get('/organization', [OrganizationController::class, 'getOrganization'])->name('organization.getOrganization');
+});
 
-    Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
-    Route::get('/user/profile', [ProfileController::class, 'index']);
+
+Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
+Route::get('/user/profile', [ProfileController::class, 'index']);
+
+Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+
+Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
 
 
 Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
@@ -50,7 +60,6 @@ Route::get('/user/all', [UserController::class, 'index']);
 Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
-});
 
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');

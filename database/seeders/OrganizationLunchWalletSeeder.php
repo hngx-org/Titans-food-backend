@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\OrganizationLunchWallet;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class OrganizationLunchWalletSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class OrganizationLunchWalletSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        OrganizationLunchWallet::factory()->count(1)->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BankDetailController extends Controller
@@ -46,5 +47,20 @@ class BankDetailController extends Controller
         ]);
  
        
+    }
+
+    public function viewBankDetails()
+    {
+        $user = auth()->user();  
+        $bankDetails = $user->bank_number;
+
+        if ($bankDetails->isEmpty()) {
+            $message = 'No bank details found for the given user.';
+            return response()->json(['message' => $message], 404);
+        }
+
+        $message = 'Bank details found';
+
+        return response()->json(['message' => $message, 'data' => $bankDetails], 200);
     }
 }

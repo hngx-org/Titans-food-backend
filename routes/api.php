@@ -47,6 +47,8 @@ Route::get('/withdrawal/request',[WithdrawalController::class,'show']);
 Route::get('/user/all', [UserController::class, 'index']);
 
 
+Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
+
 
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');

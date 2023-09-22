@@ -3,6 +3,79 @@ description: ''
 endpoints:
   -
     httpMethods:
+      - GET
+    uri: api/v1/user/profile
+    metadata:
+      groupName: User
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Authenticated user profile.'
+      description: "Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status."
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "User data fetched successfully",
+              "statusCode": 200,
+              "data": {
+                        "id": 1,
+                        "email": "john@example.com",
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "phonenumber": "1234567890",
+                        "profile_picture": "user-profile-picture-url",
+                        "bank_number": "1234-5678-9012-3456",
+                        "bank_code": "123456",
+                        "bank_name": "Bank Name",
+                        "isAdmin": true
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "message": "User not authenticated",
+              "statusCode": 401
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+              "message": "An error occurred while fetching user data",
+              "statusCode": 500,
+              "error": "Error message"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - PATCH
     uri: api/v1/user/bank
     metadata:
@@ -26,7 +99,7 @@ endpoints:
         name: bank_name
         description: 'The name of the bank.'
         required: true
-        example: eos
+        example: veritatis
         type: string
         enumValues: []
         custom: []
@@ -34,7 +107,7 @@ endpoints:
         name: bank_number
         description: 'The bank account number.'
         required: true
-        example: culpa
+        example: tempora
         type: string
         enumValues: []
         custom: []
@@ -42,7 +115,7 @@ endpoints:
         name: bank_code
         description: 'The bank code.'
         required: true
-        example: quod
+        example: est
         type: string
         enumValues: []
         custom: []
@@ -50,7 +123,7 @@ endpoints:
         name: bank_region
         description: 'The bank region.'
         required: true
-        example: qui
+        example: dolorem
         type: string
         enumValues: []
         custom: []
@@ -58,7 +131,7 @@ endpoints:
         name: currency
         description: 'The currency used in the bank account.'
         required: true
-        example: consequatur
+        example: praesentium
         type: string
         enumValues: []
         custom: []
@@ -66,17 +139,17 @@ endpoints:
         name: currency_code
         description: 'The currency code.'
         required: true
-        example: aut
+        example: quis
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      bank_name: eos
-      bank_number: culpa
-      bank_code: quod
-      bank_region: qui
-      currency: consequatur
-      currency_code: aut
+      bank_name: veritatis
+      bank_number: tempora
+      bank_code: est
+      bank_region: dolorem
+      currency: praesentium
+      currency_code: quis
     fileParameters: []
     responses:
       -

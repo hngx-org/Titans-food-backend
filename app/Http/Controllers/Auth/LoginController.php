@@ -48,35 +48,6 @@ class LoginController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    /**
-     * @OA\Post(
-     *     path="/api/auth/user/signin",
-     *     summary="User/Organization login",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string"
-     *                 ),
-     *                 example={"email": "user@example.com", "password":"1Password"}
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"User authenticated successfully", "statusCode": 200, "data":{}}, summary="User/Organization login response"),
-     *         )
-     *     )
-     * )
-     */
     public function login(Request $request){
 
         $fields = Validator::make($request->all(), [

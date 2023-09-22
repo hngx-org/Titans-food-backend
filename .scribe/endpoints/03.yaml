@@ -27,7 +27,7 @@ endpoints:
         description: 'An array of user IDs who will receive the lunch.'
         required: true
         example:
-          - sint
+          - molestiae
         type: 'string[]'
         enumValues: []
         custom: []
@@ -35,7 +35,7 @@ endpoints:
         name: quantity
         description: 'The quantity of lunches to send.'
         required: true
-        example: 6
+        example: 5
         type: integer
         enumValues: []
         custom: []
@@ -43,15 +43,15 @@ endpoints:
         name: note
         description: 'Additional note for the lunch request.'
         required: false
-        example: sed
+        example: aut
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
       receivers:
-        - sint
-      quantity: 6
-      note: sed
+        - molestiae
+      quantity: 5
+      note: aut
     fileParameters: []
     responses:
       -
@@ -108,7 +108,7 @@ endpoints:
         name: id
         description: 'The ID of the lunch.'
         required: true
-        example: quod
+        example: sed
         type: string
         enumValues: []
         custom: []
@@ -116,13 +116,13 @@ endpoints:
         name: Id
         description: 'The ID of the lunch request to retrieve.'
         required: true
-        example: 4
+        example: 10
         type: integer
         enumValues: []
         custom: []
     cleanUrlParameters:
-      id: quod
-      Id: 4
+      id: sed
+      Id: 10
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

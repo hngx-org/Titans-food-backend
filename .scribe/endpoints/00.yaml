@@ -33,9 +33,9 @@ endpoints:
           <head>
               <meta charset="UTF-8">
               <title>L5 Swagger UI</title>
-              <link rel="stylesheet" type="text/css" href="http://localhost:8000/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
-              <link rel="icon" type="image/png" href="http://localhost:8000/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
-              <link rel="icon" type="image/png" href="http://localhost:8000/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
+              <link rel="stylesheet" type="text/css" href="http://titans-food-backend.onrender.com/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
+              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
+              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
               <style>
               html
               {
@@ -60,18 +60,18 @@ endpoints:
           <body>
           <div id="swagger-ui"></div>
 
-          <script src="http://localhost:8000/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69"></script>
-          <script src="http://localhost:8000/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b"></script>
+          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69"></script>
+          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b"></script>
           <script>
               window.onload = function() {
                   // Build a system
                   const ui = SwaggerUIBundle({
                       dom_id: '#swagger-ui',
-                      url: "http://localhost:8000/docs/api-docs.json",
+                      url: "http://titans-food-backend.onrender.com/docs/api-docs.json",
                       operationsSorter: null,
                       configUrl: null,
                       validatorUrl: null,
-                      oauth2RedirectUrl: "http://localhost:8000/api/oauth2-callback",
+                      oauth2RedirectUrl: "http://titans-food-backend.onrender.com/api/oauth2-callback",
 
                       requestInterceptor: function(request) {
                           request.headers['X-CSRF-TOKEN'] = '';
@@ -233,8 +233,47 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: api/v1/user/profile
+      - PATCH
+    uri: api/v1/organization/lunch-price
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 6107.819
+        type: number
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      lunch_price: 6107.819
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/v1/organization/create
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -251,19 +290,131 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+    bodyParameters:
+      organization_name:
+        name: organization_name
+        description: ''
+        required: true
+        example: aut
+        type: string
+        enumValues: []
         custom: []
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 2050.336401
+        type: number
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      organization_name: aut
+      lunch_price: 2050.336401
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/organization/create
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      organization_name:
+        name: organization_name
+        description: ''
+        required: true
+        example: cum
+        type: string
+        enumValues: []
+        custom: []
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 12117429.24173
+        type: number
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      organization_name: cum
+      lunch_price: 12117429.24173
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: api/v1/wallet
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      amount:
+        name: amount
+        description: ''
+        required: true
+        example: 1762742.6552097
+        type: number
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      amount: 1762742.6552097
+    fileParameters: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -311,62 +462,6 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - PUT
-    uri: api/v1/organization/create
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: true
-        example: tenetur
-        type: string
-        enumValues: []
-        custom: []
-      lunch_price:
-        name: lunch_price
-        description: ''
-        required: true
-        example: nostrum
-        type: string
-        enumValues: []
-        custom: []
-      currency_code:
-        name: currency_code
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      name: tenetur
-      lunch_price: nostrum
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - POST
     uri: api/v1/withdrawal/request
     metadata:
@@ -428,128 +523,6 @@ endpoints:
           access-control-allow-origin: '*'
         description: null
         custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/v1/auth/user/signup
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      first_name:
-        name: first_name
-        description: ''
-        required: true
-        example: minima
-        type: string
-        enumValues: []
-        custom: []
-      last_name:
-        name: last_name
-        description: ''
-        required: true
-        example: illum
-        type: string
-        enumValues: []
-        custom: []
-      email:
-        name: email
-        description: ''
-        required: true
-        example: iusto
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: 'Must be at least 8 characters.'
-        required: true
-        example: '9UL*aiiHS`'
-        type: string
-        enumValues: []
-        custom: []
-      phone_number:
-        name: phone_number
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      first_name: minima
-      last_name: illum
-      email: iusto
-      password: '9UL*aiiHS`'
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/v1/auth/user/signin
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: 'Must be a valid email address.'
-        required: true
-        example: tremblay.brooks@example.org
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: ''
-        required: true
-        example: 'PE+Sn*C^nz|)G'
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      email: tremblay.brooks@example.org
-      password: 'PE+Sn*C^nz|)G'
-    fileParameters: []
-    responses: []
     responseFields: []
     auth: []
     controller: null

@@ -3,6 +3,56 @@ description: ''
 endpoints:
   -
     httpMethods:
+      - POST
+    uri: api/v1/organization/invite
+    metadata:
+      groupName: Organizations
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store an organization invitation.'
+      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email address to which the invitation will be sent.'
+        required: true
+        example: rhammes@example.net
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      email: rhammes@example.net
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "success",
+              "statusCode": 200,
+              "data": null
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - GET
     uri: api/v1/organization
     metadata:
@@ -42,56 +92,6 @@ endpoints:
                    },
 
               ]
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/v1/organization/invite
-    metadata:
-      groupName: Organizations
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Store an organization invitation.'
-      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
-      authenticated: true
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: 'The email address to which the invitation will be sent.'
-        required: true
-        example: fabiola.beier@example.net
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      email: fabiola.beier@example.net
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-              "message": "success",
-              "statusCode": 200,
-              "data": null
           }
         headers: []
         description: ''

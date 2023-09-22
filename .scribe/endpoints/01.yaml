@@ -4,7 +4,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/v1/search/{nameOrEmail}'
+    uri: 'api/v1/user/search/{nameOrEmail}'
     metadata:
       groupName: Users
       groupDescription: ''
@@ -187,7 +187,7 @@ endpoints:
         name: first_name
         description: 'The first name of the user.'
         required: true
-        example: commodi
+        example: consequatur
         type: string
         enumValues: []
         custom: []
@@ -195,7 +195,7 @@ endpoints:
         name: last_name
         description: 'The last name of the user.'
         required: true
-        example: at
+        example: quisquam
         type: string
         enumValues: []
         custom: []
@@ -203,7 +203,7 @@ endpoints:
         name: email
         description: 'The email address of the user.'
         required: true
-        example: jast.danyka@example.org
+        example: miller.grimes@example.net
         type: string
         enumValues: []
         custom: []
@@ -211,7 +211,7 @@ endpoints:
         name: phone
         description: 'The phone number of the user.'
         required: false
-        example: minima
+        example: ipsam
         type: string
         enumValues: []
         custom: []
@@ -219,7 +219,7 @@ endpoints:
         name: otp_token
         description: 'The OTP token for authentication.'
         required: true
-        example: eaque
+        example: excepturi
         type: string
         enumValues: []
         custom: []
@@ -235,17 +235,17 @@ endpoints:
         name: password
         description: "The user's password."
         required: true
-        example: '9yHCnG@thCBus?lM]'
+        example: '${9)!<;P^4lY+)'
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      first_name: commodi
-      last_name: at
-      email: jast.danyka@example.org
-      phone: minima
-      otp_token: eaque
-      password: '9yHCnG@thCBus?lM]'
+      first_name: consequatur
+      last_name: quisquam
+      email: miller.grimes@example.net
+      phone: ipsam
+      otp_token: excepturi
+      password: '${9)!<;P^4lY+)'
     fileParameters:
       profile_pic: null
     responses:

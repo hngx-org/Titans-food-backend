@@ -22,7 +22,7 @@ class StoreOrganizationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ['required' , 'string'],
+            "organization_name" => ['required' , 'string'],
             "lunch_price" => ['required'],
             "currency_code" => ['nullable']
         ];

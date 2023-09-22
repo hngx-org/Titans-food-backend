@@ -97,7 +97,7 @@ class LunchController extends Controller
 
         #Process-Sender End of the transaction
         if(auth()->user()->is_admin){
-            $model = OrganizationLunchWallet::class;
+            $model = new OrganizationLunchWallet();
             $key = 'org_id';
             $val = auth()->user()->org_id;
             $balance_key = 'balance';
@@ -111,10 +111,10 @@ class LunchController extends Controller
         $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->first()->lunch_price;
         $total_debit = count($request->input('receivers')) * $request->quantity * $lunch_price;
 
-        return $lunch_wallet = $model->where($key, $val)->first()->balance;
-        return $balance_key;
-        return $wallet_balance = $lunch_wallet->value($balance_key);
-        return $remainder = $wallet_balance - $total_debit;
+        $lunch_wallet = $model->where($key, $val)->first()->balance;
+        // return $balance_key;
+        $wallet_balance = $lunch_wallet->first()->$balance_key;
+        $remainder = $wallet_balance - $total_debit;
 
         if($remainder < 0) return $this->error('Insufficient fund!', 422);
         $lunch_wallet->update([$balance_key => $remainder]);

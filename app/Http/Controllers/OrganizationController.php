@@ -140,22 +140,22 @@ class OrganizationController extends Controller
                     'currency_code' => $request->currency_code,
                     'lunch_price' => $request->lunch_price
                 ]);
-
+    
                 $org_wallet = OrganizationLunchWallet::create([
                     'org_id' => $org->id,
                     'balance' => 40000
                 ]);
-
+    
                 if($org && $org_wallet){
                     User::query()->where('id', Auth::user()->id)->update([
                         'is_admin' => true,
-                        'org_id' => Auth::user()->org_id,
+                        'org_id' => $data->id,
                     ]);
                 }
-            return $this->success('Organization Created Successfully', 200, $org_wallet);
+            return $this->success('Organization Created Successfully', 200, $data);
         }
         return $this->error('You already belong to a company', 422);
-
+         
      }
     /**
      * Create a user within an organization using an invitation token.
@@ -253,7 +253,7 @@ class OrganizationController extends Controller
             return $this->error('You are not authorized to perform this action', 401);
         }
         $org = Organization::where('id', auth()->user()->org_id)->update([
-            'lunch_price' => $request->lunch_price,
+            'lunch_price' => $request->lunch_price
         ]);
         if (!$org){
             return $this->error('error updating lunch price', 422);

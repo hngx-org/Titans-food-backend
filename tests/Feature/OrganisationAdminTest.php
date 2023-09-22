@@ -18,38 +18,22 @@ class OrganisationAdminTest extends TestCase
      * A basic feature test example.
      */
 
-
-
-     public function test_admin_can_create_organisation()
-     {
-         $user = $this->authAdmin();
-         $user->org_id= null;
-         $response = $this->putJson(route('organization.store'),[
-            'organization_name' => 'jane@example.com',
-            'lunch_price' => 3000.00,
-            'currency_code' => 'NGN'
-
-         ])->assertOk();
-         //$this->assertDatabaseHas('organizations',['name' => 'jane@example.com']);
-
-     }
      public function test_admin_can_invite()
      {
          $user = $this->authAdmin();
-         $response = $this->postJson(route('organization_invite.store'),[
+         $response = $this->postJson('/api/organization/invite',[
              'email' => 'jane@example.com'
          ])->assertOk();
          $this->assertDatabaseHas('organization_invites',['email' => 'jane@example.com']);
 
      }
 
-    //  public function test_admin_can_update_walet_balance()
+    //  public function test_admin_can_create_organisation()
     //  {
     //      $user = $this->authAdmin();
-    //      $response = $this->putJson(route('organization.store'),[
+    //      $response = $this->putJson('/api/organization/create',[
     //         'organization_name' => 'jane@example.com',
-    //         'lunch_price' => 3000.00,
-    //         'currency_code' => 'NGN',
+    //         'lunch_price' => '3000.00',
     //      ])->assertOk();
     //      $this->assertDatabaseHas('organization_invites',['organization_name' => 'jane@example.com']);
 

@@ -132,8 +132,7 @@ class OrganizationController extends Controller
      */
     public function store(StoreOrganizationRequest $request)
     {
-
-        if(!Auth::user()->is_admin){
+        if(is_null(Auth::user()->org_id)){
             $data = Organization::create([
                 'name' => $request->organization_name,
                 'currency_code' => $request->currency_code,
@@ -148,9 +147,9 @@ class OrganizationController extends Controller
             }
             return $this->success('Organization Created Successfully', 200, $data);
         }
-        return $this->error('Unable to setup multiple organizations', 422);
-    }
 
+        return $this->error('You already belong to a company', 422);
+     }
 
     /**
      * Create a user within an organization using an invitation token.

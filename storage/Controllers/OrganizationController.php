@@ -68,7 +68,7 @@ class OrganizationController extends Controller
      *                     property="lunch_price",
      *                     type="string"
      *                 ),
-     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
+     *                 example={"organization_name":"Titans", "lunch_price":"1000"}
      *             )
      *         )
      *     ),

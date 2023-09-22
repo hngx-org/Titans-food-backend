@@ -106,6 +106,59 @@
                     }
                 }
             }
+        },
+        "/api/organization/create": {
+            "put": {
+                "summary": "Create Organization",
+                "operationId": "61912c1e427a9d32336f8429c5620bcc",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "organization_name": {
+                                        "type": "string"
+                                    },
+                                    "lunch_price": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "first_name": "John",
+                                    "last_name": "Mark",
+                                    "email": "user@example.com",
+                                    "password": "1Password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Organization create",
+                                        "value": {
+                                            "organization_name": "",
+                                            "lunch_price": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {

@@ -47,9 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/withdrawal/request',[WithdrawalController::class,'index']);
 });
 
-
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
-
 Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
 Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 

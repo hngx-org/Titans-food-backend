@@ -33,11 +33,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
     Route::get('/user/profile', [ProfileController::class, 'index']);
-});
-
-Route::put('/organization/create',[OrganizationController::class, 'update']);
-
-Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 
 
 Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
@@ -55,6 +50,8 @@ Route::get('/user/all', [UserController::class, 'index']);
 Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+});
+
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 
@@ -62,7 +59,6 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 
 
-Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 
 

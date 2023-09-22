@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\OrganisationSignupController;
 use App\Http\Controllers\OrganizationInviteController;
-use App\Models\Organanization;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -27,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search']);
     Route::post('/lunch', [LunchController::class,'store'])->name('lunch.store');
     Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.bank');
+    Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
 });
 
 
@@ -34,7 +34,7 @@ Route::put('/organization/create',[OrganizationController::class, 'update']);
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 
-Route::post('/api/organization/invite', [OrganizationInviteController::class, 'store']);
+
 Route::get('/organization', [OrganizationController::class, 'getOrganization']);
 Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
 

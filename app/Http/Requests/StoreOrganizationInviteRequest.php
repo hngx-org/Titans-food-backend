@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreOrganizationInviteRequest extends FormRequest
 {
@@ -49,4 +51,20 @@ class StoreOrganizationInviteRequest extends FormRequest
             'email.unique' => 'This email has already been invited.',
         ];
     }
+
+    /**
+ * Handle a failed validation attempt.
+ *
+ * @param  \Illuminate\Contracts\Validation\Validator  $validator
+ * @return void
+ *
+ * @throws \Illuminate\Http\Exceptions\HttpResponseException
+ */
+protected function failedValidation(Validator $validator)
+{
+    throw new HttpResponseException(response()->json([
+        'message' => 'Validation failed',
+        'errors' => $validator->errors(),
+    ], 422)); // You can change the status code as needed
+}
 }

@@ -103,7 +103,7 @@ class LoginController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
+        $token = $user->createToken(); // Creating access_token
 
         return response()->json([
             "message" => "User authenticated successfully",

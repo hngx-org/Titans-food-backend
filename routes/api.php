@@ -24,7 +24,7 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+Route::middleware('auth:api')->prefix('v1')->group(function () {
 
 
     Route::get('/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');

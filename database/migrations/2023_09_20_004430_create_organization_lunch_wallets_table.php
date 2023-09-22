@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lunches', function (Blueprint $table) {
+        Schema::create('organization_lunch_wallets', function (Blueprint $table) {
             $table->id();
+            $table->decimal('balance', 10, 2);
+            $table->unsignedBigInteger('org_id')->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lunches');
+        Schema::dropIfExists('organization_lunch_wallets');
     }
 };

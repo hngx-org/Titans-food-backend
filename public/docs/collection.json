@@ -1,0 +1,670 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "https:\/\/titans-food-backend.onrender.com"
+        }
+    ],
+    "info": {
+        "name": "Team Titan Api Documentation",
+        "_postman_id": "7099377a-e1ba-445d-bb34-9b99f2a46636",
+        "description": "This is an internal Api documentation for team titan",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Register a new user.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/user\/signup",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/user\/signup"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"John\",\"last_name\":\"Doe\",\"email\":\"user@example.com\",\"password\":\"mypassword\"}"
+                        },
+                        "description": "Registers a new user with the provided information and returns a success response upon successful registration.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"status_code\": 201,\n    \"status\": \"success\",\n    \"message\": \"User signed up successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"user@example.com\",\n        \"is_admin\": true,\n        \"password_hash\": \"$2y$10$...\"\n    }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "User Login.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/user\/signin",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/user\/signin"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"shania.buckridge@example.net\",\"password\":\"mtLJT-~`tC\"}"
+                        },
+                        "description": "Authenticates a user by validating their email and password and provides an access token upon success.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"User authenticated successfully\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...\",\n        \"email\": \"user@example.com\",\n        \"id\": 1,\n        \"isAdmin\": false,\n        \"org_id\": 123\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"status_code\": 401,\n    \"status\": \"error\",\n    \"message\": \"Authentication failed\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"message\": {\n        \"email\": [\"The email field is required.\"],\n        \"password\": [\"The password field is required.\"]\n    },\n    \"statusCode\": 422\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/all",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\"status\":404,\"lunch\":\"no record found\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Lunch",
+            "description": "",
+            "item": [
+                {
+                    "name": "Send lunch credits.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/lunch",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/lunch"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"receivers\":[\"sit\"],\"quantity\":2,\"note\":\"quia\"}"
+                        },
+                        "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"lunch_id\": 1,\n        'org_id' => 1,\n        'sender_id' => 3,\n        'receiver_id' => 2,\n        'quantity' => 2,\n        'note' => \"Thank you for the good work\",\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"error\": \"You cannot appraise yourself\" \/\/ Or \"Insufficient fund!\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrieve a lunch by its ID.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/lunch\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/lunch\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the lunch."
+                                },
+                                {
+                                    "id": "Id",
+                                    "key": "Id",
+                                    "value": "15",
+                                    "description": "The ID of the lunch request to retrieve."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves a lunch request by its unique ID and returns its details."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"receiver_id\": 1,\n        \"sender_id\": 2,\n        \"quantity\": 3,\n        \"redeemed\": false,\n        \"note\": \"Additional note\",\n        \"created_at\": \"2023-09-22T12:34:56Z\",\n        \"id\": 1\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"Lunch request not found\",\n    \"statusCode\": 404\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Organizations",
+            "description": "",
+            "item": [
+                {
+                    "name": "Store an organization invitation.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/organization\/invite",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/organization\/invite"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"mae19@example.org\"}"
+                        },
+                        "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"success\",\n    \"statusCode\": 200,\n    \"data\": null\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update an organization's information.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/organization\/create",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/organization\/create",
+                            "variable": [
+                                {
+                                    "id": "organization",
+                                    "key": "organization",
+                                    "value": "1",
+                                    "description": "The ID of the organization to update."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"cumque\",\"lunch_price\":\"suscipit\"}"
+                        },
+                        "description": "Updates an organization's information if the authenticated user is an admin."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"organization_name\": \"Updated Organization Name\",\n    \"lunch_price\": 15.99\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n    \"message\": \"You are not authorized to perform this action!\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrieve a list of organizations.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/organization",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/organization"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves a list of organizations that are not marked as deleted."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Organization 1\",\n            \"lunch_price\": 2000\n        },\n         {\n             \"id\": 2,\n             \"name\": \"Organization 2\",\n             \"lunch_price\": 1000\n         },\n\n    ]\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "User",
+            "description": "",
+            "item": [
+                {
+                    "name": "Add bank account details for the authenticated user.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/bank",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/bank"
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"bank_name\":\"consectetur\",\"bank_number\":\"voluptates\",\"bank_code\":\"deleniti\",\"bank_region\":\"ratione\",\"currency\":\"optio\",\"currency_code\":\"consequatur\"}"
+                        },
+                        "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"successfully added bank account details\",\n    \"statusCode\": 200\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Error, please try again\",\n    \"statusCode\": 400\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "View bank account details for the authenticated user.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/:user\/bank_details",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/:user\/bank_details",
+                            "variable": [
+                                {
+                                    "id": "user",
+                                    "key": "user",
+                                    "value": "deserunt",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves and displays the bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Bank details found\",\n    \"data\": {\n        \"bank_name\": \"Bank Name\",\n        \"bank_number\": \"Bank Account Number\",\n        \"bank_code\": \"Bank Code\",\n        \"bank_region\": \"Bank Region\",\n        \"currency\": \"Currency\",\n        \"currency_code\": \"Currency Code\"\n    },\n    \"statusCode\": 200\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"No bank details found for the given user.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "description": "",
+            "item": [
+                {
+                    "name": "Search for users by name or email.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/search\/:nameOrEmail",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/search\/:nameOrEmail",
+                            "variable": [
+                                {
+                                    "id": "nameOrEmail",
+                                    "key": "nameOrEmail",
+                                    "value": "john%40example.com",
+                                    "description": "The name or email to search for."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Searches for users based on the provided name or email and returns a list of matching users."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"User found\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"email\": \"john@example.com\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Doe\",\n            \"phonenumber\": \"1234567890\",\n            \"profile_picture\": \"user-profile-picture-url\",\n            \"bank_number\": \"1234-5678-9012-3456\",\n            \"bank_code\": \"123456\",\n            \"bank_name\": \"Bank Name\",\n            \"isAdmin\": true\n        },\n        {\n             \"id\": 1,\n             \"email\": \"john@example.com\",\n             \"first_name\": \"John\",\n             \"last_name\": \"Doe\",\n             \"phonenumber\": \"1234567890\",\n             \"profile_picture\": \"user-profile-picture-url\",\n             \"bank_number\": \"1234-5678-9012-3456\",\n             \"bank_code\": \"123456\",\n             \"bank_name\": \"Bank Name\",\n             \"isAdmin\": true\n         }\n\n    ]\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"No users found for the given name or email.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrieve a list of users.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/all",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves a list of users with their basic information."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"All users list\",\n    \"statusCode\": 200,\n    \"data\": [\n         {\n             \"id\": 1,\n             \"email\": \"john@example.com\",\n             \"first_name\": \"John\",\n             \"last_name\": \"Doe\",\n             \"phonenumber\": \"1234567890\",\n             \"profile_picture\": \"user-profile-picture-url\",\n             \"bank_number\": \"1234-5678-9012-3456\",\n             \"bank_code\": \"123456\",\n             \"bank_name\": \"Bank Name\",\n             \"isAdmin\": true\n         },\n         {\n              \"id\": 1,\n              \"email\": \"john@example.com\",\n              \"first_name\": \"John\",\n              \"last_name\": \"Doe\",\n              \"phonenumber\": \"1234567890\",\n              \"profile_picture\": \"user-profile-picture-url\",\n              \"bank_number\": \"1234-5678-9012-3456\",\n              \"bank_code\": \"123456\",\n              \"bank_name\": \"Bank Name\",\n              \"isAdmin\": true\n          }\n\n    ]\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"status\": 404,\n    \"status_message\": \"No records found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Withdrawal",
+            "description": "",
+            "item": [
+                {
+                    "name": "Create a new withdrawal request.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/withdrawal\/request",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"amount\":\"perspiciatis\"}"
+                        },
+                        "description": "Creates a new withdrawal request for the authenticated user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Withdrawal request created\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"withdrawal_id\": \"xxxx\",\n        \"user_id\": 1,\n        \"status\": \"success\",\n        \"amount\": 100.00,\n        \"created_at\": \"2023-09-22T12:34:56Z\"\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"error\": \"Withdrawal request not Created\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrieve a user's withdrawal history.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/withdrawal\/request",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves the withdrawal history for the authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"User details fetched\",\n    \"status\": \"success\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"withdrawals\": [\n            {\n                \"withdrawal_id\": \"xxxx\",\n                \"user_id\": 1,\n                \"amount\": 100.00,\n                \"created_at\": \"2023-09-22T12:34:56Z\"\n            },\n             {\n                 \"withdrawal_id\": \"xxxx\",\n                 \"user_id\": 1,\n                 \"amount\": 200.00,\n                 \"created_at\": \"2023-09-22T12:34:56Z\"\n             },\n        ]\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"error\": \"user not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

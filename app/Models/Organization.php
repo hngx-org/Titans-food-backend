@@ -7,21 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Organanization extends Model
+class Organization extends Model
 {
     use HasFactory;
-
-    protected $table = "organizations";
 
     protected $fillable = [
         'name',
         'lunch_price',
-        'currency'
+        'currency_code'
     ];
 
     /**
      * Users in an organization
-     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function users(): HasMany
@@ -31,7 +28,6 @@ class Organanization extends Model
 
     /**
      * Lunch wallet for an organization
-     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function wallet(): HasOne
@@ -41,7 +37,6 @@ class Organanization extends Model
 
     /**
      * User invites sent from an organization
-     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function invites(): HasMany

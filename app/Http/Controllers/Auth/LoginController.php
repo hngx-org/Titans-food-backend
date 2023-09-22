@@ -50,6 +50,7 @@ class LoginController extends Controller
                 "id" => $user->id,
                 "isAdmin" => $user->is_admin,
                 "org_id" => $user->org_id 
+
             ]
         ], Response::HTTP_OK); // returning response
     }

@@ -43,7 +43,7 @@ Route::post('/organization/staff/signup', [OrganizationController::class, 'creat
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
 
 Route::post('/withdrawal/request',[WithdrawalController::class,'store']);
-Route::get('/withdrawal/request',[WithdrawalController::class,'show']);
+Route::get('/withdrawal/request',[WithdrawalController::class,'index']);
 
 Route::get('/user/all', [UserController::class, 'index']);
 

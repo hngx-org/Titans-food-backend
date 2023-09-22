@@ -86,8 +86,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "CREATED",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -98,6 +98,31 @@
                                             "message": "User signed up successfully",
                                             "statusCode": 201,
                                             "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lunch": {
+            "get": {
+                "summary": "Get All Lunch for User",
+                "operationId": "e9f09d79da277d6bd9fa126c2243fe0d",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get All Lunch for User",
+                                        "value": {
+                                            "status": 200,
+                                            "lunch": []
                                         }
                                     }
                                 }
@@ -158,6 +183,99 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/user/profile": {
+            "get": {
+                "summary": "Get User Profile Details",
+                "operationId": "f8a47429b89d2bbb9def0c18d968d810",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get User Profile",
+                                        "value": {
+                                            "message": "User data fetched successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/withdrawal/request": {
+            "get": {
+                "summary": "Get Withdrawal Requests from User",
+                "operationId": "14dd2b0a75d36d2bce15b69213ee7a26",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get Withdrawal Requests",
+                                        "value": {
+                                            "message": "User details fetched",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Withdrawal Request",
+                "operationId": "727ddb67074f2029c533b8ad4b362415",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": "1000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User Signup response",
+                                        "value": {
+                                            "message": "Withdrawal request created ",
+                                            "statusCode": 201,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },

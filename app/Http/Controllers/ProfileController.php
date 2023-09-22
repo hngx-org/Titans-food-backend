@@ -11,6 +11,9 @@ class ProfileController extends Controller
      * @OA\Get(
      *     path="/api/user/profile",
      *     summary="Get User Profile Details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\Response(
      *         response=200,
      *         description="OK",

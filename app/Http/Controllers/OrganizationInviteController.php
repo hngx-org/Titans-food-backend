@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\OrganizationInvite;
+use App\Mail\OrganizationInviteMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreOrganizationInviteRequest;
 use App\Http\Requests\UpdateOrganizationInviteRequest;
-use App\Mail\OrganizationInviteMail;
-use App\Models\Organization;
-use App\Models\OrganizationInvite;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 
 class OrganizationInviteController extends Controller
@@ -55,15 +57,17 @@ class OrganizationInviteController extends Controller
 
         //generate token
         $token = Str::random(8);
+        if(Auth::user()->is_admin === true){
 
-        //create organization invite
-        OrganizationInvite::create([
+
+                    OrganizationInvite::create([
             'email' => $request->input('email'),
             'token' => $token,
+            'ttl' => Carbon::now()->addYear(),
             'org_id' => $authUser->org_id
         ]);
 
-        //retrieve organization name
+            //retrieve organization name
         $organization = Organization::where('id', $authUser->org_id)->first();
         $organizationName = $organization ? $organization->name : '';
 
@@ -74,6 +78,17 @@ class OrganizationInviteController extends Controller
             'statusCode' => 200,
             'data' => null,
         ], 200);
+
+        } else {
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
+
+        //create organization invite
+
+
+
 
     }
 

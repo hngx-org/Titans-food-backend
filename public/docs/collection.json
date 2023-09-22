@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost:8000"
+            "value": "https:\/\/titans-food-backend.onrender.com"
         }
     ],
     "info": {
         "name": "Team Titan Api Documentation",
-        "_postman_id": "051b20e9-5ee6-4c8a-a47d-d4e96ed483d3",
+        "_postman_id": "7099377a-e1ba-445d-bb34-9b99f2a46636",
         "description": "This is an internal Api documentation for team titan",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -79,7 +79,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"jschimmel@example.com\",\"password\":\"e0:SU:W\"}"
+                            "raw": "{\"email\":\"shania.buckridge@example.net\",\"password\":\"mtLJT-~`tC\"}"
                         },
                         "description": "Authenticates a user by validating their email and password and provides an access token upon success.",
                         "auth": {
@@ -103,6 +103,68 @@
                             "header": [],
                             "code": 422,
                             "body": "{\n    \"message\": {\n        \"email\": [\"The email field is required.\"],\n        \"password\": [\"The password field is required.\"]\n    },\n    \"statusCode\": 422\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/all",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/all"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\"status\":404,\"lunch\":\"no record found\"}",
                             "name": ""
                         }
                     ]
@@ -135,7 +197,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"receivers\":[\"est\"],\"quantity\":17,\"note\":\"sapiente\"}"
+                            "raw": "{\"receivers\":[\"sit\"],\"quantity\":2,\"note\":\"quia\"}"
                         },
                         "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
                     },
@@ -166,7 +228,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "culpa",
+                                    "value": "1",
                                     "description": "The ID of the lunch."
                                 },
                                 {
@@ -234,7 +296,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"newton.bogan@example.org\"}"
+                            "raw": "{\"email\":\"mae19@example.org\"}"
                         },
                         "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
                     },
@@ -277,7 +339,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"quam\",\"lunch_price\":\"commodi\"}"
+                            "raw": "{\"name\":\"cumque\",\"lunch_price\":\"suscipit\"}"
                         },
                         "description": "Updates an organization's information if the authenticated user is an admin."
                     },
@@ -356,7 +418,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"bank_name\":\"commodi\",\"bank_number\":\"ut\",\"bank_code\":\"minima\",\"bank_region\":\"nihil\",\"currency\":\"quo\",\"currency_code\":\"dolores\"}"
+                            "raw": "{\"bank_name\":\"consectetur\",\"bank_number\":\"voluptates\",\"bank_code\":\"deleniti\",\"bank_region\":\"ratione\",\"currency\":\"optio\",\"currency_code\":\"consequatur\"}"
                         },
                         "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
                     },
@@ -387,7 +449,7 @@
                                 {
                                     "id": "user",
                                     "key": "user",
-                                    "value": "ut",
+                                    "value": "deserunt",
                                     "description": ""
                                 }
                             ]
@@ -539,7 +601,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"amount\":\"quis\"}"
+                            "raw": "{\"amount\":\"perspiciatis\"}"
                         },
                         "description": "Creates a new withdrawal request for the authenticated user.",
                         "auth": {

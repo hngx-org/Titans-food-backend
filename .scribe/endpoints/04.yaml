@@ -1,18 +1,18 @@
-name: Authentication
+name: Organizations
 description: ''
 endpoints:
   -
     httpMethods:
       - POST
-    uri: api/auth/user/signup
+    uri: api/organization/invite
     metadata:
-      groupName: Authentication
+      groupName: Organizations
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Register a new user.'
-      description: 'Registers a new user with the provided information and returns a success response upon successful registration.'
-      authenticated: false
+      title: 'Store an organization invitation.'
+      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -22,68 +22,25 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      first_name:
-        name: first_name
-        description: "User's first name."
-        required: false
-        example: John
-        type: required
-        enumValues: []
-        custom: []
-      last_name:
-        name: last_name
-        description: "User's last name."
-        required: false
-        example: Doe
-        type: required
-        enumValues: []
-        custom: []
       email:
         name: email
-        description: "User's email address."
+        description: 'The email address to which the invitation will be sent.'
         required: true
-        example: user@example.com
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: "User's password."
-        required: true
-        example: mypassword
-        type: string
-        enumValues: []
-        custom: []
-      phone_number:
-        name: phone_number
-        description: ''
-        required: false
-        example: null
+        example: mae19@example.org
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      first_name: John
-      last_name: Doe
-      email: user@example.com
-      password: mypassword
+      email: mae19@example.org
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "status_code": 201,
-              "status": "success",
-              "message": "User signed up successfully",
-              "data": {
-                  "id": 1,
-                  "first_name": "John",
-                  "last_name": "Doe",
-                  "email": "user@example.com",
-                  "is_admin": true,
-                  "password_hash": "$2y$10$..."
-              }
+              "message": "success",
+              "statusCode": 200,
+              "data": null
           }
         headers: []
         description: ''
@@ -96,16 +53,92 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - POST
-    uri: api/auth/user/signin
+      - PUT
+    uri: api/organization/create
     metadata:
-      groupName: Authentication
+      groupName: Organizations
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'User Login.'
-      description: 'Authenticates a user by validating their email and password and provides an access token upon success.'
-      authenticated: false
+      title: "Update an organization's information."
+      description: "Updates an organization's information if the authenticated user is an admin."
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      organization:
+        name: organization
+        description: 'The ID of the organization to update.'
+        required: true
+        example: '1'
+        type: string
+        enumValues: []
+        custom: []
+    cleanUrlParameters:
+      organization: '1'
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The new name of the organization.'
+        required: true
+        example: cumque
+        type: string
+        enumValues: []
+        custom: []
+      lunch_price:
+        name: lunch_price
+        description: 'The new lunch price for the organization.'
+        required: true
+        example: suscipit
+        type: numeric
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      name: cumque
+      lunch_price: suscipit
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "organization_name": "Updated Organization Name",
+              "lunch_price": 15.99
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 403
+        content: |-
+          {
+              "message": "You are not authorized to perform this action!"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/organization
+    metadata:
+      groupName: Organizations
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Retrieve a list of organizations.'
+      description: 'Retrieves a list of organizations that are not marked as deleted.'
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -114,65 +147,27 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: "User's email address."
-        required: true
-        example: jschimmel@example.com
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: "User's password."
-        required: true
-        example: 'e0:SU:W'
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      email: jschimmel@example.com
-      password: 'e0:SU:W'
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "User authenticated successfully",
-              "statusCode": 200,
-              "data": {
-                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...",
-                  "email": "user@example.com",
-                  "id": 1,
-                  "isAdmin": false,
-                  "org_id": 123
-              }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 401
-        content: |-
-          {
-              "status_code": 401,
-              "status": "error",
-              "message": "Authentication failed"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 422
-        content: |-
-          {
-              "message": {
-                  "email": ["The email field is required."],
-                  "password": ["The password field is required."]
-              },
-              "statusCode": 422
+              "data": [
+                  {
+                      "id": 1,
+                      "name": "Organization 1",
+                      "lunch_price": 2000
+                  },
+                   {
+                       "id": 2,
+                       "name": "Organization 2",
+                       "lunch_price": 1000
+                   },
+
+              ]
           }
         headers: []
         description: ''

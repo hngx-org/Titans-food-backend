@@ -26,20 +26,44 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new organization.
+     *
+     * Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.
+     *
+     * @group Organizations
+     * @param \App\Http\Requests\StoreOrganizationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam name string required The name of the organization.
+     * @bodyParam description string The description of the organization (optional).
+     *
+     * @response {
+     *     "data": {
+     *         "id": 1,
+     *         "name": "Example Organization",
+     *         "description": "A sample organization",
+     *         // Add other organization fields here
+     *     },
+     *     "message": "success",
+     *     "statusCode": 200
+     * }
+     * @response 403 {
+     *     "message": "You are not authorized to perform this action!"
+     * }
      */
     public function store(StoreOrganizationRequest $request)
     {
         $user = Auth::user();
-        if($user->is_admin === 1){
+        if(is_null($user->org_id)){
             $organization = Organization::create($request->validated());
 
             $user->org_id = $organization->id;
             $user->save();
 
             return response()->json([
-                'organization_name' => $request->name,
-                'lunch_price'  => $request->lunch_price
+                'data' => $organization,
+                "message"=> "success",
+                "statusCode"=> 200,
             ], 200);
 
         }else{

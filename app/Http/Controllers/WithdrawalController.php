@@ -12,9 +12,6 @@ use Illuminate\Support\Str;
 
 class WithdrawalController extends Controller
 {
-    /**
-     * Display a user Withdrawal history
-     */
     public function index(Withdrawal $withdrawal)
     {
         $withdrawal = Withdrawal::where('user_id',4)->get();
@@ -22,7 +19,8 @@ class WithdrawalController extends Controller
             return response()->json([
                 "status"=>"Invalid",
                 "status_code"=>404,
-                "message" => "user not found"
+                "message" => "user not found",
+                "error" => "user not found"
 
             ]);
         endif;

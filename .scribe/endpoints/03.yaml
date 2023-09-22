@@ -1,17 +1,17 @@
-name: Organizations
+name: User
 description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/organization/invite
+      - PATCH
+    uri: api/user/bank
     metadata:
-      groupName: Organizations
+      groupName: User
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store an organization invitation.'
-      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
+      title: 'Add bank account details for the authenticated user.'
+      description: 'Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
       authenticated: true
       custom: []
     headers:
@@ -22,101 +22,79 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      email:
-        name: email
-        description: 'The email address to which the invitation will be sent.'
+      bank_name:
+        name: bank_name
+        description: 'The name of the bank.'
         required: true
-        example: newton.bogan@example.org
+        example: consectetur
+        type: string
+        enumValues: []
+        custom: []
+      bank_number:
+        name: bank_number
+        description: 'The bank account number.'
+        required: true
+        example: voluptates
+        type: string
+        enumValues: []
+        custom: []
+      bank_code:
+        name: bank_code
+        description: 'The bank code.'
+        required: true
+        example: deleniti
+        type: string
+        enumValues: []
+        custom: []
+      bank_region:
+        name: bank_region
+        description: 'The bank region.'
+        required: true
+        example: ratione
+        type: string
+        enumValues: []
+        custom: []
+      currency:
+        name: currency
+        description: 'The currency used in the bank account.'
+        required: true
+        example: optio
+        type: string
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: 'The currency code.'
+        required: true
+        example: consequatur
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      email: newton.bogan@example.org
+      bank_name: consectetur
+      bank_number: voluptates
+      bank_code: deleniti
+      bank_region: ratione
+      currency: optio
+      currency_code: consequatur
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "success",
-              "statusCode": 200,
-              "data": null
+              "message": "successfully added bank account details",
+              "statusCode": 200
           }
         headers: []
         description: ''
         custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: api/organization/create
-    metadata:
-      groupName: Organizations
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: "Update an organization's information."
-      description: "Updates an organization's information if the authenticated user is an admin."
-      authenticated: true
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      organization:
-        name: organization
-        description: 'The ID of the organization to update.'
-        required: true
-        example: '1'
-        type: string
-        enumValues: []
-        custom: []
-    cleanUrlParameters:
-      organization: '1'
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'The new name of the organization.'
-        required: true
-        example: quam
-        type: string
-        enumValues: []
-        custom: []
-      lunch_price:
-        name: lunch_price
-        description: 'The new lunch price for the organization.'
-        required: true
-        example: commodi
-        type: numeric
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      name: quam
-      lunch_price: commodi
-    fileParameters: []
-    responses:
       -
         status: 200
         content: |-
           {
-              "organization_name": "Updated Organization Name",
-              "lunch_price": 15.99
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 403
-        content: |-
-          {
-              "message": "You are not authorized to perform this action!"
+              "message": "Error, please try again",
+              "statusCode": 400
           }
         headers: []
         description: ''
@@ -130,21 +108,30 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/organization
+    uri: 'api/{user}/bank_details'
     metadata:
-      groupName: Organizations
+      groupName: User
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Retrieve a list of organizations.'
-      description: 'Retrieves a list of organizations that are not marked as deleted.'
+      title: 'View bank account details for the authenticated user.'
+      description: 'Retrieves and displays the bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
       authenticated: true
       custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
+    urlParameters:
+      user:
+        name: user
+        description: ''
+        required: true
+        example: deserunt
+        type: string
+        enumValues: []
+        custom: []
+    cleanUrlParameters:
+      user: deserunt
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -155,19 +142,25 @@ endpoints:
         status: 200
         content: |-
           {
-              "data": [
-                  {
-                      "id": 1,
-                      "name": "Organization 1",
-                      "lunch_price": 2000
-                  },
-                   {
-                       "id": 2,
-                       "name": "Organization 2",
-                       "lunch_price": 1000
-                   },
-
-              ]
+              "message": "Bank details found",
+              "data": {
+                  "bank_name": "Bank Name",
+                  "bank_number": "Bank Account Number",
+                  "bank_code": "Bank Code",
+                  "bank_region": "Bank Region",
+                  "currency": "Currency",
+                  "currency_code": "Currency Code"
+              },
+              "statusCode": 200
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "No bank details found for the given user."
           }
         headers: []
         description: ''

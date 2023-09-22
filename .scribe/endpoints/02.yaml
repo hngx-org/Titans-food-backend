@@ -1,17 +1,17 @@
-name: User
+name: Lunch
 description: ''
 endpoints:
   -
     httpMethods:
-      - PATCH
-    uri: api/user/bank
+      - POST
+    uri: api/lunch
     metadata:
-      groupName: User
+      groupName: Lunch
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Add bank account details for the authenticated user.'
-      description: 'Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
+      title: 'Send lunch credits.'
+      description: 'Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers.'
       authenticated: true
       custom: []
     headers:
@@ -22,79 +22,61 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      bank_name:
-        name: bank_name
-        description: 'The name of the bank.'
+      receivers:
+        name: receivers
+        description: 'An array of user IDs who will receive the lunch.'
         required: true
-        example: commodi
-        type: string
+        example:
+          - sit
+        type: 'string[]'
         enumValues: []
         custom: []
-      bank_number:
-        name: bank_number
-        description: 'The bank account number.'
+      quantity:
+        name: quantity
+        description: 'The quantity of lunches to send.'
         required: true
-        example: ut
-        type: string
+        example: 2
+        type: integer
         enumValues: []
         custom: []
-      bank_code:
-        name: bank_code
-        description: 'The bank code.'
-        required: true
-        example: minima
-        type: string
-        enumValues: []
-        custom: []
-      bank_region:
-        name: bank_region
-        description: 'The bank region.'
-        required: true
-        example: nihil
-        type: string
-        enumValues: []
-        custom: []
-      currency:
-        name: currency
-        description: 'The currency used in the bank account.'
-        required: true
-        example: quo
-        type: string
-        enumValues: []
-        custom: []
-      currency_code:
-        name: currency_code
-        description: 'The currency code.'
-        required: true
-        example: dolores
+      note:
+        name: note
+        description: 'Additional note for the lunch request.'
+        required: false
+        example: quia
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      bank_name: commodi
-      bank_number: ut
-      bank_code: minima
-      bank_region: nihil
-      currency: quo
-      currency_code: dolores
+      receivers:
+        - sit
+      quantity: 2
+      note: quia
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-              "message": "successfully added bank account details",
-              "statusCode": 200
+              "message": "Lunch request created successfully",
+              "statusCode": 201,
+              "data": {
+                  "lunch_id": 1,
+                  'org_id' => 1,
+                  'sender_id' => 3,
+                  'receiver_id' => 2,
+                  'quantity' => 2,
+                  'note' => "Thank you for the good work",
+              }
           }
         headers: []
         description: ''
         custom: []
       -
-        status: 200
+        status: 422
         content: |-
           {
-              "message": "Error, please try again",
-              "statusCode": 400
+              "error": "You cannot appraise yourself" // Or "Insufficient fund!"
           }
         headers: []
         description: ''
@@ -108,30 +90,39 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/{user}/bank_details'
+    uri: 'api/lunch/{id}'
     metadata:
-      groupName: User
+      groupName: Lunch
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'View bank account details for the authenticated user.'
-      description: 'Retrieves and displays the bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user.'
+      title: 'Retrieve a lunch by its ID.'
+      description: 'Retrieves a lunch request by its unique ID and returns its details.'
       authenticated: true
       custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      user:
-        name: user
-        description: ''
+      id:
+        name: id
+        description: 'The ID of the lunch.'
         required: true
-        example: ut
-        type: string
+        example: 1
+        type: integer
+        enumValues: []
+        custom: []
+      Id:
+        name: Id
+        description: 'The ID of the lunch request to retrieve.'
+        required: true
+        example: 15
+        type: integer
         enumValues: []
         custom: []
     cleanUrlParameters:
-      user: ut
+      id: 1
+      Id: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -142,16 +133,17 @@ endpoints:
         status: 200
         content: |-
           {
-              "message": "Bank details found",
+              "message": "Lunch request created successfully",
+              "statusCode": 200,
               "data": {
-                  "bank_name": "Bank Name",
-                  "bank_number": "Bank Account Number",
-                  "bank_code": "Bank Code",
-                  "bank_region": "Bank Region",
-                  "currency": "Currency",
-                  "currency_code": "Currency Code"
-              },
-              "statusCode": 200
+                  "receiver_id": 1,
+                  "sender_id": 2,
+                  "quantity": 3,
+                  "redeemed": false,
+                  "note": "Additional note",
+                  "created_at": "2023-09-22T12:34:56Z",
+                  "id": 1
+              }
           }
         headers: []
         description: ''
@@ -160,7 +152,8 @@ endpoints:
         status: 404
         content: |-
           {
-              "message": "No bank details found for the given user."
+              "message": "Lunch request not found",
+              "statusCode": 404
           }
         headers: []
         description: ''

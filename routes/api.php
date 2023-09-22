@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::get('all', [LunchController::class, 'index']);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

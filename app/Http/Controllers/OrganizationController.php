@@ -7,15 +7,11 @@ use App\Models\Organization;
 use App\Traits\MessageTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrganizationRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
-use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
-use App\Models\Organization;
 use App\Models\OrganizationInvite;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 

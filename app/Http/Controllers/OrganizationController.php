@@ -138,19 +138,18 @@ class OrganizationController extends Controller
                 'currency_code' => $request->currency_code,
                 'lunch_price' => $request->lunch_price
             ]);
-            
+
             if($data){
                 User::query()->where('id', Auth::user()->id)->update([
                     'is_admin' => true,
                     'org_id' => $data->id,
                 ]);
             }
-            return $this->success('Organization Created Successfully', 200, $data);                
+            return $this->success('Organization Created Successfully', 200, $data);
         }
         return $this->error('You already belong to a company', 422);
          
      }
-
     /**
      * Create a user within an organization using an invitation token.
      *

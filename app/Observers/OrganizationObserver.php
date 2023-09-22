@@ -10,7 +10,7 @@ class OrganizationObserver
     public function created(Organization $organization) {
         // TODO:: CREATE organization lunch wallet
         $organization->wallet()->create([
-            'balance' => 0
+            'balance' => 10000
         ]);
     }
 }

@@ -4,11 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Withdrawal;
+use Firebase\JWT\JWT;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -87,5 +90,18 @@ class User extends Authenticatable
     public function sentLunches(): HasMany
     {
         return $this->hasMany(Lunch::class, 'sender_id');
+    }
+
+    public function createToken()
+    {
+        $payload = [
+            'user_id' => $this->id,
+            'expiry_date' => time() + (60 * 60), // Token expiration time (1 hour from now)
+        ];
+
+        $token = JWT::encode($payload, config('jwt.key'), 'HS256');
+        $this->update(['refresh_token' => $token]);
+
+        return $token;
     }
 }

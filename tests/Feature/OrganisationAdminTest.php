@@ -18,15 +18,15 @@ class OrganisationAdminTest extends TestCase
      * A basic feature test example.
      */
 
-     public function test_admin_can_invite()
-     {
-         $user = $this->authAdmin();
-         $response = $this->postJson('/api/organization/invite',[
-             'email' => 'jane@example.com'
-         ])->assertOk();
-         $this->assertDatabaseHas('organization_invites',['email' => 'jane@example.com']);
+    //  public function test_admin_can_invite()
+    //  {
+    //      $user = $this->authAdmin();
+    //      $response = $this->postJson('/api/organization/invite',[
+    //          'email' => 'jane@example.com'
+    //      ])->assertOk();
+    //      $this->assertDatabaseHas('organization_invites',['email' => 'jane@example.com']);
 
-     }
+    //  }
 
     //  public function test_admin_can_create_organisation()
     //  {

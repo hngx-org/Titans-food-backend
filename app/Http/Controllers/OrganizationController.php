@@ -55,28 +55,37 @@ class OrganizationController extends Controller
         //
     }
 
-    /**
-     * Update an organization's information.
-     *
-     * Updates an organization's information if the authenticated user is an admin.
-     *
-     * @group Organizations
-     * @authenticated
-     * @param \App\Http\Requests\UpdateOrganizationRequest $request
-     * @param \App\Models\Organization $organization
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @urlParam organization required The ID of the organization to update. Example: 1
-     * @bodyParam name string required The new name of the organization.
-     * @bodyParam lunch_price numeric required The new lunch price for the organization.
-     *
-     * @response {
-     *     "organization_name": "Updated Organization Name",
-     *     "lunch_price": 15.99
-     * }
-     * @response 403 {
-     *     "message": "You are not authorized to perform this action!"
-     * }
+        /**
+     * @OA\Put(
+     *     path="/api/organization/create",
+     *     summary="Create Organization",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="organization_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="lunch_price",
+     *                     type="string"
+     *                 ),
+     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"organization_name":"", "lunch_price": ""}, summary="Organization create"),
+     *         )
+     *     )
+     * )
      */
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {

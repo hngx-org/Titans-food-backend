@@ -59,7 +59,8 @@ Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.s
 Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 
 
-
+Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+Route::get('/lunch', [LunchController::class,'index'])->name('lunch.index');
 
 
 

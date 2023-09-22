@@ -16,7 +16,19 @@ class LunchController extends Controller
      */
     public function index()
     {
-        //
+        $lunch = lunch::all();
+        if($lunch->count() >0){
+            return response()->json([
+                'status' => 200,
+                'lunch' => $lunch
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'lunch' => 'no record found'
+            ], 404);
+        }
+        
     }
 
     /**

@@ -1,7 +1,7 @@
 
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 
-class LoginTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
     /**

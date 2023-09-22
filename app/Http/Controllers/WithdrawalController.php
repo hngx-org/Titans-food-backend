@@ -12,6 +12,13 @@ use Illuminate\Support\Str;
 
 class WithdrawalController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/withdrawal/request",
+     *     summary="Get Withdrawal Requests from User",
+     *     @OA\Response(response="200", description="Display a list of user's withdrawal requests.")
+     * )
+    */
     public function index(Withdrawal $withdrawal)
     {
         $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
@@ -43,7 +50,29 @@ class WithdrawalController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/withdrawal/request",
+     *     summary="Withdrawal Request",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="amount",
+     *                     type="integer"
+     *                 ),
+     *                 example={"amount":"1000"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Withdrawal request created ", "statusCode": 201, "data":{}}, summary="User Signup response"),
+     *         )
+     *     )
+     * )
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {

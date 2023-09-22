@@ -149,12 +149,11 @@ class OrganizationController extends Controller
                 if($org && $org_wallet){
                     User::query()->where('id', Auth::user()->id)->update([
                         'is_admin' => true,
-                        'org_id' => $data->id,
+                        'org_id' => $org->id,
                     ]);
                 }
-            return $this->success('Organization Created Successfully', 200, $data);
+            return $this->success('Organization Created Successfully', 200, $org);
         }
-
         return $this->error('You already belong to a company', 422);
      }
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\MessageTrait;
+use Illuminate\Http\Response;
+use App\Models\OrganizationLunchWallet;
 use App\Http\Requests\StoreOrganizationLunchWalletRequest;
 use App\Http\Requests\UpdateOrganizationLunchWalletRequest;
-use App\Models\OrganizationLunchWallet;
 
 class OrganizationLunchWalletController extends Controller
 {
+    use MessageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +32,8 @@ class OrganizationLunchWalletController extends Controller
      */
     public function store(StoreOrganizationLunchWalletRequest $request)
     {
-        //
+
+
     }
 
     /**
@@ -51,9 +55,21 @@ class OrganizationLunchWalletController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrganizationLunchWalletRequest $request, OrganizationLunchWallet $organizationLunchWallet)
+    public function update(UpdateOrganizationLunchWalletRequest $request)
     {
-        //
+        if(!auth()->user()->is_admin){
+            return $this->error('You are not authorized to perform this action', 401);
+        }
+        $wallet = OrganizationLunchWallet::where('org_id', auth()->user()->org_id);
+        $total_balance = $wallet->value('balance') + $request->amount;
+
+        $wallet->update([
+            'balance' => $total_balance
+        ]);
+        if (!$wallet){
+            return $this->error('error funding wallet', 422);
+        }
+        return $this->success('wallet funded successfully', 200);
     }
 
     /**

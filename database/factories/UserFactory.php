@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Organization;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,13 +25,16 @@ class UserFactory extends Factory
             but I have tested it without the org_id and it's working
             */
 
-            // 'org_id' => fake()->numberBetween(1, 10), 
+            'org_id' => function(){
+                return Organization::factory()->create([
+                ])->id;
+            },
             'first_name' => fake()->name(),
             'last_name' => fake()->name(),
-            'profile_picture' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo
+            'profile_pic' => 'https://xsgames.co/randomusers/avatar.php?g=female', //randomly generate user profile photo
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->numerify('###########'),
-            'password_hash' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // all fake user has this same password
+            'password_hash' => Hash::make('password'), // all fake user has this same password
             'is_admin' => fake()->boolean(),
             'lunch_credit_balance' => number_format(fake()->randomFloat(2, 1, 10000), 2),
             'refresh_token' => fake()->regexify('[A-Za-z0-9]{40}'),

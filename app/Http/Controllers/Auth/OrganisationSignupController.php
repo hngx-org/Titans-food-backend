@@ -19,8 +19,6 @@ class OrganisationSignupController extends Controller
      */
     public function register(OrganizationSignUpRequest $request)
     {
-        //$user = User::create($request->validated());
-       // dd());
         $password= Hash::make($request->password);
         $user = User::create([
             'first_name' => $request->first_name,
@@ -30,13 +28,7 @@ class OrganisationSignupController extends Controller
             'password_hash' => $password
         ]);
 
-
-        if (!$token = auth()->attempt($request->only('email', 'password'))) {
-            //return ['message' => 'Unable to sign user in', 'status' => 401];
-        }
-        $token = $user->createToken('api');
-
-        return response()->json(['status_code' => Response::HTTP_CREATED, 'status' => 'success', 'message' => 'User signed up successfully', 'data'=> $user, 'token' => $token], Response::HTTP_CREATED);
+        return response()->json(['status_code' => Response::HTTP_CREATED, 'status' => 'success', 'message' => 'User signed up successfully', 'data'=> $user], Response::HTTP_CREATED);
     }
 
 }

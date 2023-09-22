@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,14 +27,18 @@ class LoginController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         } // request body validation failed, so lets return
 
-        if(!Auth::attempt($request->only('email', 'password'))){
-            return response()->json([
-                'message' => 'Incorrect Email',
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // Attempt to authorize request using request email and password failed, so lets return
+        // Attempt to find the user by email
+        $user = User::where('email', $request->email)->first();
 
-        $user = Auth::user(); // Grabbing the user details
+        // Check if the user exists and the provided password matches the hashed password
+        if (!$user || !Hash::check($request->password, $user->password_hash)) {
+            return response()->json([
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Authentication failed',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
@@ -42,7 +48,8 @@ class LoginController extends Controller
                 "access_token" => $token,
                 "email" => $user->email,
                 "id" => $user->id,
-                "isAdmin" => $user->isAdmin
+                "isAdmin" => $user->isAdmin,
+                "org_id " => $user->org_id 
             ]
         ], Response::HTTP_OK); // returning response
     }

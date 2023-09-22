@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class BankDetailController extends Controller
@@ -15,7 +15,7 @@ class BankDetailController extends Controller
         //--validate the request parameters------
         $validated= $request->validate([
             'bank_name'=>'required|string',
-            'bank_number'=>'required|string|unique:users,bank_number',
+            'bank_number'=>'required|string',
             'bank_code' => 'required|string',
             'bank_region' => 'required|string',
             'currency' => 'required|string',

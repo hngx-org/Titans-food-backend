@@ -17,8 +17,7 @@ class LunchTest extends TestCase
     public function test_show_all_or_returns_lunch_records()
     {
         $lunchRecords = Lunch::factory(4)->create();
-        $response = $this->getJson(route('lunch.index'));
-        $this->json('get', 'api/lunch/all')
+        $response = $this->getJson(route('lunch.index'))
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [

@@ -13,6 +13,41 @@ use Symfony\Component\HttpFoundation\Response;
 class LoginController extends Controller
 {
 
+    /**
+     * User Login.
+     *
+     * Authenticates a user by validating their email and password and provides an access token upon success.
+     *
+     * @group Authentication
+     * @bodyParam email string required User's email address.
+     * @bodyParam password string required User's password.
+     * @response {
+     *     "message": "User authenticated successfully",
+     *     "statusCode": 200,
+     *     "data": {
+     *         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...",
+     *         "email": "user@example.com",
+     *         "id": 1,
+     *         "isAdmin": false,
+     *         "org_id": 123
+     *     }
+     * }
+     * @response 401 {
+     *     "status_code": 401,
+     *     "status": "error",
+     *     "message": "Authentication failed"
+     * }
+     * @response 422 {
+     *     "message": {
+     *         "email": ["The email field is required."],
+     *         "password": ["The password field is required."]
+     *     },
+     *     "statusCode": 422
+     * }
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request){
 
         $fields = Validator::make($request->all(), [
@@ -38,7 +73,7 @@ class LoginController extends Controller
                 'message' => 'Authentication failed',
             ], Response::HTTP_UNAUTHORIZED);
         }
-        
+
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
@@ -49,7 +84,7 @@ class LoginController extends Controller
                 "email" => $user->email,
                 "id" => $user->id,
                 "isAdmin" => $user->isAdmin,
-                "org_id " => $user->org_id 
+                "org_id " => $user->org_id
             ]
         ], Response::HTTP_OK); // returning response
     }

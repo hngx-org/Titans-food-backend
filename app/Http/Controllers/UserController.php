@@ -6,8 +6,50 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Retrieve a list of users.
+     *
+     * Retrieves a list of users with their basic information.
+     *
+     * @group Users
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @response {
+     *     "message": "All users list",
+     *     "statusCode": 200,
+     *     "data": [
+     *          {
+     *              "id": 1,
+     *              "email": "john@example.com",
+     *              "first_name": "John",
+     *              "last_name": "Doe",
+     *              "phonenumber": "1234567890",
+     *              "profile_picture": "user-profile-picture-url",
+     *              "bank_number": "1234-5678-9012-3456",
+     *              "bank_code": "123456",
+     *              "bank_name": "Bank Name",
+     *              "isAdmin": true
+     *          },
+     *          {
+     *               "id": 1,
+     *               "email": "john@example.com",
+     *               "first_name": "John",
+     *               "last_name": "Doe",
+     *               "phonenumber": "1234567890",
+     *               "profile_picture": "user-profile-picture-url",
+     *               "bank_number": "1234-5678-9012-3456",
+     *               "bank_code": "123456",
+     *               "bank_name": "Bank Name",
+     *               "isAdmin": true
+     *           }
+     *
+     *     ]
+     * }
+     * @response 404 {
+     *     "status": 404,
+     *     "status_message": "No records found"
+     * }
      */
     public function index()
     {
@@ -91,9 +133,50 @@ class UserController extends Controller
     }
 
     /**
-     * Search for a user using name or email
+     * Search for users by name or email.
+     *
+     * Searches for users based on the provided name or email and returns a list of matching users.
+     *
+     * @group Users
+     * @param string $nameOrEmail The name or email to search for.
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @urlParam nameOrEmail required The name or email to search for. Example: john@example.com
+     *
+     * @response {
+     *     "message": "User found",
+     *     "data": [
+     *         {
+     *             "id": 1,
+     *             "email": "john@example.com",
+     *             "first_name": "John",
+     *             "last_name": "Doe",
+     *             "phonenumber": "1234567890",
+     *             "profile_picture": "user-profile-picture-url",
+     *             "bank_number": "1234-5678-9012-3456",
+     *             "bank_code": "123456",
+     *             "bank_name": "Bank Name",
+     *             "isAdmin": true
+     *         },
+     *         {
+     *              "id": 1,
+     *              "email": "john@example.com",
+     *              "first_name": "John",
+     *              "last_name": "Doe",
+     *              "phonenumber": "1234567890",
+     *              "profile_picture": "user-profile-picture-url",
+     *              "bank_number": "1234-5678-9012-3456",
+     *              "bank_code": "123456",
+     *              "bank_name": "Bank Name",
+     *              "isAdmin": true
+     *          }
+     *
+     *     ]
+     * }
+     * @response 404 {
+     *     "message": "No users found for the given name or email."
+     * }
      */
-
     public function search($nameOrEmail)
     {
         $users = User::where('name', 'like', '%' . $nameOrEmail . '%')
@@ -104,7 +187,7 @@ class UserController extends Controller
             $message = 'No users found for the given name or email.';
             return response()->json(['message' => $message], 404);
         }
-        
+
         $message = 'User found';
 
         return response()->json(['message' => $message, 'data' => $users], 200);

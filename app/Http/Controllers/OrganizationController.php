@@ -50,21 +50,40 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an organization's information.
+     *
+     * Updates an organization's information if the authenticated user is an admin.
+     *
+     * @group Organizations
+     * @param \App\Http\Requests\UpdateOrganizationRequest $request
+     * @param \App\Models\Organization $organization
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @urlParam organization required The ID of the organization to update. Example: 1
+     * @bodyParam name string required The new name of the organization.
+     * @bodyParam lunch_price numeric required The new lunch price for the organization.
+     *
+     * @response {
+     *     "organization_name": "Updated Organization Name",
+     *     "lunch_price": 15.99
+     * }
+     * @response 403 {
+     *     "message": "You are not authorized to perform this action!"
+     * }
      */
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
         if(Auth::user()->isAdmin === true){
-        
+
             $validated = $request->validated();
-    
+
             $organization->update($validated);
 
             return response()->json([
                 'organization_name' => $organization->name,
                 'lunch_price'  => $organization->lunch_price
             ], 200);
-                
+
             }else{
                 return response()->json([
                     'message' => 'You are not authorized to perform this action!'
@@ -80,6 +99,30 @@ class OrganizationController extends Controller
         //
     }
 
+    /**
+     * Retrieve a list of organizations.
+     *
+     * Retrieves a list of organizations that are not marked as deleted.
+     *
+     * @group Organizations
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @response {
+     *     "data": [
+     *         {
+     *             "id": 1,
+     *             "name": "Organization 1",
+     *             "lunch_price": 2000
+     *         },
+     *          {
+     *              "id": 2,
+     *              "name": "Organization 2",
+     *              "lunch_price": 1000
+     *          },
+     *
+     *     ]
+     * }
+     */
     public function getOrganization() {
         // Retrieve all organizations that are not deleted
         $organizations = Organization::where('is_deleted', false)->get();

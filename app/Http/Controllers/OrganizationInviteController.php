@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationInviteRequest;
 use App\Http\Requests\UpdateOrganizationInviteRequest;
+use App\Mail\OrganizationInviteMail;
+use App\Models\Organization;
 use App\Models\OrganizationInvite;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class OrganizationInviteController extends Controller
 {
@@ -25,11 +31,50 @@ class OrganizationInviteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store an organization invitation.
+     *
+     * Creates an organization invitation with a generated token and sends an email invitation to the specified email address.
+     *
+     * @group Organizations
+     * @authenticated
+     * @param \App\Http\Requests\StoreOrganizationInviteRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam email string required The email address to which the invitation will be sent.
+     *
+     * @response {
+     *     "message": "success",
+     *     "statusCode": 200,
+     *     "data": null
+     * }
      */
     public function store(StoreOrganizationInviteRequest $request)
     {
-        //
+        //retrieve authenticated user
+        $authUser = auth()->user();
+
+        //generate token
+        $token = Str::random(8);
+
+        //create organization invite
+        OrganizationInvite::create([
+            'email' => $request->input('email'),
+            'token' => $token,
+            'org_id' => $authUser->org_id
+        ]);
+
+        //retrieve organization name
+        $organization = Organization::where('id', $authUser->org_id)->first();
+        $organizationName = $organization ? $organization->name : '';
+
+        Mail::to($request->input('email'))->send(new OrganizationInviteMail($token, $organizationName));
+
+        return response()->json([
+            'message' => 'success',
+            'statusCode' => 200,
+            'data' => null,
+        ], 200);
+
     }
 
     /**

@@ -22,7 +22,7 @@ class StoreOrganizationLunchWalletRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+           //
         ];
     }
 }

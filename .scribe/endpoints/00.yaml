@@ -1,0 +1,573 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/docs
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display Swagger API page.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <title>L5 Swagger UI</title>
+              <link rel="stylesheet" type="text/css" href="http://titans-food-backend.onrender.com/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
+              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
+              <link rel="icon" type="image/png" href="http://titans-food-backend.onrender.com/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
+              <style>
+              html
+              {
+                  box-sizing: border-box;
+                  overflow: -moz-scrollbars-vertical;
+                  overflow-y: scroll;
+              }
+              *,
+              *:before,
+              *:after
+              {
+                  box-sizing: inherit;
+              }
+
+              body {
+                margin:0;
+                background: #fafafa;
+              }
+              </style>
+          </head>
+
+          <body>
+          <div id="swagger-ui"></div>
+
+          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69"></script>
+          <script src="http://titans-food-backend.onrender.com/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b"></script>
+          <script>
+              window.onload = function() {
+                  // Build a system
+                  const ui = SwaggerUIBundle({
+                      dom_id: '#swagger-ui',
+                      url: "http://titans-food-backend.onrender.com/docs/api-docs.json",
+                      operationsSorter: null,
+                      configUrl: null,
+                      validatorUrl: null,
+                      oauth2RedirectUrl: "http://titans-food-backend.onrender.com/api/oauth2-callback",
+
+                      requestInterceptor: function(request) {
+                          request.headers['X-CSRF-TOKEN'] = '';
+                          return request;
+                      },
+
+                      presets: [
+                          SwaggerUIBundle.presets.apis,
+                          SwaggerUIStandalonePreset
+                      ],
+
+                      plugins: [
+                          SwaggerUIBundle.plugins.DownloadUrl
+                      ],
+
+                      layout: "StandaloneLayout",
+                      docExpansion : "none",
+                      deepLinking: true,
+                      filter: true,
+                      persistAuthorization: "false",
+
+                  })
+
+                  window.ui = ui
+
+                      }
+          </script>
+          </body>
+          </html>
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/oauth2-callback
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display Oauth2 callback pages.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+              <title>Swagger UI: OAuth2 Redirect</title>
+          </head>
+          <body>
+          <script>
+              'use strict';
+              function run () {
+                  var oauth2 = window.opener.swaggerUIRedirectOauth2;
+                  var sentState = oauth2.state;
+                  var redirectUrl = oauth2.redirectUrl;
+                  var isValid, qp, arr;
+
+                  if (/code|token|error/.test(window.location.hash)) {
+                      qp = window.location.hash.substring(1).replace('?', '&');
+                  } else {
+                      qp = location.search.substring(1);
+                  }
+
+                  arr = qp.split("&");
+                  arr.forEach(function (v,i,_arr) { _arr[i] = '"' + v.replace('=', '":"') + '"';});
+                  qp = qp ? JSON.parse('{' + arr.join() + '}',
+                          function (key, value) {
+                              return key === "" ? value : decodeURIComponent(value);
+                          }
+                  ) : {};
+
+                  isValid = qp.state === sentState;
+
+                  if ((
+                    oauth2.auth.schema.get("flow") === "accessCode" ||
+                    oauth2.auth.schema.get("flow") === "authorizationCode" ||
+                    oauth2.auth.schema.get("flow") === "authorization_code"
+                  ) && !oauth2.auth.code) {
+                      if (!isValid) {
+                          oauth2.errCb({
+                              authId: oauth2.auth.name,
+                              source: "auth",
+                              level: "warning",
+                              message: "Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server."
+                          });
+                      }
+
+                      if (qp.code) {
+                          delete oauth2.state;
+                          oauth2.auth.code = qp.code;
+                          oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});
+                      } else {
+                          let oauthErrorMsg;
+                          if (qp.error) {
+                              oauthErrorMsg = "["+qp.error+"]: " +
+                                  (qp.error_description ? qp.error_description+ ". " : "no accessCode received from the server. ") +
+                                  (qp.error_uri ? "More info: "+qp.error_uri : "");
+                          }
+
+                          oauth2.errCb({
+                              authId: oauth2.auth.name,
+                              source: "auth",
+                              level: "error",
+                              message: oauthErrorMsg || "[Authorization failed]: no accessCode received from the server."
+                          });
+                      }
+                  } else {
+                      oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});
+                  }
+                  window.close();
+              }
+
+              if (document.readyState !== 'loading') {
+                  run();
+              } else {
+                  document.addEventListener('DOMContentLoaded', function () {
+                      run();
+                  });
+              }
+          </script>
+          </body>
+          </html>
+        headers:
+          content-type: 'text/html; charset=UTF-8'
+          cache-control: 'no-cache, private'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/all
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 404
+        content: '{"status":404,"lunch":"no record found"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '59'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/lunch
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/user/profile
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/organization/create
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/withdrawal/request
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/withdrawal/request
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/user/signup
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        name: first_name
+        description: ''
+        required: true
+        example: rerum
+        type: string
+        enumValues: []
+        custom: []
+      last_name:
+        name: last_name
+        description: ''
+        required: true
+        example: veritatis
+        type: string
+        enumValues: []
+        custom: []
+      email:
+        name: email
+        description: ''
+        required: true
+        example: accusamus
+        type: string
+        enumValues: []
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: Zqbu2W
+        type: string
+        enumValues: []
+        custom: []
+      phone_number:
+        name: phone_number
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      first_name: rerum
+      last_name: veritatis
+      email: accusamus
+      password: Zqbu2W
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/user/signin
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: norris60@example.com
+        type: string
+        enumValues: []
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: gP^Nb|-BDZ
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      email: norris60@example.com
+      password: gP^Nb|-BDZ
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -17,7 +17,9 @@ class OrganizationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->company(),
+            'lunch_price' => fake()->randomFloat(2, 1, 10000),
+            'currency_code' => 'NGN',
         ];
     }
 }

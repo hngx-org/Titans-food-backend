@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('organization_invites', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->string('token');
+            $table->dateTime('ttl');
+            $table->integer('org_id');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/search/{nameOrEmail}'
+    uri: 'api/v1/user/search/{nameOrEmail}'
     metadata:
       groupName: Users
       groupDescription: ''
@@ -88,7 +88,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/user/all
+    uri: api/v1/user/all
     metadata:
       groupName: Users
       groupDescription: ''
@@ -165,7 +165,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/organization/staff/signup
+    uri: api/v1/organization/staff/signup
     metadata:
       groupName: Users
       groupDescription: ''
@@ -187,7 +187,7 @@ endpoints:
         name: first_name
         description: 'The first name of the user.'
         required: true
-        example: ratione
+        example: consequatur
         type: string
         enumValues: []
         custom: []
@@ -195,7 +195,7 @@ endpoints:
         name: last_name
         description: 'The last name of the user.'
         required: true
-        example: dicta
+        example: quisquam
         type: string
         enumValues: []
         custom: []
@@ -203,7 +203,7 @@ endpoints:
         name: email
         description: 'The email address of the user.'
         required: true
-        example: adelia.upton@example.org
+        example: miller.grimes@example.net
         type: string
         enumValues: []
         custom: []
@@ -211,7 +211,7 @@ endpoints:
         name: phone
         description: 'The phone number of the user.'
         required: false
-        example: aliquam
+        example: ipsam
         type: string
         enumValues: []
         custom: []
@@ -219,7 +219,7 @@ endpoints:
         name: otp_token
         description: 'The OTP token for authentication.'
         required: true
-        example: iste
+        example: excepturi
         type: string
         enumValues: []
         custom: []
@@ -235,17 +235,17 @@ endpoints:
         name: password
         description: "The user's password."
         required: true
-        example: '{T~971MCl9dZ&cAFOx/'
+        example: '${9)!<;P^4lY+)'
         type: string
         enumValues: []
         custom: []
     cleanBodyParameters:
-      first_name: ratione
-      last_name: dicta
-      email: adelia.upton@example.org
-      phone: aliquam
-      otp_token: iste
-      password: '{T~971MCl9dZ&cAFOx/'
+      first_name: consequatur
+      last_name: quisquam
+      email: miller.grimes@example.net
+      phone: ipsam
+      otp_token: excepturi
+      password: '${9)!<;P^4lY+)'
     fileParameters:
       profile_pic: null
     responses:

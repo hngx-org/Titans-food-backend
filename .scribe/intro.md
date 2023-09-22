@@ -3,7 +3,7 @@
 This is an internal Api documentation for team titan
 
 <aside>
-    <strong>Base URL</strong>: <code></code>
+    <strong>Base URL</strong>: <code>https://titans-food-backend.onrender.com</code>
 </aside>
 
 This documentation aims to provide all the information you need to work with our API.

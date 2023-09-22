@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -27,32 +27,18 @@ class LoginController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         } // request body validation failed, so lets return
 
-        $euser = User::where('email', $request->email)->first();
-        if(!$euser){
+        // Attempt to find the user by email
+        $user = User::where('email', $request->email)->first();
+
+        // Check if the user exists and the provided password matches the hashed password
+        if (!$user || !Hash::check($request->password, $user->password_hash)) {
             return response()->json([
-                'message' => 'Incorrect Email',
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // request email validation failed, so lets return
-
-        if(Hash::check($request->password, $euser->password_hash) === false){
-            return response()->json([
-                'message' => 'Incorrect Password',
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // request passward validation failed, so lets return
-
-
-        if(!Auth::attempt($request->only('email', 'password'))){
-            return response()->json([
-                'message' => 'Incorrect Email or passward',
-                "bad" => $request->password,
-                'statusCode' => Response::HTTP_UNAUTHORIZED,
-            ], Response::HTTP_UNAUTHORIZED); // 401
-        } // Attempt to authorize request using request email failed, so lets return
-
-        $user = Auth::user(); // Grabbing the user details
-
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Authentication failed',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        
         $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
 
         return response()->json([
@@ -62,8 +48,8 @@ class LoginController extends Controller
                 "access_token" => $token,
                 "email" => $user->email,
                 "id" => $user->id,
-                "isAdmin" => $user->isAdmin,
-                "org_id " => $user->org_id 
+                "isAdmin" => $user->is_admin,
+                "org_id" => $user->org_id 
             ]
         ], Response::HTTP_OK); // returning response
     }

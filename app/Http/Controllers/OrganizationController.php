@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreOrganizationRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
+
 use App\Models\Organization;
+use App\Traits\MessageTrait;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\UpdateOrganizationRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\OrganizationInvite;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrganizationController extends Controller
 {
+    use MessageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -57,7 +60,7 @@ class OrganizationController extends Controller
      *     "message": "You are not authorized to perform this action!"
      * }
      */
-    public function store(StoreOrganizationRequest $request)
+    public function update(StoreOrganizationRequest $request)
     {
         $user = Auth::user();
         if(is_null($user->org_id)){
@@ -127,46 +130,28 @@ class OrganizationController extends Controller
      *     )
      * )
      */
-    public function update(UpdateOrganizationRequest $request, Organization $organization)
+    public function store(StoreOrganizationRequest $request)
     {
 
-        $user_id = Auth::user()->id;
-
-        $getUser = User::find($user_id);
-
-        if ($getUser->org_id === null) {
-
-            $validated = $request->validate();
-        if(Auth::user()->isAdmin === true){
-
-            $validated = $request->validated();
-
-            $organization->update($validated);
-            $organization = Organanization::create($validated);
-
-            $org_id = $organization->id;
-
-            $getUser->update([
-                'org_id' => $org_id,
-                'is_admin' => true
+        if(!Auth::user()->is_admin){
+            $data = Organization::create([
+                'name' => $request->organization_name,
+                'currency_code' => $request->currency_code,
+                'lunch_price' => $request->lunch_price
             ]);
 
-            return response()->json([
-                'organization_name' => $organization->name,
-                'lunch_price' => $organization->lunch_price
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'You are admin of an Organization already!'
-            ], 201);
+            if($data){
+                User::query()->where('id', Auth::user()->id)->update([
+                    'is_admin' => true,
+                    'org_id' => $data->id,
+                ]);
+            }
+            return $this->success('Organization Created Successfully', 200, $data);
         }
+        return $this->error('Unable to setup multiple organizations', 422);
 
-        } else {
-            return response()->json([
-                'message' => 'You are not authorized to perform this action!'
-            ], 403);
-        }
     }
+
 
     /**
      * Create a user within an organization using an invitation token.

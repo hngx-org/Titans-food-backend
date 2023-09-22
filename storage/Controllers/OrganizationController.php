@@ -49,7 +49,7 @@ class OrganizationController extends Controller
         //
     }
 
-           /**
+    /**
      * @OA\Put(
      *     path="/api/organization/create",
      *     summary="Create Organization",

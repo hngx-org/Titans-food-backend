@@ -50,6 +50,8 @@ Route::get('/user/all', [UserController::class, 'index']);
 Route::get('/{user}/bank_details', [BankDetailController::class, 'viewBankDetails']);
 
 Route::get('/lunch/{id}', [LunchController::class,'show'])->name('lunch.show');
+});
+
 
 Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
 

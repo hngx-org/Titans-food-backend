@@ -11,7 +11,13 @@ class ProfileController extends Controller
      * @OA\Get(
      *     path="/api/user/profile",
      *     summary="Get User Profile Details",
-     *     @OA\Response(statusCode="200", description="Display a list of user's withdrawal requests.")
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User data fetched successfully", "statusCode": 200, "data":{}}, summary="Get User Profile"),
+     *         )
+     *     )
      * )
     */
     public function index()

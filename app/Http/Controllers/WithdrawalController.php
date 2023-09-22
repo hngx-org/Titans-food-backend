@@ -16,7 +16,6 @@ class WithdrawalController extends Controller
      * @OA\Get(
      *     path="/api/withdrawal/request",
      *     summary="Get Withdrawal Requests from User",
-     *     @OA\Response(response="200", description="Display a list of user's withdrawal requests."),
      *     @OA\Response(
      *         response=200,
      *         description="OK",

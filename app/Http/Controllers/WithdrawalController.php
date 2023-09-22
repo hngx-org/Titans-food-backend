@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWithdrawalRequest;
 use App\Http\Requests\UpdateWithdrawalRequest;
+use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 class WithdrawalController extends Controller
 {
     /**
+
+     * Display a user Withdrawal history
      * Retrieve a user's withdrawal history.
      *
      * Retrieves the withdrawal history for the authenticated user.
@@ -45,11 +48,14 @@ class WithdrawalController extends Controller
      *     "error": "user not found"
      * }
      */
-    public function index()
+    public function index(Withdrawal $withdrawal)
     {
         $withdrawal = Withdrawal::where('user_id',Auth::id())->get();
         if ($withdrawal->isEmpty()) :
             return response()->json([
+                "status"=>"Invalid",
+                "status_code"=>404,
+                "message" => "user not found"
                 "error" => "user not found"
             ]);
         endif;
@@ -100,12 +106,22 @@ class WithdrawalController extends Controller
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {
+        $get_bank_details=User::where('id',Auth::id())->get('bank_number','bank_code','bank_name');// Checking if user has bank details inserted
+        if($get_bank_details->isEmpty()):
+            return response()->json([
+                "status"=>"Invalid",
+                "status_code"=>402,
+                "message" => "No Bank Details Found"
+            ]);
+        endif;
         $withdrawal->user_id =Auth::id(); //Getting Authenticated user Id not Request
         $withdrawal->amount = $request->amount;
         $checking=$withdrawal->save();
         if (!$checking) :
             return response()->json([
-                "error" => "Withdrawal request not Created"
+                "status"=>"Invalid",
+                "status_code"=>402,
+                "message" => "Withdrawal request not created"
             ]);
         endif;
         return response()->json([
@@ -123,6 +139,7 @@ class WithdrawalController extends Controller
 
     public function show()
     {
+
     }
 
     /**

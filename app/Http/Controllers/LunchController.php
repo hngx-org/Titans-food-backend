@@ -95,30 +95,25 @@ class LunchController extends Controller
             return $this->error('You cannot appraise your self', 422);
         }
 
-        #Process-Sender End of the transaction
-        if(auth()->user()->is_admin){
-            $model = new OrganizationLunchWallet();
-            $key = 'org_id';
-            $val = auth()->user()->org_id;
-            $balance_key = 'balance';
-        } else{
-            $model = User::query();
-            $key = 'id';
-            $val = auth()->user()->id;
-            $balance_key = 'lunch_credit_balance';
-        }
-
         $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->first()->lunch_price;
         $total_debit = count($request->input('receivers')) * $request->quantity * $lunch_price;
 
-        $lunch_wallet = $model->where($key, $val)->first()->balance;
-        // return $balance_key;
-        $wallet_balance = $lunch_wallet->first()->$balance_key;
+        #Process-Sender End of the transaction
+        if(auth()->user()->is_admin){
+            $lunch_wallet = OrganizationLunchWallet::where('org_id', auth()->user()->org_id);
+            $wallet_balance = $lunch_wallet->value('balance');
+            $balance_key = 'balance';
+        } else{
+            $lunch_wallet = User::where('id', auth()->user()->id);
+            $wallet_balance = $lunch_wallet->value('lunch_credit_balance');
+            $balance_key = 'lunch_credit_balance';
+        }
         $remainder = $wallet_balance - $total_debit;
 
-        if($remainder < 0) return $this->error('Insufficient fund!', 422);
+        if($wallet_balance < $total_debit) return $this->error('Insufficient fund!', 422);
         $lunch_wallet->update([$balance_key => $remainder]);
 
+        
         #Process Receiver-End of the transaction
         foreach($request->input('receivers') as $receiver_id){
             $receiver = User::query()->where('id', $receiver_id);

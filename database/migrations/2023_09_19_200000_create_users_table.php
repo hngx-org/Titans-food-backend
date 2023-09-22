@@ -31,8 +31,7 @@ return new class extends Migration
             $table->string('bank_region')->nullable();
             $table->string('currency')->nullable();
             $table->string('currency_code')->nullable();
-
-            $table->rememberToken()->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
 
             $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');

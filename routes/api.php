@@ -12,6 +12,8 @@ use App\Http\Controllers\OrganizationInviteController;
 use App\Http\Controllers\Auth\LoginController;
 
 
+Route::get('all', [LunchController::class, 'index']);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\Organization;
+use App\Models\OrganizationInvite;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrganizationController extends Controller
 {
@@ -89,48 +95,122 @@ class OrganizationController extends Controller
         //
     }
 
-    /**
-     * Update an organization's information.
-     *
-     * Updates an organization's information if the authenticated user is an admin.
-     *
-     * @group Organizations
-     * @authenticated
-     * @param \App\Http\Requests\UpdateOrganizationRequest $request
-     * @param \App\Models\Organization $organization
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @urlParam organization required The ID of the organization to update. Example: 1
-     * @bodyParam name string required The new name of the organization.
-     * @bodyParam lunch_price numeric required The new lunch price for the organization.
-     *
-     * @response {
-     *     "organization_name": "Updated Organization Name",
-     *     "lunch_price": 15.99
-     * }
-     * @response 403 {
-     *     "message": "You are not authorized to perform this action!"
-     * }
+        /**
+     * @OA\Put(
+     *     path="/api/organization/create",
+     *     summary="Create Organization",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="organization_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="lunch_price",
+     *                     type="string"
+     *                 ),
+     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"organization_name":"", "lunch_price": ""}, summary="Organization create"),
+     *         )
+     *     )
+     * )
      */
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
+         
+        $user_id = Auth::user()->id;
+
+        $getUser = User::find($user_id);
+        
+        if ($getUser->org_id === null) {
+
+            $validated = $request->validate();
         if(Auth::user()->isAdmin === true){
 
             $validated = $request->validated();
 
             $organization->update($validated);
+            $organization = Organanization::create($validated);
+     
+            $org_id = $organization->id;
 
+            $getUser->update([
+                'org_id' => $org_id,
+                'is_admin' => true
+            ]);
+        
             return response()->json([
                 'organization_name' => $organization->name,
-                'lunch_price'  => $organization->lunch_price
+                'lunch_price' => $organization->lunch_price
             ], 200);
-
-            }else{
-                return response()->json([
-                    'message' => 'You are not authorized to perform this action!'
-                ], 403);
-            }
+        } else {
+            return response()->json([
+                'message' => 'You are admin of an Organization already!'
+            ], 201);
+        }
+        
+        } else {
+            return response()->json([
+                'message' => 'You are not authorized to perform this action!'
+            ], 403);
+        }
     }
+
+    public function createOrganizationUser(StoreUserRequest $request)
+    {
+
+        $invite = OrganizationInvite::where('email', $request->email)->where('token', $request->otp_token)->first();
+        if (!$invite) {
+            return response()->json([
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Authentication failed',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        $filename = '';
+        
+        if($request->hasFile('profile_pic')) {
+            $newFile = $request->file('profile_pic');
+            $filename = $newFile->getClientOriginalName();
+            $newFile->move('images', $filename);
+        }
+       
+
+        $password = Hash::make($request->password);
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'otp_token' => $request->otp_token,
+            'is_admin' => false,
+            'org_id' => $invite->org_id,
+            'phone' => $request->phone,
+            'password_hash' => $password,
+            'profile_pic' => $filename
+        ]);
+        return response()->json(
+            [
+                'status_code' => Response::HTTP_CREATED,
+                'status' => 'success',
+                'message' => 'User signed up successfully',
+                'data' => $user
+            ],
+            Response::HTTP_CREATED
+        );
+    }
+        
 
     /**
      * Remove the specified resource from storage.
@@ -139,6 +219,7 @@ class OrganizationController extends Controller
     {
         //
     }
+
 
     /**
      * Retrieve a list of organizations.

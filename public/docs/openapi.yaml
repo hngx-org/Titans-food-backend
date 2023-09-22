@@ -7,218 +7,44 @@ servers:
   -
     url: 'https://titans-food-backend.onrender.com'
 paths:
-  /api/auth/user/signup:
-    post:
-      summary: 'Register a new user.'
-      operationId: registerANewUser
-      description: 'Registers a new user with the provided information and returns a success response upon successful registration.'
+  /api/docs:
+    get:
+      summary: 'Display Swagger API page.'
+      operationId: displaySwaggerAPIPage
+      description: ''
       parameters: []
       responses:
         200:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  status_code: 201
-                  status: success
-                  message: 'User signed up successfully'
-                  data:
-                    id: 1
-                    first_name: John
-                    last_name: Doe
-                    email: user@example.com
-                    is_admin: true
-                    password_hash: $2y$10$...
-                properties:
-                  status_code:
-                    type: integer
-                    example: 201
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: 'User signed up successfully'
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
-                      first_name:
-                        type: string
-                        example: John
-                      last_name:
-                        type: string
-                        example: Doe
-                      email:
-                        type: string
-                        example: user@example.com
-                      is_admin:
-                        type: boolean
-                        example: true
-                      password_hash:
-                        type: string
-                        example: $2y$10$...
+                type: string
+                example: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://titans-food-backend.onrender.com/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27\">\n    <link rel=\"icon\" type=\"image/png\" href=\"http://titans-food-backend.onrender.com/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"/>\n    <link rel=\"icon\" type=\"image/png\" href=\"http://titans-food-backend.onrender.com/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    </style>\n</head>\n\n<body>\n<div id=\"swagger-ui\"></div>\n\n<script src=\"http://titans-food-backend.onrender.com/docs/asset/swagger-ui-bundle.js?v=9e5a06e68da0fead9b0f53917e18fe69\"></script>\n<script src=\"http://titans-food-backend.onrender.com/docs/asset/swagger-ui-standalone-preset.js?v=50c83b2cf08d97b626ae1aff72aa162b\"></script>\n<script>\n    window.onload = function() {\n        // Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http://titans-food-backend.onrender.com/docs/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http://titans-food-backend.onrender.com/api/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n</script>\n</body>\n</html>\n"
       tags:
-        - Authentication
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                first_name:
-                  type: required
-                  description: "User's first name."
-                  example: John
-                last_name:
-                  type: required
-                  description: "User's last name."
-                  example: Doe
-                email:
-                  type: string
-                  description: "User's email address."
-                  example: user@example.com
-                password:
-                  type: string
-                  description: "User's password."
-                  example: mypassword
-                phone_number:
-                  type: string
-                  description: ''
-                  example: null
-              required:
-                - email
-                - password
+        - Endpoints
       security: []
-  /api/auth/user/signin:
-    post:
-      summary: 'User Login.'
-      operationId: userLogin
-      description: 'Authenticates a user by validating their email and password and provides an access token upon success.'
+  /api/oauth2-callback:
+    get:
+      summary: 'Display Oauth2 callback pages.'
+      operationId: displayOauth2CallbackPages
+      description: ''
       parameters: []
       responses:
         200:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  message: 'User authenticated successfully'
-                  statusCode: 200
-                  data:
-                    access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...
-                    email: user@example.com
-                    id: 1
-                    isAdmin: false
-                    org_id: 123
-                properties:
-                  message:
-                    type: string
-                    example: 'User authenticated successfully'
-                  statusCode:
-                    type: integer
-                    example: 200
-                  data:
-                    type: object
-                    properties:
-                      access_token:
-                        type: string
-                        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...
-                      email:
-                        type: string
-                        example: user@example.com
-                      id:
-                        type: integer
-                        example: 1
-                      isAdmin:
-                        type: boolean
-                        example: false
-                      org_id:
-                        type: integer
-                        example: 123
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  status_code: 401
-                  status: error
-                  message: 'Authentication failed'
-                properties:
-                  status_code:
-                    type: integer
-                    example: 401
-                  status:
-                    type: string
-                    example: error
-                  message:
-                    type: string
-                    example: 'Authentication failed'
-        422:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message:
-                    email:
-                      - 'The email field is required.'
-                    password:
-                      - 'The password field is required.'
-                  statusCode: 422
-                properties:
-                  message:
-                    type: object
-                    properties:
-                      email:
-                        type: array
-                        example:
-                          - 'The email field is required.'
-                        items:
-                          type: string
-                      password:
-                        type: array
-                        example:
-                          - 'The password field is required.'
-                        items:
-                          type: string
-                  statusCode:
-                    type: integer
-                    example: 422
+                type: string
+                example: "<!doctype html>\n<html lang=\"en-US\">\n<head>\n    <title>Swagger UI: OAuth2 Redirect</title>\n</head>\n<body>\n<script>\n    'use strict';\n    function run () {\n        var oauth2 = window.opener.swaggerUIRedirectOauth2;\n        var sentState = oauth2.state;\n        var redirectUrl = oauth2.redirectUrl;\n        var isValid, qp, arr;\n\n        if (/code|token|error/.test(window.location.hash)) {\n            qp = window.location.hash.substring(1).replace('?', '&');\n        } else {\n            qp = location.search.substring(1);\n        }\n\n        arr = qp.split(\"&\");\n        arr.forEach(function (v,i,_arr) { _arr[i] = '\"' + v.replace('=', '\":\"') + '\"';});\n        qp = qp ? JSON.parse('{' + arr.join() + '}',\n                function (key, value) {\n                    return key === \"\" ? value : decodeURIComponent(value);\n                }\n        ) : {};\n\n        isValid = qp.state === sentState;\n\n        if ((\n          oauth2.auth.schema.get(\"flow\") === \"accessCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorizationCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorization_code\"\n        ) && !oauth2.auth.code) {\n            if (!isValid) {\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"warning\",\n                    message: \"Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.\"\n                });\n            }\n\n            if (qp.code) {\n                delete oauth2.state;\n                oauth2.auth.code = qp.code;\n                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});\n            } else {\n                let oauthErrorMsg;\n                if (qp.error) {\n                    oauthErrorMsg = \"[\"+qp.error+\"]: \" +\n                        (qp.error_description ? qp.error_description+ \". \" : \"no accessCode received from the server. \") +\n                        (qp.error_uri ? \"More info: \"+qp.error_uri : \"\");\n                }\n\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"error\",\n                    message: oauthErrorMsg || \"[Authorization failed]: no accessCode received from the server.\"\n                });\n            }\n        } else {\n            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});\n        }\n        window.close();\n    }\n\n    if (document.readyState !== 'loading') {\n        run();\n    } else {\n        document.addEventListener('DOMContentLoaded', function () {\n            run();\n        });\n    }\n</script>\n</body>\n</html>\n"
       tags:
-        - Authentication
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: "User's email address."
-                  example: shania.buckridge@example.net
-                password:
-                  type: string
-                  description: "User's password."
-                  example: mtLJT-~`tC
-              required:
-                - email
-                - password
+        - Endpoints
       security: []
   /api/all:
     get:
-      summary: 'Display a listing of the resource.'
-      operationId: displayAListingOfTheResource
+      summary: ''
+      operationId: getApiAll
       description: ''
       parameters: []
       responses:
@@ -242,6 +68,27 @@ paths:
         - Endpoints
       security: []
   /api/lunch:
+    get:
+      summary: ''
+      operationId: getApiLunch
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
     post:
       summary: 'Send lunch credits.'
       operationId: sendLunchCredits
@@ -254,7 +101,7 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"lunch_id\": 1,\n        'org_id' => 1,\n        'sender_id' => 3,\n        'receiver_id' => 2,\n        'quantity' => 2,\n        'note' => \"Thank you for the good work\",\n    }\n}"
+                example: "{\n    \"message\": \"Lunch request created successfully\",\n    \"statusCode\": 201,\n    \"data\": {\n        \"lunch_id\": 1,\n        \"org_id\" => 1,\n        \"sender_id\" => 3,\n        \"receiver_id\" => 2,\n        \"quantity\" => 2,\n        \"note\" => \"Thank you for the good work\",\n    }\n}"
         422:
           description: ''
           content:
@@ -275,20 +122,207 @@ paths:
                   type: array
                   description: 'An array of user IDs who will receive the lunch.'
                   example:
-                    - sit
+                    - velit
                   items:
                     type: string
                 quantity:
                   type: integer
                   description: 'The quantity of lunches to send.'
-                  example: 2
+                  example: 17
                 note:
                   type: string
                   description: 'Additional note for the lunch request.'
-                  example: quia
+                  example: amet
               required:
                 - receivers
                 - quantity
+  /api/user/profile:
+    get:
+      summary: ''
+      operationId: getApiUserProfile
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/organization/create:
+    put:
+      summary: ''
+      operationId: putApiOrganizationCreate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Create a new organization.'
+      operationId: createANewOrganization
+      description: 'Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Example Organization\",\n        \"description\": \"A sample organization\",\n        // Add other organization fields here\n    },\n    \"message\": \"success\",\n    \"statusCode\": 200\n}"
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'You are not authorized to perform this action!'
+                properties:
+                  message:
+                    type: string
+                    example: 'You are not authorized to perform this action!'
+      tags:
+        - Organizations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the organization.'
+                  example: autem
+                lunch_price:
+                  type: string
+                  description: ''
+                  example: possimus
+                currency_code:
+                  type: string
+                  description: ''
+                  example: null
+                description:
+                  type: string
+                  description: 'The description of the organization (optional).'
+                  example: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
+              required:
+                - name
+                - lunch_price
+      security: []
+  /api/withdrawal/request:
+    post:
+      summary: ''
+      operationId: postApiWithdrawalRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    get:
+      summary: ''
+      operationId: getApiWithdrawalRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/auth/user/signup:
+    post:
+      summary: ''
+      operationId: postApiAuthUserSignup
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: rerum
+                last_name:
+                  type: string
+                  description: ''
+                  example: veritatis
+                email:
+                  type: string
+                  description: ''
+                  example: accusamus
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: Zqbu2W
+                phone_number:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - first_name
+                - last_name
+                - email
+                - password
+      security: []
+  /api/auth/user/signin:
+    post:
+      summary: ''
+      operationId: postApiAuthUserSignin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: norris60@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: gP^Nb|-BDZ
+              required:
+                - email
+                - password
+      security: []
   '/api/lunch/{id}':
     get:
       summary: 'Retrieve a lunch by its ID.'
@@ -367,7 +401,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the lunch.'
-        example: 1
+        example: 19
         required: true
         schema:
           type: integer
@@ -375,116 +409,10 @@ paths:
         in: path
         name: Id
         description: 'The ID of the lunch request to retrieve.'
-        example: 15
+        example: 10
         required: true
         schema:
           type: integer
-  /api/organization/invite:
-    post:
-      summary: 'Store an organization invitation.'
-      operationId: storeAnOrganizationInvitation
-      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: success
-                  statusCode: 200
-                  data: null
-                properties:
-                  message:
-                    type: string
-                    example: success
-                  statusCode:
-                    type: integer
-                    example: 200
-                  data:
-                    type: string
-                    example: null
-      tags:
-        - Organizations
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'The email address to which the invitation will be sent.'
-                  example: mae19@example.org
-              required:
-                - email
-  /api/organization/create:
-    put:
-      summary: "Update an organization's information."
-      operationId: updateAnOrganizationsInformation
-      description: "Updates an organization's information if the authenticated user is an admin."
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  organization_name: 'Updated Organization Name'
-                  lunch_price: 15.99
-                properties:
-                  organization_name:
-                    type: string
-                    example: 'Updated Organization Name'
-                  lunch_price:
-                    type: number
-                    example: 15.99
-        403:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'You are not authorized to perform this action!'
-                properties:
-                  message:
-                    type: string
-                    example: 'You are not authorized to perform this action!'
-      tags:
-        - Organizations
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: 'The new name of the organization.'
-                  example: cumque
-                lunch_price:
-                  type: numeric
-                  description: 'The new lunch price for the organization.'
-                  example: suscipit
-              required:
-                - name
-                - lunch_price
-    parameters:
-      -
-        in: path
-        name: organization
-        description: 'The ID of the organization to update.'
-        example: '1'
-        required: true
-        schema:
-          type: string
   /api/organization:
     get:
       summary: 'Retrieve a list of organizations.'
@@ -536,27 +464,27 @@ paths:
                 bank_name:
                   type: string
                   description: 'The name of the bank.'
-                  example: consectetur
+                  example: aut
                 bank_number:
                   type: string
                   description: 'The bank account number.'
-                  example: voluptates
+                  example: culpa
                 bank_code:
                   type: string
                   description: 'The bank code.'
-                  example: deleniti
+                  example: sint
                 bank_region:
                   type: string
                   description: 'The bank region.'
-                  example: ratione
+                  example: culpa
                 currency:
                   type: string
                   description: 'The currency used in the bank account.'
-                  example: optio
+                  example: dolores
                 currency_code:
                   type: string
                   description: 'The currency code.'
-                  example: consequatur
+                  example: sit
               required:
                 - bank_name
                 - bank_number
@@ -634,7 +562,7 @@ paths:
         in: path
         name: user
         description: ''
-        example: deserunt
+        example: est
         required: true
         schema:
           type: string
@@ -883,65 +811,85 @@ paths:
                     example: 'No records found'
       tags:
         - Users
-  /api/withdrawal/request:
+  /api/organization/staff/signup:
     post:
-      summary: 'Create a new withdrawal request.'
-      operationId: createANewWithdrawalRequest
-      description: 'Creates a new withdrawal request for the authenticated user.'
+      summary: 'Create a user within an organization using an invitation token.'
+      operationId: createAUserWithinAnOrganizationUsingAnInvitationToken
+      description: 'Creates a user within an organization based on the provided invitation token and user details.'
       parameters: []
       responses:
         200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n    \"status_code\": 201,\n    \"status\": \"success\",\n    \"message\": \"User signed up successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"otp_token\": \"123456\",\n        \"is_admin\": false,\n        \"org_id\": 1,\n        \"phone\": \"1234567890\",\n        \"profile_pic\": \"example.jpg\" // URL or file path\n    }\n}"
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  error: 'Withdrawal request not Created'
+                  status_code: 401
+                  status: error
+                  message: 'Authentication failed'
                 properties:
-                  error:
+                  status_code:
+                    type: integer
+                    example: 401
+                  status:
                     type: string
-                    example: 'Withdrawal request not Created'
+                    example: error
+                  message:
+                    type: string
+                    example: 'Authentication failed'
       tags:
-        - Withdrawal
+        - Users
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
-                amount:
-                  type: numeric
-                  description: 'The withdrawal amount.'
-                  example: perspiciatis
+                first_name:
+                  type: string
+                  description: 'The first name of the user.'
+                  example: ratione
+                last_name:
+                  type: string
+                  description: 'The last name of the user.'
+                  example: dicta
+                email:
+                  type: string
+                  description: 'The email address of the user.'
+                  example: adelia.upton@example.org
+                phone:
+                  type: string
+                  description: 'The phone number of the user.'
+                  example: aliquam
+                otp_token:
+                  type: string
+                  description: 'The OTP token for authentication.'
+                  example: iste
+                profile_pic:
+                  type: string
+                  format: binary
+                  description: "The user's profile picture (optional)."
+                password:
+                  type: string
+                  description: "The user's password."
+                  example: '{T~971MCl9dZ&cAFOx/'
               required:
-                - amount
+                - first_name
+                - last_name
+                - email
+                - otp_token
+                - password
       security: []
-    get:
-      summary: "Retrieve a user's withdrawal history."
-      operationId: retrieveAUsersWithdrawalHistory
-      description: 'Retrieves the withdrawal history for the authenticated user.'
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  error: 'user not found'
-                properties:
-                  error:
-                    type: string
-                    example: 'user not found'
-      tags:
-        - Withdrawal
 tags:
-  -
-    name: Authentication
-    description: ''
   -
     name: Endpoints
     description: ''
@@ -956,7 +904,4 @@ tags:
     description: ''
   -
     name: Users
-    description: ''
-  -
-    name: Withdrawal
     description: ''

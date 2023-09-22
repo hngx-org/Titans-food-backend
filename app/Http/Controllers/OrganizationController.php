@@ -129,11 +129,11 @@ class OrganizationController extends Controller
      */
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
-         
+
         $user_id = Auth::user()->id;
 
         $getUser = User::find($user_id);
-        
+
         if ($getUser->org_id === null) {
 
             $validated = $request->validate();
@@ -143,14 +143,14 @@ class OrganizationController extends Controller
 
             $organization->update($validated);
             $organization = Organanization::create($validated);
-     
+
             $org_id = $organization->id;
 
             $getUser->update([
                 'org_id' => $org_id,
                 'is_admin' => true
             ]);
-        
+
             return response()->json([
                 'organization_name' => $organization->name,
                 'lunch_price' => $organization->lunch_price
@@ -160,7 +160,7 @@ class OrganizationController extends Controller
                 'message' => 'You are admin of an Organization already!'
             ], 201);
         }
-        
+
         } else {
             return response()->json([
                 'message' => 'You are not authorized to perform this action!'
@@ -168,6 +168,45 @@ class OrganizationController extends Controller
         }
     }
 
+    /**
+     * Create a user within an organization using an invitation token.
+     *
+     * Creates a user within an organization based on the provided invitation token and user details.
+     *
+     * @group Users
+     * @param \App\Http\Requests\StoreUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam first_name string required The first name of the user.
+     * @bodyParam last_name string required The last name of the user.
+     * @bodyParam email string required The email address of the user.
+     * @bodyParam otp_token string required The OTP token for authentication.
+     * @bodyParam phone string The phone number of the user.
+     * @bodyParam profile_pic file The user's profile picture (optional).
+     * @bodyParam password string required The user's password.
+     *
+     * @response {
+     *     "status_code": 201,
+     *     "status": "success",
+     *     "message": "User signed up successfully",
+     *     "data": {
+     *         "id": 1,
+     *         "first_name": "John",
+     *         "last_name": "Doe",
+     *         "email": "john.doe@example.com",
+     *         "otp_token": "123456",
+     *         "is_admin": false,
+     *         "org_id": 1,
+     *         "phone": "1234567890",
+     *         "profile_pic": "example.jpg" // URL or file path
+     *     }
+     * }
+     * @response 401 {
+     *     "status_code": 401,
+     *     "status": "error",
+     *     "message": "Authentication failed"
+     * }
+     */
     public function createOrganizationUser(StoreUserRequest $request)
     {
 
@@ -180,13 +219,13 @@ class OrganizationController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
         $filename = '';
-        
+
         if($request->hasFile('profile_pic')) {
             $newFile = $request->file('profile_pic');
             $filename = $newFile->getClientOriginalName();
             $newFile->move('images', $filename);
         }
-       
+
 
         $password = Hash::make($request->password);
         $user = User::create([
@@ -210,7 +249,7 @@ class OrganizationController extends Controller
             Response::HTTP_CREATED
         );
     }
-        
+
 
     /**
      * Remove the specified resource from storage.

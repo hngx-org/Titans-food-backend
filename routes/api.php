@@ -30,6 +30,7 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 
     Route::get('/user/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user_profile.index');
+    Route::post('/auth/user/change-password', [LoginController::class, 'changePassword'])->name('user.changePassword');
     Route::patch('/user/bank', [BankDetailController::class, 'addBankDetails'])->name('user.addBankDetails');
     Route::get('/user/all', [UserController::class, 'index'])->name('user.index');
 
@@ -59,6 +60,5 @@ Route::prefix('v1')->group(function(){
     Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
     Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
     Route::post('/auth/user/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('user.forgotPassword');
-    Route::post('/auth/user/change-password', [LoginController::class, 'changePassword'])->name('user.changePassword');
     Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 });

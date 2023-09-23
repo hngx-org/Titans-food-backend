@@ -74,7 +74,21 @@ class LoginController extends Controller
      *         @OA\JsonContent(
      *             @OA\Examples(example="result", value={"message":"User authenticated successfully", "statusCode": 200, "data":{}}, summary="User/Organization login response"),
      *         )
-     *     )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":{[field] is required,[field] is required}, "statusCode": 422, "data":{}}, summary="User/Organization login response"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Authentication failed", "statusCode": 403, "status":"error"}, summary="User/Organization login response"),
+     *         )
+     *     ),
      * )
      */
     public function login(Request $request){

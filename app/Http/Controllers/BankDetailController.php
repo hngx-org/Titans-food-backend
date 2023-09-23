@@ -38,6 +38,9 @@ class BankDetailController extends Controller
      * @OA\Post(
      *     path="/api/v1/user/bank",
      *     summary="Add bank account details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",

@@ -66,6 +66,9 @@ class OrganizationController extends Controller
      * @OA\Put(
      *     path="/api/v1/organization/create",
      *     summary="Create a new organization",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -168,14 +171,14 @@ class OrganizationController extends Controller
      *         response=200,
      *         description="OK",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status:"success", "message":"Organization Created Successfully", "data":{}}, summary="Organization create"),
+     *             @OA\Examples(example="result", value={"status":"success", "message":"Organization Created Successfully", "data":{}}, summary="Organization create"),
      *         )
      *     ),
      *     @OA\Response(
      *         response=422,
      *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status:"failed", "message":"You already belong to a company", "data":null}, summary="Organization create"),
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"You already belong to a company", "data":null}, summary="Organization create"),
      *         )
      *     )
      * )
@@ -303,7 +306,7 @@ class OrganizationController extends Controller
      *         response=401,
      *         description="UNAUTHORIZED",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status_code":401, "status:"failed", "message":"Authentication failed"}, summary="Create a user within an organization using an invitation token"),
+     *             @OA\Examples(example="result", value={"status_code":401, "status":"failed", "message":"Authentication failed"}, summary="Create a user within an organization using an invitation token"),
      *         )
      *     )
      * )
@@ -376,21 +379,21 @@ class OrganizationController extends Controller
      *         response=200,
      *         description="OK",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status:"success", "message":"Lunch price updated successfully", "data":{}}, summary="Update lunch price"),
+     *             @OA\Examples(example="result", value={"status":"success", "message":"Lunch price updated successfully", "data":{}}, summary="Update lunch price"),
      *         )
      *     ),
      *     @OA\Response(
      *         response=401,
      *         description="UNAUTHORIZED",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status:"failed", "message":"You are not authorized to perform this action", "data":null}, summary="Update lunch price"),
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"You are not authorized to perform this action", "data":null}, summary="Update lunch price"),
      *         )
      *     ),
      *     @OA\Response(
      *         response=422,
      *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status:"failed", "message":"Error updating lunch price", "data":null}, summary="Update lunch price"),
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"Error updating lunch price", "data":null}, summary="Update lunch price"),
      *         )
      *     ),
      * )

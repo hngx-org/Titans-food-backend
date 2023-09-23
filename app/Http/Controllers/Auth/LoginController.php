@@ -79,7 +79,7 @@ class LoginController extends Controller
      *         response=422,
      *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":{[field] is required,[field] is required}, "statusCode": 422, "data":{}}, summary="User/Organization login response"),
+     *             @OA\Examples(example="result", value={"message":{"field is required","field is required"}, "statusCode": 422, "data":{}}, summary="User/Organization login response"),
      *         )
      *     ),
      *     @OA\Response(

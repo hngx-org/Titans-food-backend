@@ -97,15 +97,22 @@ class LunchController extends Controller
      */
     /**
      * @OA\Post(
-     *     path="/api/v1/user/bank",
+     *     path="/api/v1/lunch",
      *     summary="Send lunch credits",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(
      *                     property="receivers",
-     *                     type="array"
+     *                     type="array",
+     *                     @OA\Items(
+     *                        type="array",
+     *                        @OA\Items()
+     *                     ),
      *                 ),
      *                 @OA\Property(
      *                     property="quantity",
@@ -130,8 +137,8 @@ class LunchController extends Controller
      *         response=422,
      *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"Insufficient fund!"}, summary="Send lunch credits"),
-     * *             @OA\Examples(example="result", value={"message":"You cannot appraise yourself"}, summary="Send lunch credits"),
+     *             @OA\Examples(example="insufficient_fund", value={"message":"Insufficient fund!"}, summary="Send lunch credits"),
+     *             @OA\Examples(example="self_appraisal", value={"message":"You cannot appraise yourself"}, summary="Send lunch credits"),
      *         )
      *     ),
      * )

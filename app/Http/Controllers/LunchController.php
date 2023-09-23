@@ -95,6 +95,47 @@ class LunchController extends Controller
      *     "error": "You cannot appraise yourself" // Or "Insufficient fund!"
      * }
      */
+    /**
+     * @OA\Post(
+     *     path="/api/v1/user/bank",
+     *     summary="Send lunch credits",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="receivers",
+     *                     type="array"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="quantity",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="note",
+     *                     type="string"
+     *                 ),
+     *                 example={"receivers":"[]", "quantity":5, "note":"Thank you for the good work"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Lunch request created successfully", "statusCode": 200, "data":{}}, summary="Send lunch credits"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Insufficient fund!"}, summary="Send lunch credits"),
+     * *             @OA\Examples(example="result", value={"message":"You cannot appraise yourself"}, summary="Send lunch credits"),
+     *         )
+     *     ),
+     * )
+     */
     public function store(StoreLunchRequest $request)
     {
         #Ensure user cannot appraise self

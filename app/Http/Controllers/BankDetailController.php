@@ -152,6 +152,30 @@ class BankDetailController extends Controller
      *     "message": "No bank details found for the given user."
      * }
      */
+      /**
+     * @OA\Get(
+     *     path="/api/v1/bank_details",
+     *     summary="View bank account details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"data": {}, "message":"Bank details found"}, summary="View bank account details for the authenticated user"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"No bank details found for the given user."}, summary="View bank account details for the authenticated user"),
+     *         )
+     *     )
+     * )
+    */
+    
     public function viewBankDetails()
     {
         $user = auth()->user();

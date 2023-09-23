@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Tests\Feature;
@@ -19,11 +18,11 @@ class UserControllerTest extends TestCase
     public function testNoUserRecords()
     {
 
-        $response = $this->getJson('api/user/all')
+        $response = $this->getJson('api/v1/user/all')
         ->assertOk()
         ->assertExactJson([
-            "status": 404,
-            "status_message": "No records found"
+            "status" => 404,
+            "status_message" => "No records found"
         ]);
     }
 
@@ -31,7 +30,7 @@ class UserControllerTest extends TestCase
     {
         $user= User::factory()->create();
 
-        $response = $this->getJson('api/user/all')
+        $response = $this->getJson('api/v1/user/all')
         ->assertOk()
         ->assertJsonStructure([
             "message",

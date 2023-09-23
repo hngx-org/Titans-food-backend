@@ -30,6 +30,13 @@ class LunchController extends Controller
      *         @OA\JsonContent(
      *             @OA\Examples(example="result", value={"status": 200, "lunch":{}}, summary="Get All Lunch for User"),
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status": 404, "lunch":"no record found"}, summary="Get All Lunch for User"),
+     *         )
      *     )
      * )
     */

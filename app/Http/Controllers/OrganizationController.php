@@ -129,6 +129,13 @@ class OrganizationController extends Controller
      *         @OA\JsonContent(
      *             @OA\Examples(example="result", value={"organization_name":"", "lunch_price": ""}, summary="Organization create"),
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"organization_name":"", "lunch_price": ""}, summary="Organization create"),
+     *         )
      *     )
      * )
      */

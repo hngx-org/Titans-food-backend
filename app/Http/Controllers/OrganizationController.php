@@ -439,6 +439,23 @@ class OrganizationController extends Controller
      *     ]
      * }
      */
+           /**
+     * @OA\Get(
+     *     path="/api/v1/organization",
+     *     summary="Get a list of organizations not deleted",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"data": {}}, summary="Get list of organizations not deleted"),
+     *         )
+     *     ),
+     * )
+    */
+
     public function getOrganization() {
         // Retrieve all organizations that are not deleted
         $organizations = Organization::where('is_deleted', false)->get();

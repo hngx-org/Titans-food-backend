@@ -14,9 +14,9 @@ class Lunch extends Model
 
     protected $fillable = [
         'sender_id',
+        'org_id',
         'receiver_id',
         'quantity',
-        'redeemed',
         'note'
     ];
 

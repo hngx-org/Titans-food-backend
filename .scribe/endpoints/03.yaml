@@ -1,0 +1,166 @@
+name: Lunch
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/lunch
+    metadata:
+      groupName: Lunch
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send lunch credits.'
+      description: 'Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      receivers:
+        name: receivers
+        description: 'An array of user IDs who will receive the lunch.'
+        required: true
+        example:
+          - molestiae
+        type: 'string[]'
+        enumValues: []
+        custom: []
+      quantity:
+        name: quantity
+        description: 'The quantity of lunches to send.'
+        required: true
+        example: 5
+        type: integer
+        enumValues: []
+        custom: []
+      note:
+        name: note
+        description: 'Additional note for the lunch request.'
+        required: false
+        example: aut
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      receivers:
+        - molestiae
+      quantity: 5
+      note: aut
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "Lunch request created successfully",
+              "statusCode": 201,
+              "data": {
+                  "lunch_id": 1,
+                  "org_id" => 1,
+                  "sender_id" => 3,
+                  "receiver_id" => 2,
+                  "quantity" => 2,
+                  "note" => "Thank you for the good work",
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+              "error": "You cannot appraise yourself" // Or "Insufficient fund!"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/lunch/{id}'
+    metadata:
+      groupName: Lunch
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Retrieve a lunch by its ID.'
+      description: 'Retrieves a lunch request by its unique ID and returns its details.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the lunch.'
+        required: true
+        example: sed
+        type: string
+        enumValues: []
+        custom: []
+      Id:
+        name: Id
+        description: 'The ID of the lunch request to retrieve.'
+        required: true
+        example: 10
+        type: integer
+        enumValues: []
+        custom: []
+    cleanUrlParameters:
+      id: sed
+      Id: 10
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "Lunch request created successfully",
+              "statusCode": 200,
+              "data": {
+                  "receiver_id": 1,
+                  "sender_id": 2,
+                  "quantity": 3,
+                  "redeemed": false,
+                  "note": "Additional note",
+                  "created_at": "2023-09-22T12:34:56Z",
+                  "id": 1
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Lunch request not found",
+              "statusCode": 404
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -12,10 +12,33 @@ use App\Http\Requests\OrganizationSignUpRequest;
 
 class OrganisationSignupController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+    /**
+     * Register a new user.
      *
-     * @return JsonResponse
+     * Registers a new user with the provided information and returns a success response upon successful registration.
+     *
+     * @group Authentication
+     * @param \App\Http\Requests\OrganizationSignUpRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam first_name required User's first name. Example: John
+     * @bodyParam last_name required User's last name. Example: Doe
+     * @bodyParam email string required User's email address. Example: user@example.com
+     * @bodyParam password string required User's password. Example: mypassword
+     *
+     * @response {
+     *     "status_code": 201,
+     *     "status": "success",
+     *     "message": "User signed up successfully",
+     *     "data": {
+     *         "id": 1,
+     *         "first_name": "John",
+     *         "last_name": "Doe",
+     *         "email": "user@example.com",
+     *         "is_admin": true,
+     *         "password_hash": "$2y$10$..."
+     *     }
+     * }
      */
     public function register(OrganizationSignUpRequest $request)
     {
@@ -24,7 +47,7 @@ class OrganisationSignupController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'is_admin' => true,
+            'is_admin' => false,
             'password_hash' => $password
         ]);
 

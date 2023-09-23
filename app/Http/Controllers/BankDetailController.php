@@ -52,9 +52,18 @@ class BankDetailController extends Controller
     public function viewBankDetails()
     {
         $user = auth()->user();  
-        $bankDetails = $user->bank_number;
 
-        if ($bankDetails->isEmpty()) {
+        $bankDetails = [
+            'bank_number' => $user->bank_number,
+            'bank_code' => $user->bank_code,
+            'bank_name' => $user->bank_name,
+            'bank_region' => $user->bank_region,
+            'currency' => $user->currency,
+            'currency_code' => $user->currency_code,
+        ];
+
+        // Check if any bank detail is empty
+        if (empty($user->bank_number)) {
             $message = 'No bank details found for the given user.';
             return response()->json(['message' => $message], 404);
         }
@@ -63,4 +72,5 @@ class BankDetailController extends Controller
 
         return response()->json(['message' => $message, 'data' => $bankDetails], 200);
     }
+
 }

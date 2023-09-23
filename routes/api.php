@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\OrganisationSignupController;
 use App\Http\Controllers\OrganizationInviteController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrganizationPasswordController;
 
 
 /*
@@ -30,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.bank');
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
     Route::get('/user/profile', [ProfileController::class, 'index']);
+    Route::post('/logout', [OrganizationPasswordController::class, 'logout']);
+    Route::post('/auth/refresh-token', [OrganizationPasswordController::class, 'refreshToken']);
 });
 
 Route::put('/organization/create',[OrganizationController::class, 'update']);

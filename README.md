@@ -198,5 +198,6 @@ Your laravel api is now fully setup, running on your local machine.
 - bahd_dev
 - RichmanLoveday
 - splendidabbey
+- ruxy1212
 
 With this guide, you have successfully installed Laravel, initialized your project, and set up a Github team collaboration work flow.

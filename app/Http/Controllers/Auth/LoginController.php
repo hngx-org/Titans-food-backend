@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     /**
      * @OA\Post(
-     *     path="/api/auth/user/signin",
+     *     path="/api/v1/auth/user/signin",
      *     summary="User/Organization login",
      *     @OA\RequestBody(
      *         @OA\MediaType(

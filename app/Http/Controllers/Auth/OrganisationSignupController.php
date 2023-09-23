@@ -42,7 +42,7 @@ class OrganisationSignupController extends Controller
      */
            /**
      * @OA\Post(
-     *     path="/api/auth/user/signup",
+     *     path="/api/v1/auth/user/signup",
      *     summary="User Signup (Organization only)",
      *     @OA\RequestBody(
      *         @OA\MediaType(

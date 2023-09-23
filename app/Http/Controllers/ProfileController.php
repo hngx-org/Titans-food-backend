@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/user/profile",
+     *     path="/api/v1/user/profile",
      *     summary="Get User Profile Details",
      *     security={
      *         {"bearerAuth": {}}

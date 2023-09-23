@@ -100,7 +100,7 @@ class OrganizationController extends Controller
 
         /**
      * @OA\Put(
-     *     path="/api/organization/create",
+     *     path="/api/v1/organization/create",
      *     summary="Create Organization",
      *     security={
      *         {"bearerAuth": {}}

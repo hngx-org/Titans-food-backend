@@ -19,7 +19,7 @@ class LunchController extends Controller
      */
        /**
      * @OA\Get(
-     *     path="/api/lunch",
+     *     path="/api/v1/lunch",
      *     summary="Get All Lunch for User",
      *     security={
      *         {"bearerAuth": {}}

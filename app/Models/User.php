@@ -104,4 +104,10 @@ class User extends Authenticatable
 
         return $token;
     }
+    public function revokeToken()
+    {
+        $this->update(['refresh_token' => null]);
+
+        return null;
+    }
 }

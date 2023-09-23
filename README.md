@@ -160,7 +160,7 @@ Your laravel api is now fully setup, running on your local machine.
 
 ## API Endpoints
 - API Endpoints can are documented [here](https://github.com/hngx-org/Titans-food-backend/blob/main/DOCUMENTATION.md)
-    > The endpoints can be tested on the Project Swagger Docs. Open your browser and access the API docs from the url (https://titans-food-backend.onrender.com/api/docs). *NB: To access authenticated routes, Ensure to login, using the route `api/v1/auth/user/signin` then copy the `access_token` and input it in the Swagger authorization BearerAuth by clicking on the 'Authorize' button at the top right of the screen.*
+    > The endpoints can be tested on the Project Swagger Docs. Open your browser and access the API docs from the url (https://titans-food-backend.onrender.com/api/docs). *NB: To access authenticated routes, Ensure to login, using the route `api/v1/auth/user/signin` then copy the `access_token` from the login response and input it in the Swagger authorization BearerAuth by clicking on the 'Authorize' button at the top right of the screen.*
 
 ## Contributing
 

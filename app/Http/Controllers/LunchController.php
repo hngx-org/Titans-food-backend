@@ -213,6 +213,35 @@ class LunchController extends Controller
      *     "statusCode": 404
      * }
      */
+    /**
+         * @OA\Get(
+     *     path="/api/v1/lunch/{id}",
+     *     summary="Retrieve a lunch by ID",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Get lunch by ID",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 200, "message":"Lunch request created successfully", "data":{}}, summary="Retrieve a lunch by ID"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 404, "message":"Lunch request not found"}, summary="Retrieve a lunch by ID"),
+     *         )
+     *     )
+     * )
+    */
     public function show(int $Id)
     {
 

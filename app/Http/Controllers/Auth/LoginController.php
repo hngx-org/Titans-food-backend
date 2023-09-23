@@ -88,4 +88,38 @@ class LoginController extends Controller
             ]
         ], Response::HTTP_OK); // returning response
     }
+
+    public function changePassword(Request $request){
+        $user = auth()->user();
+        $fields = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string'
+        ]);
+
+        if($fields->fails()){
+            return response()->json([
+                'message' => $fields->messages(),
+                'statusCode' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
+        }
+
+        if (!Hash::check($request->current_password, $user->password_hash)) {
+            return response()->json([
+                'status_code' => Response::HTTP_UNAUTHORIZED,
+                'status' => 'error',
+                'message' => 'Current password is incorrect',
+            ], Response::HTTP_UNAUTHORIZED); // 403
+        }        
+
+        $password= Hash::make($request->new_password);
+        $response = $user->update([
+            'password_hash' => $password
+        ]);
+
+        return response()->json([
+            "message" => "Password changed successfully",
+            "statusCode" => Response::HTTP_OK, // 200
+            "data" => $user
+        ], Response::HTTP_OK);
+    }
 }

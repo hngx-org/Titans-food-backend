@@ -27,7 +27,6 @@ use App\Http\Controllers\OrganizationLunchWalletController;
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
 
-
     Route::get('/user/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user_profile.index');
     Route::patch('/user/bank',[BankDetailController::class, 'addBankDetails'])->name('user.addBankDetails');
@@ -58,5 +57,6 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 Route::prefix('v1')->group(function(){
     Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
     Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
+    Route::post('/auth/user/change-password', [LoginController::class, 'changePassword'])->name('user.changePassword');
     Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
 });

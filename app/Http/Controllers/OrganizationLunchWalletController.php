@@ -52,8 +52,47 @@ class OrganizationLunchWalletController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
+            /**
+     * @OA\Patch(
+     *     path="/api/v1/wallet",
+     *     summary="Update organization wallet",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="amount",
+     *                     type="integer"
+     *                 ),
+     *                 example={"amount":4000}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"success", "message":"wallet funded successfully", "data":{}}, summary="Update organization wallet balance"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"You are not authorized to perform this action", "data":null}, summary="Update organization wallet balance"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"Error funding wallet", "data":null}, summary="Update organization wallet balance"),
+     *         )
+     *     ),
+     * )
      */
     public function update(UpdateOrganizationLunchWalletRequest $request)
     {

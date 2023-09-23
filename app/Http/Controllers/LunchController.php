@@ -19,7 +19,7 @@ class LunchController extends Controller
      */
        /**
      * @OA\Get(
-     *     path="/api/lunch",
+     *     path="/api/v1/lunch",
      *     summary="Get All Lunch for User",
      *     security={
      *         {"bearerAuth": {}}
@@ -29,6 +29,13 @@ class LunchController extends Controller
      *         description="OK",
      *         @OA\JsonContent(
      *             @OA\Examples(example="result", value={"status": 200, "lunch":{}}, summary="Get All Lunch for User"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status": 404, "lunch":"no record found"}, summary="Get All Lunch for User"),
      *         )
      *     )
      * )
@@ -87,6 +94,54 @@ class LunchController extends Controller
      * @response 422 {
      *     "error": "You cannot appraise yourself" // Or "Insufficient fund!"
      * }
+     */
+    /**
+     * @OA\Post(
+     *     path="/api/v1/lunch",
+     *     summary="Send lunch credits",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="receivers",
+     *                     type="array",
+     *                     @OA\Items(
+     *                        type="array",
+     *                        @OA\Items()
+     *                     ),
+     *                 ),
+     *                 @OA\Property(
+     *                     property="quantity",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="note",
+     *                     type="string"
+     *                 ),
+     *                 example={"receivers":"[]", "quantity":5, "note":"Thank you for the good work"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Lunch request created successfully", "statusCode": 200, "data":{}}, summary="Send lunch credits"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="insufficient_fund", value={"message":"Insufficient fund!"}, summary="Send lunch credits"),
+     *             @OA\Examples(example="self_appraisal", value={"message":"You cannot appraise yourself"}, summary="Send lunch credits"),
+     *         )
+     *     ),
+     * )
      */
     public function store(StoreLunchRequest $request)
     {
@@ -165,6 +220,35 @@ class LunchController extends Controller
      *     "statusCode": 404
      * }
      */
+    /**
+         * @OA\Get(
+     *     path="/api/v1/lunch/{id}",
+     *     summary="Retrieve a lunch by ID",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Get lunch by ID",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 200, "message":"Lunch request created successfully", "data":{}}, summary="Retrieve a lunch by ID"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 404, "message":"Lunch request not found"}, summary="Retrieve a lunch by ID"),
+     *         )
+     *     )
+     * )
+    */
     public function show(int $Id)
     {
 

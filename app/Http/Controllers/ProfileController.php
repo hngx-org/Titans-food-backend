@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     /**
+     * @OA\Get(
+     *     path="/api/v1/user/profile",
+     *     summary="Get User Profile Details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User data fetched successfully", "statusCode": 200, "data":{}}, summary="Get User Profile"),
+     *         )
+     *     )
+     * )
+    */
+    /**
      * Authenticated user profile.
      *
      * Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status.
@@ -42,6 +58,7 @@ class ProfileController extends Controller
      *     "error": "Error message"
      * }
      */
+
     public function index()
     {
         try {

@@ -33,6 +33,62 @@ class BankDetailController extends Controller
      *     "statusCode": 400
      * }
      */
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/user/bank",
+     *     summary="Add bank account details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="bank_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="bank_number",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="bank_code",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="bank_region",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="currency",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="currency_code",
+     *                     type="string"
+     *                 ),
+     *                 example={"bank_name":"", "bank_number":"", "bank_code":"", "bank_region":"", "currency":"", "currency_code":""}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"successfully added bank account details", "statusCode": 200}, summary="Add bank account details for the authenticated user"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="BAD_REQUEST",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Error, please try again", "statusCode": 200}, summary="Add bank account details for the authenticated user"),
+     *         )
+     *     ),
+     * )
+     */
     public function addBankDetails(Request $request)
     {
         //--Get authenticated user
@@ -99,6 +155,30 @@ class BankDetailController extends Controller
      *     "message": "No bank details found for the given user."
      * }
      */
+      /**
+     * @OA\Get(
+     *     path="/api/v1/bank_details",
+     *     summary="View bank account details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"data": {}, "message":"Bank details found"}, summary="View bank account details for the authenticated user"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"No bank details found for the given user."}, summary="View bank account details for the authenticated user"),
+     *         )
+     *     )
+     * )
+    */
+    
     public function viewBankDetails()
     {
 

@@ -17,11 +17,9 @@ class OrganizationRefreshController extends Controller
         $token = $user->revokeToken();
 
         return response()->json([
-            "message" => "User authenticated successfully",
+            "message" => "User logout successfully",
             "statusCode" => Response::HTTP_OK, // 200
-            "data" => [
-                "access_token" => $token
-            ]
+            "data" => []
         ], Response::HTTP_OK); // returning response
     }
 
@@ -33,7 +31,7 @@ class OrganizationRefreshController extends Controller
         $token = $user->createToken();
 
         return response()->json([
-            "message" => "User authenticated successfully",
+            "message" => "User token refreshed successfully",
             "statusCode" => Response::HTTP_OK, // 200
             "data" => [
                 "access_token" => $token

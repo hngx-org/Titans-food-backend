@@ -56,8 +56,8 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 
     Route::get('/bank_details', [BankDetailController::class, 'viewBankDetails'])->name('bank_details.viewBankDetails');
 
-    Route::get('/logout', [OrganizationRefreshController::class, 'logout'])->name('user.logout');
-    Route::get('/token/refresh', [OrganizationRefreshController::class, 'refreshToken'])->name('user.refresh_token');
+    Route::post('/logout', [OrganizationRefreshController::class, 'logout'])->name('user.logout');
+    Route::post('/token/refresh', [OrganizationRefreshController::class, 'refreshToken'])->name('user.refresh_token');
 });
 
 Route::prefix('v1')->group(function () {

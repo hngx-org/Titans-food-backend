@@ -7,6 +7,214 @@ servers:
   -
     url: 'https://titans-food-backend.onrender.com'
 paths:
+  /api/v1/auth/user/signup:
+    post:
+      summary: 'Register a new user.'
+      operationId: registerANewUser
+      description: 'Registers a new user with the provided information and returns a success response upon successful registration.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status_code: 201
+                  status: success
+                  message: 'User signed up successfully'
+                  data:
+                    id: 1
+                    first_name: John
+                    last_name: Doe
+                    email: user@example.com
+                    is_admin: true
+                    password_hash: $2y$10$...
+                properties:
+                  status_code:
+                    type: integer
+                    example: 201
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'User signed up successfully'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      first_name:
+                        type: string
+                        example: John
+                      last_name:
+                        type: string
+                        example: Doe
+                      email:
+                        type: string
+                        example: user@example.com
+                      is_admin:
+                        type: boolean
+                        example: true
+                      password_hash:
+                        type: string
+                        example: $2y$10$...
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: required
+                  description: "User's first name."
+                  example: John
+                last_name:
+                  type: required
+                  description: "User's last name."
+                  example: Doe
+                email:
+                  type: string
+                  description: "User's email address."
+                  example: user@example.com
+                password:
+                  type: string
+                  description: "User's password."
+                  example: mypassword
+                phone_number:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/auth/user/signin:
+    post:
+      summary: 'User Login.'
+      operationId: userLogin
+      description: 'Authenticates a user by validating their email and password and provides an access token upon success.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User authenticated successfully'
+                  statusCode: 200
+                  data:
+                    access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...
+                    email: user@example.com
+                    id: 1
+                    isAdmin: false
+                    org_id: 123
+                properties:
+                  message:
+                    type: string
+                    example: 'User authenticated successfully'
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...
+                      email:
+                        type: string
+                        example: user@example.com
+                      id:
+                        type: integer
+                        example: 1
+                      isAdmin:
+                        type: boolean
+                        example: false
+                      org_id:
+                        type: integer
+                        example: 123
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status_code: 401
+                  status: error
+                  message: 'Authentication failed'
+                properties:
+                  status_code:
+                    type: integer
+                    example: 401
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: 'Authentication failed'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message:
+                    email:
+                      - 'The email field is required.'
+                    password:
+                      - 'The password field is required.'
+                  statusCode: 422
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email field is required.'
+                        items:
+                          type: string
+                      password:
+                        type: array
+                        example:
+                          - 'The password field is required.'
+                        items:
+                          type: string
+                  statusCode:
+                    type: integer
+                    example: 422
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "User's email address."
+                  example: schultz.dante@example.org
+                password:
+                  type: string
+                  description: "User's password."
+                  example: ']]\N9L`B'
+              required:
+                - email
+                - password
+      security: []
   /api/docs:
     get:
       summary: 'Display Swagger API page.'
@@ -41,36 +249,119 @@ paths:
       tags:
         - Endpoints
       security: []
-  /api/all:
-    get:
-      summary: ''
-      operationId: getApiAll
+  /api/v1/organization/lunch-price:
+    patch:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
       description: ''
       parameters: []
-      responses:
-        404:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  status: 404
-                  lunch: 'no record found'
-                properties:
-                  status:
-                    type: integer
-                    example: 404
-                  lunch:
-                    type: string
-                    example: 'no record found'
+      responses: {  }
       tags:
         - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lunch_price:
+                  type: number
+                  description: ''
+                  example: 6107.819
+              required:
+                - lunch_price
       security: []
-  /api/lunch:
+  /api/v1/organization/create:
+    put:
+      summary: ''
+      operationId: putApiV1OrganizationCreate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organization_name:
+                  type: string
+                  description: ''
+                  example: aut
+                lunch_price:
+                  type: number
+                  description: ''
+                  example: 2050.336401
+                currency_code:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - organization_name
+                - lunch_price
+      security: []
+    post:
+      summary: ''
+      operationId: postApiV1OrganizationCreate
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organization_name:
+                  type: string
+                  description: ''
+                  example: cum
+                lunch_price:
+                  type: number
+                  description: ''
+                  example: 12117429.24173
+                currency_code:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - organization_name
+                - lunch_price
+      security: []
+  /api/v1/wallet:
+    patch:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  description: ''
+                  example: 1762742.6552097
+              required:
+                - amount
+      security: []
+  /api/v1/lunch:
     get:
       summary: ''
-      operationId: getApiLunch
+      operationId: getApiV1Lunch
       description: ''
       parameters: []
       responses:
@@ -122,24 +413,33 @@ paths:
                   type: array
                   description: 'An array of user IDs who will receive the lunch.'
                   example:
-                    - velit
+                    - molestiae
                   items:
                     type: string
                 quantity:
                   type: integer
                   description: 'The quantity of lunches to send.'
-                  example: 17
+                  example: 5
                 note:
                   type: string
                   description: 'Additional note for the lunch request.'
-                  example: amet
+                  example: aut
               required:
                 - receivers
                 - quantity
-  /api/user/profile:
+  /api/v1/withdrawal/request:
+    post:
+      summary: ''
+      operationId: postApiV1WithdrawalRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
     get:
       summary: ''
-      operationId: getApiUserProfile
+      operationId: getApiV1WithdrawalRequest
       description: ''
       parameters: []
       responses:
@@ -158,172 +458,7 @@ paths:
       tags:
         - Endpoints
       security: []
-  /api/organization/create:
-    put:
-      summary: ''
-      operationId: putApiOrganizationCreate
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      security: []
-    post:
-      summary: 'Create a new organization.'
-      operationId: createANewOrganization
-      description: 'Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.'
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Example Organization\",\n        \"description\": \"A sample organization\",\n        // Add other organization fields here\n    },\n    \"message\": \"success\",\n    \"statusCode\": 200\n}"
-        403:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'You are not authorized to perform this action!'
-                properties:
-                  message:
-                    type: string
-                    example: 'You are not authorized to perform this action!'
-      tags:
-        - Organizations
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: 'The name of the organization.'
-                  example: autem
-                lunch_price:
-                  type: string
-                  description: ''
-                  example: possimus
-                currency_code:
-                  type: string
-                  description: ''
-                  example: null
-                description:
-                  type: string
-                  description: 'The description of the organization (optional).'
-                  example: 'Culpa dolor quam esse eligendi ducimus libero omnis dolorem.'
-              required:
-                - name
-                - lunch_price
-      security: []
-  /api/withdrawal/request:
-    post:
-      summary: ''
-      operationId: postApiWithdrawalRequest
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      security: []
-    get:
-      summary: ''
-      operationId: getApiWithdrawalRequest
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
-  /api/auth/user/signup:
-    post:
-      summary: ''
-      operationId: postApiAuthUserSignup
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                  description: ''
-                  example: rerum
-                last_name:
-                  type: string
-                  description: ''
-                  example: veritatis
-                email:
-                  type: string
-                  description: ''
-                  example: accusamus
-                password:
-                  type: string
-                  description: 'Must be at least 8 characters.'
-                  example: Zqbu2W
-                phone_number:
-                  type: string
-                  description: ''
-                  example: null
-              required:
-                - first_name
-                - last_name
-                - email
-                - password
-      security: []
-  /api/auth/user/signin:
-    post:
-      summary: ''
-      operationId: postApiAuthUserSignin
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'Must be a valid email address.'
-                  example: norris60@example.com
-                password:
-                  type: string
-                  description: ''
-                  example: gP^Nb|-BDZ
-              required:
-                - email
-                - password
-      security: []
-  '/api/lunch/{id}':
+  '/api/v1/lunch/{id}':
     get:
       summary: 'Retrieve a lunch by its ID.'
       operationId: retrieveALunchByItsID
@@ -401,10 +536,10 @@ paths:
         in: path
         name: id
         description: 'The ID of the lunch.'
-        example: 19
+        example: sed
         required: true
         schema:
-          type: integer
+          type: string
       -
         in: path
         name: Id
@@ -413,7 +548,49 @@ paths:
         required: true
         schema:
           type: integer
-  /api/organization:
+  /api/v1/organization/invite:
+    post:
+      summary: 'Store an organization invitation.'
+      operationId: storeAnOrganizationInvitation
+      description: 'Creates an organization invitation with a generated token and sends an email invitation to the specified email address.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: success
+                  statusCode: 200
+                  data: null
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: string
+                    example: null
+      tags:
+        - Organizations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address to which the invitation will be sent.'
+                  example: rhammes@example.net
+              required:
+                - email
+  /api/v1/organization:
     get:
       summary: 'Retrieve a list of organizations.'
       operationId: retrieveAListOfOrganizations
@@ -429,7 +606,113 @@ paths:
                 example: "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Organization 1\",\n            \"lunch_price\": 2000\n        },\n         {\n             \"id\": 2,\n             \"name\": \"Organization 2\",\n             \"lunch_price\": 1000\n         },\n\n    ]\n}"
       tags:
         - Organizations
-  /api/user/bank:
+  /api/v1/user/profile:
+    get:
+      summary: 'Authenticated user profile.'
+      operationId: authenticatedUserProfile
+      description: "Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User data fetched successfully'
+                  statusCode: 200
+                  data:
+                    id: 1
+                    email: john@example.com
+                    first_name: John
+                    last_name: Doe
+                    phonenumber: '1234567890'
+                    profile_picture: user-profile-picture-url
+                    bank_number: 1234-5678-9012-3456
+                    bank_code: '123456'
+                    bank_name: 'Bank Name'
+                    isAdmin: true
+                properties:
+                  message:
+                    type: string
+                    example: 'User data fetched successfully'
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: john@example.com
+                      first_name:
+                        type: string
+                        example: John
+                      last_name:
+                        type: string
+                        example: Doe
+                      phonenumber:
+                        type: string
+                        example: '1234567890'
+                      profile_picture:
+                        type: string
+                        example: user-profile-picture-url
+                      bank_number:
+                        type: string
+                        example: 1234-5678-9012-3456
+                      bank_code:
+                        type: string
+                        example: '123456'
+                      bank_name:
+                        type: string
+                        example: 'Bank Name'
+                      isAdmin:
+                        type: boolean
+                        example: true
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User not authenticated'
+                  statusCode: 401
+                properties:
+                  message:
+                    type: string
+                    example: 'User not authenticated'
+                  statusCode:
+                    type: integer
+                    example: 401
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'An error occurred while fetching user data'
+                  statusCode: 500
+                  error: 'Error message'
+                properties:
+                  message:
+                    type: string
+                    example: 'An error occurred while fetching user data'
+                  statusCode:
+                    type: integer
+                    example: 500
+                  error:
+                    type: string
+                    example: 'Error message'
+      tags:
+        - User
+      security: []
+  /api/v1/user/bank:
     patch:
       summary: 'Add bank account details for the authenticated user.'
       operationId: addBankAccountDetailsForTheAuthenticatedUser
@@ -464,27 +747,27 @@ paths:
                 bank_name:
                   type: string
                   description: 'The name of the bank.'
-                  example: aut
+                  example: veritatis
                 bank_number:
                   type: string
                   description: 'The bank account number.'
-                  example: culpa
+                  example: tempora
                 bank_code:
                   type: string
                   description: 'The bank code.'
-                  example: sint
+                  example: est
                 bank_region:
                   type: string
                   description: 'The bank region.'
-                  example: culpa
+                  example: dolorem
                 currency:
                   type: string
                   description: 'The currency used in the bank account.'
-                  example: dolores
+                  example: praesentium
                 currency_code:
                   type: string
                   description: 'The currency code.'
-                  example: sit
+                  example: quis
               required:
                 - bank_name
                 - bank_number
@@ -492,7 +775,7 @@ paths:
                 - bank_region
                 - currency
                 - currency_code
-  '/api/{user}/bank_details':
+  /api/v1/bank_details:
     get:
       summary: 'View bank account details for the authenticated user.'
       operationId: viewBankAccountDetailsForTheAuthenticatedUser
@@ -557,16 +840,7 @@ paths:
                     example: 'No bank details found for the given user.'
       tags:
         - User
-    parameters:
-      -
-        in: path
-        name: user
-        description: ''
-        example: est
-        required: true
-        schema:
-          type: string
-  '/api/search/{nameOrEmail}':
+  '/api/v1/user/search/{nameOrEmail}':
     get:
       summary: 'Search for users by name or email.'
       operationId: searchForUsersByNameOrEmail
@@ -689,7 +963,7 @@ paths:
         required: true
         schema:
           type: string
-  /api/user/all:
+  /api/v1/user/all:
     get:
       summary: 'Retrieve a list of users.'
       operationId: retrieveAListOfUsers
@@ -811,7 +1085,7 @@ paths:
                     example: 'No records found'
       tags:
         - Users
-  /api/organization/staff/signup:
+  /api/v1/organization/staff/signup:
     post:
       summary: 'Create a user within an organization using an invitation token.'
       operationId: createAUserWithinAnOrganizationUsingAnInvitationToken
@@ -857,23 +1131,23 @@ paths:
                 first_name:
                   type: string
                   description: 'The first name of the user.'
-                  example: ratione
+                  example: consequatur
                 last_name:
                   type: string
                   description: 'The last name of the user.'
-                  example: dicta
+                  example: quisquam
                 email:
                   type: string
                   description: 'The email address of the user.'
-                  example: adelia.upton@example.org
+                  example: miller.grimes@example.net
                 phone:
                   type: string
                   description: 'The phone number of the user.'
-                  example: aliquam
+                  example: ipsam
                 otp_token:
                   type: string
                   description: 'The OTP token for authentication.'
-                  example: iste
+                  example: excepturi
                 profile_pic:
                   type: string
                   format: binary
@@ -881,7 +1155,7 @@ paths:
                 password:
                   type: string
                   description: "The user's password."
-                  example: '{T~971MCl9dZ&cAFOx/'
+                  example: '${9)!<;P^4lY+)'
               required:
                 - first_name
                 - last_name
@@ -890,6 +1164,9 @@ paths:
                 - password
       security: []
 tags:
+  -
+    name: Authentication
+    description: ''
   -
     name: Endpoints
     description: ''

@@ -181,17 +181,17 @@ class UserController extends Controller
      */
     public function search($nameOrEmail)
     {
-        $users = User::where('name', 'like', '%' . $nameOrEmail . '%')
+        $users = User::where('first_name', 'like', '%' . $nameOrEmail . '%')
+                ->orWhere('last_name', 'like', '%' . $nameOrEmail . '%')
                 ->orWhere('email', 'like', '%' . $nameOrEmail . '%')
-                ->get();
+                ->get(['id', 'first_name', 'last_name', 'email']);
 
         if ($users->isEmpty()) {
             $message = 'No users found for the given name or email.';
             return response()->json(['message' => $message], 404);
         }
-
         $message = 'User found';
 
-        return response()->json(['message' => $message, 'data' => $users], 200);
+        return response()->json(['message' => $message, 'statusCode' => 200, 'data' => $users], 200);
     }
 }

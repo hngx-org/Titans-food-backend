@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 
+use Exception;
+use App\Models\User;
 use App\Models\Organization;
 use App\Traits\MessageTrait;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreOrganizationRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
 use App\Models\OrganizationInvite;
-use App\Models\User;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\OrganizationLunchWallet;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\UpdateOrganizationRequest;
 
 class OrganizationController extends Controller
 {
@@ -133,23 +135,28 @@ class OrganizationController extends Controller
     public function store(StoreOrganizationRequest $request)
     {
         if(is_null(Auth::user()->org_id)){
-            $data = Organization::create([
-                'name' => $request->organization_name,
-                'currency_code' => $request->currency_code,
-                'lunch_price' => $request->lunch_price
-            ]);
-
-            if($data){
-                User::query()->where('id', Auth::user()->id)->update([
-                    'is_admin' => true,
-                    'org_id' => $data->id,
+                $org = Organization::create([
+                    'name' => $request->organization_name,
+                    'currency_code' => $request->currency_code,
+                    'lunch_price' => $request->lunch_price
                 ]);
-            }
-            return $this->success('Organization Created Successfully', 200, $data);
+    
+                $org_wallet = OrganizationLunchWallet::create([
+                    'org_id' => $org->id,
+                    'balance' => 40000
+                ]);
+    
+                if($org && $org_wallet){
+                    User::query()->where('id', Auth::user()->id)->update([
+                        'is_admin' => true,
+                        'org_id' => $org->id,
+                    ]);
+                }
+            return $this->success('Organization Created Successfully', 200, $org);
         }
         return $this->error('You already belong to a company', 422);
-         
      }
+
     /**
      * Create a user within an organization using an invitation token.
      *
@@ -236,9 +243,22 @@ class OrganizationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Organization $organization)
+    public function update_lunch_price(Request $request)
     {
-        //
+        $request->validate([
+            'lunch_price' => ['required', 'numeric']
+        ]);
+
+        if(!auth()->user()->is_admin){
+            return $this->error('You are not authorized to perform this action', 401);
+        }
+        $org = Organization::where('id', auth()->user()->org_id)->update([
+            'lunch_price' => $request->lunch_price
+        ]);
+        if (!$org){
+            return $this->error('error updating lunch price', 422);
+        }
+        return $this->success('lunch price updated successfully', 200);
     }
 
 

@@ -235,14 +235,14 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: api/all
+      - PATCH
+    uri: api/v1/organization/lunch-price
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Remove the specified resource from storage.'
       description: ''
       authenticated: false
       custom: []
@@ -253,99 +253,19 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 404
-        content: '{"status":404,"lunch":"no record found"}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
-          access-control-allow-origin: '*'
-        description: null
+    bodyParameters:
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 6107.819
+        type: number
+        enumValues: []
         custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/lunch
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    cleanBodyParameters:
+      lunch_price: 6107.819
     fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/user/profile
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -355,7 +275,7 @@ endpoints:
   -
     httpMethods:
       - PUT
-    uri: api/organization/create
+    uri: api/v1/organization/create
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -372,8 +292,34 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      organization_name:
+        name: organization_name
+        description: ''
+        required: true
+        example: aut
+        type: string
+        enumValues: []
+        custom: []
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 2050.336401
+        type: number
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      organization_name: aut
+      lunch_price: 2050.336401
     fileParameters: []
     responses: []
     responseFields: []
@@ -385,7 +331,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/withdrawal/request
+    uri: api/v1/organization/create
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -402,8 +348,73 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      organization_name:
+        name: organization_name
+        description: ''
+        required: true
+        example: cum
+        type: string
+        enumValues: []
+        custom: []
+      lunch_price:
+        name: lunch_price
+        description: ''
+        required: true
+        example: 12117429.24173
+        type: number
+        enumValues: []
+        custom: []
+      currency_code:
+        name: currency_code
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      organization_name: cum
+      lunch_price: 12117429.24173
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PATCH
+    uri: api/v1/wallet
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      amount:
+        name: amount
+        description: ''
+        required: true
+        example: 1762742.6552097
+        type: number
+        enumValues: []
+        custom: []
+    cleanBodyParameters:
+      amount: 1762742.6552097
     fileParameters: []
     responses: []
     responseFields: []
@@ -415,7 +426,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/withdrawal/request
+    uri: api/v1/lunch
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -454,7 +465,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/auth/user/signup
+    uri: api/v1/withdrawal/request
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -471,52 +482,8 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      first_name:
-        name: first_name
-        description: ''
-        required: true
-        example: rerum
-        type: string
-        enumValues: []
-        custom: []
-      last_name:
-        name: last_name
-        description: ''
-        required: true
-        example: veritatis
-        type: string
-        enumValues: []
-        custom: []
-      email:
-        name: email
-        description: ''
-        required: true
-        example: accusamus
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: 'Must be at least 8 characters.'
-        required: true
-        example: Zqbu2W
-        type: string
-        enumValues: []
-        custom: []
-      phone_number:
-        name: phone_number
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      first_name: rerum
-      last_name: veritatis
-      email: accusamus
-      password: Zqbu2W
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses: []
     responseFields: []
@@ -527,8 +494,8 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - POST
-    uri: api/auth/user/signin
+      - GET
+    uri: api/v1/withdrawal/request
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -545,28 +512,19 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: 'Must be a valid email address.'
-        required: true
-        example: norris60@example.com
-        type: string
-        enumValues: []
-        custom: []
-      password:
-        name: password
-        description: ''
-        required: true
-        example: gP^Nb|-BDZ
-        type: string
-        enumValues: []
-        custom: []
-    cleanBodyParameters:
-      email: norris60@example.com
-      password: gP^Nb|-BDZ
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null

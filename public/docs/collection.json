@@ -10,11 +10,105 @@
     ],
     "info": {
         "name": "Team Titan Api Documentation",
-        "_postman_id": "eadb7416-ec2e-4262-9719-09085d4b37f5",
+        "_postman_id": "d947d678-97fa-4f3c-b781-a5ab7d635c6c",
         "description": "This is an internal Api documentation for team titan",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Register a new user.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/auth\/user\/signup",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/user\/signup"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"John\",\"last_name\":\"Doe\",\"email\":\"user@example.com\",\"password\":\"mypassword\"}"
+                        },
+                        "description": "Registers a new user with the provided information and returns a success response upon successful registration.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"status_code\": 201,\n    \"status\": \"success\",\n    \"message\": \"User signed up successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"email\": \"user@example.com\",\n        \"is_admin\": true,\n        \"password_hash\": \"$2y$10$...\"\n    }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "User Login.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/auth\/user\/signin",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/user\/signin"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"schultz.dante@example.org\",\"password\":\"]]\\\\N9L`B\"}"
+                        },
+                        "description": "Authenticates a user by validating their email and password and provides an access token upon success.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"User authenticated successfully\",\n    \"statusCode\": 200,\n    \"data\": {\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI...\",\n        \"email\": \"user@example.com\",\n        \"id\": 1,\n        \"isAdmin\": false,\n        \"org_id\": 123\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"status_code\": 401,\n    \"status\": \"error\",\n    \"message\": \"Authentication failed\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"message\": {\n        \"email\": [\"The email field is required.\"],\n        \"password\": [\"The password field is required.\"]\n    },\n    \"statusCode\": 422\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "name": "Endpoints",
             "description": "",
@@ -116,15 +210,15 @@
                     ]
                 },
                 {
-                    "name": "GET api\/all",
+                    "name": "Remove the specified resource from storage.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/all",
+                            "path": "api\/v1\/organization\/lunch-price",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/all"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/lunch-price"
                         },
-                        "method": "GET",
+                        "method": "PATCH",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -135,146 +229,25 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "59"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 404,
-                            "body": "{\"status\":404,\"lunch\":\"no record found\"}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "GET api\/lunch",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/lunch",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch"
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"lunch_price\":6107.819}"
                         },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
                         "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
+                    "response": []
                 },
                 {
-                    "name": "GET api\/user\/profile",
+                    "name": "PUT api\/v1\/organization\/create",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/profile",
+                            "path": "api\/v1\/organization\/create",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/profile"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "PUT api\/organization\/create",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/organization\/create",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/create"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/create"
                         },
                         "method": "PUT",
                         "header": [
@@ -287,7 +260,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"organization_name\":\"aut\",\"lunch_price\":2050.336401}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -296,13 +272,13 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/withdrawal\/request",
+                    "name": "POST api\/v1\/organization\/create",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
+                            "path": "api\/v1\/organization\/create",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/create"
                         },
                         "method": "POST",
                         "header": [
@@ -315,7 +291,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"organization_name\":\"cum\",\"lunch_price\":12117429.24173}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -324,13 +303,44 @@
                     "response": []
                 },
                 {
-                    "name": "GET api\/withdrawal\/request",
+                    "name": "Update the specified resource in storage.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/withdrawal\/request",
+                            "path": "api\/v1\/wallet",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/withdrawal\/request"
+                            "raw": "{{baseUrl}}\/api\/v1\/wallet"
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"amount\":1762742.6552096696}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET api\/v1\/lunch",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/lunch",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch"
                         },
                         "method": "GET",
                         "header": [
@@ -372,13 +382,13 @@
                     ]
                 },
                 {
-                    "name": "POST api\/auth\/user\/signup",
+                    "name": "POST api\/v1\/withdrawal\/request",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signup",
+                            "path": "api\/v1\/withdrawal\/request",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signup"
+                            "raw": "{{baseUrl}}\/api\/v1\/withdrawal\/request"
                         },
                         "method": "POST",
                         "header": [
@@ -391,10 +401,7 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"first_name\":\"rerum\",\"last_name\":\"veritatis\",\"email\":\"accusamus\",\"password\":\"Zqbu2W\"}"
-                        },
+                        "body": null,
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -403,15 +410,15 @@
                     "response": []
                 },
                 {
-                    "name": "POST api\/auth\/user\/signin",
+                    "name": "GET api\/v1\/withdrawal\/request",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/user\/signin",
+                            "path": "api\/v1\/withdrawal\/request",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/user\/signin"
+                            "raw": "{{baseUrl}}\/api\/v1\/withdrawal\/request"
                         },
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -422,16 +429,33 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"email\":\"norris60@example.com\",\"password\":\"gP^Nb|-BDZ\"}"
-                        },
+                        "body": null,
                         "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         },
@@ -444,9 +468,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/lunch",
+                            "path": "api\/v1\/lunch",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch"
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch"
                         },
                         "method": "POST",
                         "header": [
@@ -461,7 +485,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"receivers\":[\"velit\"],\"quantity\":17,\"note\":\"amet\"}"
+                            "raw": "{\"receivers\":[\"molestiae\"],\"quantity\":5,\"note\":\"aut\"}"
                         },
                         "description": "Creates a lunch request, deducts lunch credits from the sender, and credits lunch credits to the receivers."
                     },
@@ -485,14 +509,14 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/lunch\/:id",
+                            "path": "api\/v1\/lunch\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/lunch\/:id",
+                            "raw": "{{baseUrl}}\/api\/v1\/lunch\/:id",
                             "variable": [
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "sed",
                                     "description": "The ID of the lunch."
                                 },
                                 {
@@ -539,13 +563,13 @@
             "description": "",
             "item": [
                 {
-                    "name": "Create a new organization.",
+                    "name": "Store an organization invitation.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization\/create",
+                            "path": "api\/v1\/organization\/invite",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/create"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/invite"
                         },
                         "method": "POST",
                         "header": [
@@ -560,24 +584,15 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"autem\",\"lunch_price\":\"possimus\",\"description\":\"Culpa dolor quam esse eligendi ducimus libero omnis dolorem.\"}"
+                            "raw": "{\"email\":\"rhammes@example.net\"}"
                         },
-                        "description": "Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Creates an organization invitation with a generated token and sends an email invitation to the specified email address."
                     },
                     "response": [
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Example Organization\",\n        \"description\": \"A sample organization\",\n        \/\/ Add other organization fields here\n    },\n    \"message\": \"success\",\n    \"statusCode\": 200\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 403,
-                            "body": "{\n    \"message\": \"You are not authorized to perform this action!\"\n}",
+                            "body": "{\n    \"message\": \"success\",\n    \"statusCode\": 200,\n    \"data\": null\n}",
                             "name": ""
                         }
                     ]
@@ -587,9 +602,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization",
+                            "path": "api\/v1\/organization",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization"
                         },
                         "method": "GET",
                         "header": [
@@ -621,13 +636,60 @@
             "description": "",
             "item": [
                 {
+                    "name": "Authenticated user profile.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/user\/profile",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/profile"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"User data fetched successfully\",\n    \"statusCode\": 200,\n    \"data\": {\n              \"id\": 1,\n              \"email\": \"john@example.com\",\n              \"first_name\": \"John\",\n              \"last_name\": \"Doe\",\n              \"phonenumber\": \"1234567890\",\n              \"profile_picture\": \"user-profile-picture-url\",\n              \"bank_number\": \"1234-5678-9012-3456\",\n              \"bank_code\": \"123456\",\n              \"bank_name\": \"Bank Name\",\n              \"isAdmin\": true\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"message\": \"User not authenticated\",\n    \"statusCode\": 401\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"message\": \"An error occurred while fetching user data\",\n    \"statusCode\": 500,\n    \"error\": \"Error message\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
                     "name": "Add bank account details for the authenticated user.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/bank",
+                            "path": "api\/v1\/user\/bank",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/bank"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/bank"
                         },
                         "method": "PATCH",
                         "header": [
@@ -642,7 +704,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"bank_name\":\"aut\",\"bank_number\":\"culpa\",\"bank_code\":\"sint\",\"bank_region\":\"culpa\",\"currency\":\"dolores\",\"currency_code\":\"sit\"}"
+                            "raw": "{\"bank_name\":\"veritatis\",\"bank_number\":\"tempora\",\"bank_code\":\"est\",\"bank_region\":\"dolorem\",\"currency\":\"praesentium\",\"currency_code\":\"quis\"}"
                         },
                         "description": "Adds bank account details, such as bank name, bank number, bank code, and currency, for the authenticated user."
                     },
@@ -666,17 +728,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/:user\/bank_details",
+                            "path": "api\/v1\/bank_details",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/:user\/bank_details",
-                            "variable": [
-                                {
-                                    "id": "user",
-                                    "key": "user",
-                                    "value": "est",
-                                    "description": ""
-                                }
-                            ]
+                            "raw": "{{baseUrl}}\/api\/v1\/bank_details"
                         },
                         "method": "GET",
                         "header": [
@@ -718,9 +772,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/search\/:nameOrEmail",
+                            "path": "api\/v1\/user\/search\/:nameOrEmail",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/search\/:nameOrEmail",
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/search\/:nameOrEmail",
                             "variable": [
                                 {
                                     "id": "nameOrEmail",
@@ -764,9 +818,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/user\/all",
+                            "path": "api\/v1\/user\/all",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/user\/all"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/all"
                         },
                         "method": "GET",
                         "header": [
@@ -802,9 +856,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/organization\/staff\/signup",
+                            "path": "api\/v1\/organization\/staff\/signup",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/organization\/staff\/signup"
+                            "raw": "{{baseUrl}}\/api\/v1\/organization\/staff\/signup"
                         },
                         "method": "POST",
                         "header": [
@@ -822,37 +876,37 @@
                             "formdata": [
                                 {
                                     "key": "first_name",
-                                    "value": "ratione",
+                                    "value": "consequatur",
                                     "type": "text",
                                     "description": "The first name of the user."
                                 },
                                 {
                                     "key": "last_name",
-                                    "value": "dicta",
+                                    "value": "quisquam",
                                     "type": "text",
                                     "description": "The last name of the user."
                                 },
                                 {
                                     "key": "email",
-                                    "value": "adelia.upton@example.org",
+                                    "value": "miller.grimes@example.net",
                                     "type": "text",
                                     "description": "The email address of the user."
                                 },
                                 {
                                     "key": "phone",
-                                    "value": "aliquam",
+                                    "value": "ipsam",
                                     "type": "text",
                                     "description": "The phone number of the user."
                                 },
                                 {
                                     "key": "otp_token",
-                                    "value": "iste",
+                                    "value": "excepturi",
                                     "type": "text",
                                     "description": "The OTP token for authentication."
                                 },
                                 {
                                     "key": "password",
-                                    "value": "{T~971MCl9dZ&cAFOx\/",
+                                    "value": "${9)!<;P^4lY+)",
                                     "type": "text",
                                     "description": "The user's password."
                                 },

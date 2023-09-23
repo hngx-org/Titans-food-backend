@@ -40,7 +40,7 @@ class OrganisationSignupController extends Controller
      *     }
      * }
      */
-           /**
+      /**
      * @OA\Post(
      *     path="/api/v1/auth/user/signup",
      *     summary="User Signup (Organization only)",
@@ -77,6 +77,7 @@ class OrganisationSignupController extends Controller
      *     )
      * )
      */
+
     public function register(OrganizationSignUpRequest $request)
     {
         $password= Hash::make($request->password);

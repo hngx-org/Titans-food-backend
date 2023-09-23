@@ -91,6 +91,7 @@ class LoginController extends Controller
      *     ),
      * )
      */
+
     public function login(Request $request){
 
         $fields = Validator::make($request->all(), [
@@ -117,7 +118,7 @@ class LoginController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $token = $user->createToken($request->email)->plainTextToken; // Creating access_token
+        $token = $user->createToken(); // Creating access_token
 
         return response()->json([
             "message" => "User authenticated successfully",

@@ -16,7 +16,53 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
-    //
+        /**
+     * @OA\Post(
+     *     path="/api/v1/auth/user/forgot-password",
+     *     summary="Reset user password",
+     *     tags={"Authentication"},
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="note",
+     *                     type="string"
+     *                 ),
+     *                 example={"email":"user@example.com", "note":"Thank you for the good work"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"OTP sent successfully", "statusCode": 200, "data":{}}, summary="Reset user password"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":{"[Field] is required", "[Field] is required"}, "statusCode":422}, summary="Reset user password"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User not found", "statusCode":404}, summary="Reset user password"),
+     *         )
+     *     ),
+     * )
+     */
     public function forgotPassword(Request $request)
     {
         $request->validate([

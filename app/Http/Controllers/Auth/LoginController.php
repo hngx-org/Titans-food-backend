@@ -52,6 +52,7 @@ class LoginController extends Controller
      * @OA\Post(
      *     path="/api/v1/auth/user/signin",
      *     summary="User/Organization login",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",

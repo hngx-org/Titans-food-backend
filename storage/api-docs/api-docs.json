@@ -7,6 +7,9 @@
     "paths": {
         "/api/v1/auth/user/signin": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "User/Organization login",
                 "operationId": "b25c088b399a97e86d1156957fb2aae3",
                 "requestBody": {
@@ -93,6 +96,9 @@
         },
         "/api/v1/auth/user/signup": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "User Signup (Organization only)",
                 "operationId": "c244b24745e044006c61e7edd0f39cb4",
                 "requestBody": {
@@ -146,10 +152,105 @@
                 }
             }
         },
-        "/api/v1/user/bank": {
+        "/api/v1/auth/user/forgot-password": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset user password",
+                "operationId": "ed6cd9e3e9b14386ed6324d44f52e990",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "user@example.com",
+                                    "note": "Thank you for the good work"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": "OTP sent successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": [
+                                                "[Field] is required",
+                                                "[Field] is required"
+                                            ],
+                                            "statusCode": 422
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": "User not found",
+                                            "statusCode": 404
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/bank": {
+            "patch": {
+                "tags": [
+                    "Bank Details"
+                ],
                 "summary": "Add bank account details",
-                "operationId": "73b2f0bfed763a9f6d47c8efdb643df7",
+                "operationId": "211b742d35956aa80b6ad6bd7a38aad8",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -232,6 +333,9 @@
         },
         "/api/v1/bank_details": {
             "get": {
+                "tags": [
+                    "Bank Details"
+                ],
                 "summary": "View bank account details",
                 "operationId": "62d320a0d6f12aac5e64b802945f3822",
                 "responses": {
@@ -278,6 +382,9 @@
         },
         "/api/v1/lunch": {
             "get": {
+                "tags": [
+                    "Lunch"
+                ],
                 "summary": "Get All Lunch for User",
                 "operationId": "87f3a7f5828ce0772e22ced0b83a952c",
                 "responses": {
@@ -323,6 +430,9 @@
                 ]
             },
             "post": {
+                "tags": [
+                    "Lunch"
+                ],
                 "summary": "Send lunch credits",
                 "operationId": "56df44ec3c310e9ecaab1dd37d8fa0e0",
                 "requestBody": {
@@ -405,6 +515,9 @@
         },
         "/api/v1/lunch/{id}": {
             "get": {
+                "tags": [
+                    "Lunch"
+                ],
                 "summary": "Retrieve a lunch by ID",
                 "operationId": "45f79f9a23efb7e83d0937814a27c68e",
                 "parameters": [
@@ -461,6 +574,9 @@
         },
         "/api/v1/organization/create": {
             "put": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Create a new organization",
                 "operationId": "37c9e238c8b894be5d7c84ee4aa74f39",
                 "requestBody": {
@@ -527,6 +643,9 @@
                 ]
             },
             "post": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Create Organization",
                 "operationId": "cc783a78127b97001fc10c30994efd67",
                 "requestBody": {
@@ -601,6 +720,9 @@
         },
         "/api/v1/organization/staff/signup": {
             "post": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Create a user within an organization",
                 "operationId": "620e70f3dfc4b9a6177c4c60d520aab8",
                 "requestBody": {
@@ -697,6 +819,9 @@
         },
         "/api/v1/organization/lunch-price": {
             "patch": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Update lunch price",
                 "operationId": "c5c1cf536c432da7e6c0861294d9adb0",
                 "requestBody": {
@@ -781,6 +906,9 @@
         },
         "/api/v1/organization": {
             "get": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Get a list of organizations not deleted",
                 "operationId": "2b2c84a4a824831ef20e7a0ba7bca981",
                 "responses": {
@@ -810,6 +938,9 @@
         },
         "/api/v1/organization/invite": {
             "post": {
+                "tags": [
+                    "Organization"
+                ],
                 "summary": "Create an organization invitation",
                 "operationId": "deb4113e8c51bb3a7f4e2344436dfef0",
                 "requestBody": {
@@ -874,6 +1005,9 @@
         },
         "/api/v1/wallet": {
             "patch": {
+                "tags": [
+                    "Wallet"
+                ],
                 "summary": "Update organization wallet",
                 "operationId": "1e4798999b5cf6741659e5b6b48b9b5b",
                 "requestBody": {
@@ -956,8 +1090,160 @@
                 ]
             }
         },
+        "/api/v1/user/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get User Profile Details",
+                "operationId": "d9fb90defef5300275c33848ffee01d2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get User Profile",
+                                        "value": {
+                                            "message": "User data fetched successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/user/change-password": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Change Password",
+                "operationId": "9417bf69388aefbc4e2df020380137a2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "current_password": "1Password",
+                                    "new_password": "password123",
+                                    "confirm_password": "password123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Password changed successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": [
+                                                "[Field] is required",
+                                                "[Field] is required"
+                                            ],
+                                            "statusCode": 422
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "BAD_REQUEST",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Passwords do not match",
+                                            "statusCode": 400,
+                                            "status": "error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Current password is incorrect",
+                                            "statusCode": 403,
+                                            "status": "error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/user/all": {
             "get": {
+                "tags": [
+                    "User"
+                ],
                 "summary": "All all users list",
                 "operationId": "94f739901dd8e83c0d8185cb5884b3ae",
                 "responses": {
@@ -1006,6 +1292,9 @@
         },
         "/api/v1/user/profile/{nameOrEmail}": {
             "get": {
+                "tags": [
+                    "User"
+                ],
                 "summary": "Search profile by Name or Email",
                 "operationId": "b8c0b4d8cff688b3fc18581ea71cc947",
                 "parameters": [
@@ -1062,6 +1351,9 @@
         },
         "/api/v1/withdrawal/request": {
             "get": {
+                "tags": [
+                    "Withdrawal"
+                ],
                 "summary": "Get Withdrawal Requests from User",
                 "operationId": "0f4064b6da1781c0d91cd7bbc590f76b",
                 "responses": {
@@ -1091,6 +1383,9 @@
                 ]
             },
             "post": {
+                "tags": [
+                    "Withdrawal"
+                ],
                 "summary": "Withdrawal Request",
                 "operationId": "c8147d0db50cb1d94b536db31fd70324",
                 "requestBody": {

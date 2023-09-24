@@ -53,6 +53,7 @@ class OrganizationInviteController extends Controller
         /**
      * @OA\Post(
      *     path="/api/v1/organization/invite",
+     *     tags={"Organization"},
      *     summary="Create an organization invitation",
      *     security={
      *         {"bearerAuth": {}}

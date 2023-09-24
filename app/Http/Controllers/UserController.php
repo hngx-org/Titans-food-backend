@@ -56,6 +56,7 @@ class UserController extends Controller
          * @OA\Get(
      *     path="/api/v1/user/all",
      *     summary="All all users list",
+     *     tags={"User"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -205,6 +206,7 @@ class UserController extends Controller
         /**
          * @OA\Get(
      *     path="/api/v1/user/profile/{nameOrEmail}",
+     *     tags={"User"},
      *     summary="Search profile by Name or Email",
      *     security={
      *         {"bearerAuth": {}}

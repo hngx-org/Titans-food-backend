@@ -27,7 +27,6 @@ use App\Http\Controllers\OrganizationLunchWalletController;
 */
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
-
     Route::get('/user/search/{nameOrEmail}', [UserController::class, 'search'])->name('search.search');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user_profile.index');
     Route::post('/auth/user/change-password', [ProfileController::class, 'changePassword'])->name('user.changePassword');

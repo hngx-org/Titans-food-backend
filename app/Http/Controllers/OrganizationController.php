@@ -65,6 +65,7 @@ class OrganizationController extends Controller
         /**
      * @OA\Put(
      *     path="/api/v1/organization/create",
+     *     tags={"Organization"},
      *     summary="Create a new organization",
      *     security={
      *         {"bearerAuth": {}}
@@ -143,6 +144,7 @@ class OrganizationController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/organization/create",
+     *     tags={"Organization"},
      *     summary="Create Organization",
      *     security={
      *         {"bearerAuth": {}}
@@ -184,7 +186,7 @@ class OrganizationController extends Controller
      * )
      */
     public function store(StoreOrganizationRequest $request)
-    {
+    { 
         if(is_null(Auth::user()->org_id)){
                 $org = Organization::create([
                     'name' => $request->organization_name,
@@ -250,6 +252,7 @@ class OrganizationController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/organization/staff/signup",
+     *     tags={"Organization"},
      *     summary="Create a user within an organization",
      *     security={
      *         {"bearerAuth": {}}
@@ -359,6 +362,7 @@ class OrganizationController extends Controller
         /**
      * @OA\Patch(
      *     path="/api/v1/organization/lunch-price",
+     *     tags={"Organization"},
      *     summary="Update lunch price",
      *     security={
      *         {"bearerAuth": {}}
@@ -445,6 +449,7 @@ class OrganizationController extends Controller
            /**
      * @OA\Get(
      *     path="/api/v1/organization",
+     *     tags={"Organization"},
      *     summary="Get a list of organizations not deleted",
      *     security={
      *         {"bearerAuth": {}}

@@ -88,24 +88,29 @@ class WithdrawalController extends Controller
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {
-        $get_bank_details=User::where('id',Auth::id())->get('bank_number','bank_code','bank_name');
-        if($get_bank_details->isEmpty()):
+        $get_bank_details = User::where('id',Auth::id())->select('bank_number','bank_code','bank_name')->get();
+    
+        if(empty($get_bank_details->bank_number) && empty($get_bank_details->bank_code) && empty($get_bank_details->bank_name)):
             return response()->json([
-                "status"=>"Invalid",
-                "status_code"=>402,
-                "message" => "No Bank Details Found"
-            ]);
+                "status" => "Invalid",
+                "status_code" => 422,
+                "message" => "Please add your bank details"
+            ], 422);
         endif;
-        $withdrawal->user_id =Auth::id(); //Getting Authenticated user Id not Request
+
+
+        $withdrawal->user_id = Auth::id(); //Getting Authenticated user Id not Request
         $withdrawal->amount = $request->amount;
-        $checking=$withdrawal->save();
+        $checking = $withdrawal->save();
+
         if (!$checking) :
             return response()->json([
                 "status"=>"Invalid",
-                "status_code"=>402,
+                "status_code"=>422,
                 "message" => "Withdrawal request not created"
             ]);
         endif;
+
         return response()->json([
             "message" => "Withdrawal request created ",
             "statusCode" => 201,
@@ -116,7 +121,7 @@ class WithdrawalController extends Controller
                 "amount" => $request->amount,
                 "created_at" => Carbon::now()
             ]
-        ]);
+        ], 201);
     }
     /**
      * Display the specified resource.

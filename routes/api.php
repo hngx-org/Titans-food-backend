@@ -40,7 +40,7 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 
     Route::patch('/organization/lunch-price', [OrganizationController::class, 'update_lunch_price']);
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
-    Route::put('/organization/create', [OrganizationController::class, 'update']);
+
     Route::post('/organization/create', [OrganizationController::class, 'store']);
     Route::get('/organization', [OrganizationController::class, 'getOrganization']);
 

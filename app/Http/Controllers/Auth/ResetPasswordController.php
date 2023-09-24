@@ -21,6 +21,7 @@ class ResetPasswordController extends Controller
      * @OA\Post(
      *     path="/api/v1/auth/user/forgot-password",
      *     summary="Send a password reset OTP to the user's email",
+     *     tags={"Authentication"},git re
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(

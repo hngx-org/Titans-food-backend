@@ -61,6 +61,7 @@ class OrganizationController extends Controller
      * @OA\Post(
      *     path="/api/v1/organization/create",
      *     summary="Create Organization",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -257,6 +258,7 @@ class OrganizationController extends Controller
      * @OA\Patch(
      *     path="/api/v1/organization/lunch-price",
      *     summary="Update lunch price",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -318,6 +320,7 @@ class OrganizationController extends Controller
      * @OA\Get(
      *     path="/api/v1/organization",
      *     summary="Get a list of organizations not deleted",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },

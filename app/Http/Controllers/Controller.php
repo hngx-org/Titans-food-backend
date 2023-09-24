@@ -18,7 +18,7 @@ use Illuminate\Routing\Controller as BaseController;
     * ),
  * @OA\Server(
  *    description="Base URL",
- *    url="http://localhost:8000"
+ *    url="https://titans-food-backend.onrender.com"
  *  )
 */
 class Controller extends BaseController

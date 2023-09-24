@@ -4,50 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-
-    /**
-     * Authenticated user profile.
-     *
-     * Retrieves and returns the authenticated user's data, including their full name, email, profile picture, and admin status.
-     *
-     * @group User
-     * @authenticated
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @response {
-     *     "message": "User data fetched successfully",
-     *     "statusCode": 200,
-     *     "data": {
-     *               "id": 1,
-     *               "email": "john@example.com",
-     *               "first_name": "John",
-     *               "last_name": "Doe",
-     *               "phonenumber": "1234567890",
-     *               "profile_picture": "user-profile-picture-url",
-     *               "bank_number": "1234-5678-9012-3456",
-     *               "bank_code": "123456",
-     *               "bank_name": "Bank Name",
-     *               "isAdmin": true
-     *     }
-     * }
-     * @response 401 {
-     *     "message": "User not authenticated",
-     *     "statusCode": 401
-     * }
-     * @response 500 {
-     *     "message": "An error occurred while fetching user data",
-     *     "statusCode": 500,
-     *     "error": "Error message"
-     * }
-     */
    /**
      * @OA\Get(
      *     path="/api/v1/user/profile",
-     *     tags={"Profile"},
+     *     tags={"User"},
      *     summary="Get User Profile Details",
      *     security={
      *         {"bearerAuth": {}}
@@ -61,6 +28,7 @@ class ProfileController extends Controller
      *     )
      * )
     */
+
     public function index()
     {
         try {
@@ -92,7 +60,7 @@ class ProfileController extends Controller
         /**
      * @OA\Post(
      *     path="/api/v1/auth/user/change-password",
-     *     tags={"Profile"},
+     *     tags={"Authentication"},
      *     summary="Change Password",
      *     security={
      *         {"bearerAuth": {}}
@@ -151,8 +119,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $fields = Validator::make($request->all(), [
             'current_password' => 'required|string',
-            'new_password' => 'required|string',
-            'confirm_password' => 'required|string'
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         if($fields->fails()){
@@ -162,13 +129,6 @@ class ProfileController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         }
 
-        if($request->new_password !== $request->confirm_password)
-            return response()->json([
-                'status_code' => Response::HTTP_BAD_REQUEST,
-                'status' => 'error',
-                'message' => 'Passwords do not match',
-            ], Response::HTTP_BAD_REQUEST); // 400
-
         if (!Hash::check($request->current_password, $user->password_hash)) {
             return response()->json([
                 'status_code' => Response::HTTP_UNAUTHORIZED,
@@ -177,7 +137,7 @@ class ProfileController extends Controller
             ], Response::HTTP_UNAUTHORIZED); // 403
         }
 
-        $password= Hash::make($request->new_password);
+        $password = Hash::make($request->password);
         $response = $user->update([
             'password_hash' => $password
         ]);

@@ -13,6 +13,10 @@ class OrganizationRefreshController extends Controller
      * @OA\Post(
      *     path="/api/v1/logout",
      *     summary="Logout a user",
+     *     tags={"User"},
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\Response(
      *         response=200,
      *         description="User logout successful",
@@ -42,6 +46,10 @@ class OrganizationRefreshController extends Controller
      * @OA\Post(
      *     path="/api/v1/refresh-token",
      *     summary="Refresh user's access token",
+     *     tags={"User"},
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\Response(
      *         response=200,
      *         description="User token refreshed successfully",

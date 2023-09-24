@@ -38,6 +38,7 @@ class BankDetailController extends Controller
      * @OA\Patch(
      *     path="/api/v1/user/bank",
      *     summary="Add bank account details",
+     *     tags={"Bank Details"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -159,6 +160,7 @@ class BankDetailController extends Controller
      * @OA\Get(
      *     path="/api/v1/bank_details",
      *     summary="View bank account details",
+     *     tags={"Bank Details"},
      *     security={
      *         {"bearerAuth": {}}
      *     },

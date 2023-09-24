@@ -44,6 +44,7 @@ class OrganisationSignupController extends Controller
      * @OA\Post(
      *     path="/api/v1/auth/user/signup",
      *     summary="User Signup (Organization only)",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",

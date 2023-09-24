@@ -13,6 +13,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationInviteController;
 use App\Http\Controllers\Auth\OrganisationSignupController;
 use App\Http\Controllers\OrganizationLunchWalletController;
+use App\Http\Controllers\OrganizationRefreshController;
 
 
 /*
@@ -38,7 +39,7 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 
     Route::patch('/organization/lunch-price', [OrganizationController::class, 'update_lunch_price']);
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store']);
-    Route::put('/organization/create', [OrganizationController::class, 'update']);
+
     Route::post('/organization/create', [OrganizationController::class, 'store']);
     Route::get('/organization', [OrganizationController::class, 'getOrganization']);
 
@@ -53,6 +54,9 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
     Route::get('/withdrawal/request', [WithdrawalController::class, 'index'])->name('withdrawal.index');
 
     Route::get('/bank_details', [BankDetailController::class, 'viewBankDetails'])->name('bank_details.viewBankDetails');
+
+    Route::post('/logout', [OrganizationRefreshController::class, 'logout'])->name('user.logout');
+    Route::post('/token/refresh', [OrganizationRefreshController::class, 'refreshToken'])->name('user.refresh_token');
 });
 
 Route::prefix('v1')->group(function(){

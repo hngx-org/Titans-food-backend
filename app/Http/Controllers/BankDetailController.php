@@ -96,7 +96,7 @@ class BankDetailController extends Controller
         $user = auth()->user();
 
         //--validate the request parameters------
-        $validated= $request->validate([
+        $validated = $request->validate([
             'bank_name'=>'required|string',
             'bank_number'=>'required|string',
             'bank_code' => 'required|string',

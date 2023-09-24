@@ -97,7 +97,7 @@ class LoginController extends Controller
 
         $fields = Validator::make($request->all(), [
             'email' => 'required|string|email',
-            'password' => 'required|string'
+            'password' => 'required|string|'
         ]); // request body validation rules
 
         if($fields->fails()){

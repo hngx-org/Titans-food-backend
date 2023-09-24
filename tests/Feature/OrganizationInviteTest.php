@@ -15,11 +15,12 @@ use Tests\TestCase;
 
 class OrganizationInviteTest extends TestCase
 {
- 
+
     use RefreshDatabase;
 
     public function test_store_method_creates_organization_invite(): void
     {
+        $adminToken = $this->getAdminToken();
         $user = User::factory()->create();
         $organization = Organization::factory()->create();
 
@@ -28,10 +29,11 @@ class OrganizationInviteTest extends TestCase
         ];
 
         Mail::fake(); // Prevent actual email sending
-        $response = $this->actingAs($user) // Authenticate as the user
-            ->postJson('api/organization/invite', $requestData);
+        $response = $this->postJson(route('organization_invite.store'), $requestData, ['Authorization' => 'Bearer '. $adminToken]);
 
-        $response->assertStatus(Response::HTTP_OK) 
+
+
+        $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => 'success',
                 'statusCode' => 200,
@@ -39,7 +41,7 @@ class OrganizationInviteTest extends TestCase
             ]);
 
         // $this->assertDatabaseHas('organization_invites', [
-        //     'email' => 'invitee@titan.com', 
+        //     'email' => 'invitee@titan.com',
         //     'org_id' => $organization->id,
         // ]);
     }

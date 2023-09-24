@@ -573,75 +573,6 @@
             }
         },
         "/api/v1/organization/create": {
-            "put": {
-                "tags": [
-                    "Organization"
-                ],
-                "summary": "Create a new organization",
-                "operationId": "37c9e238c8b894be5d7c84ee4aa74f39",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "Example Organization",
-                                    "description": "A sample organization"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a new organization",
-                                        "value": {
-                                            "message": "success",
-                                            "statusCode": 200,
-                                            "data": []
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "UNAUTHORIZED",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a new organization",
-                                        "value": {
-                                            "message": "You are not authorized to perform this action!"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
             "post": {
                 "tags": [
                     "Organization"
@@ -667,7 +598,7 @@
                                 "example": {
                                     "organization_name": "Example Organization",
                                     "lunch_price": 1000,
-                                    "currency_code": "123"
+                                    "currency_code": "NGN"
                                 }
                             }
                         }

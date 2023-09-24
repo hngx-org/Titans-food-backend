@@ -151,7 +151,7 @@ class LunchController extends Controller
         if(in_array(Auth::user()->id, $request->input('receivers'))){
             return $this->error('You cannot appraise your self', 422);
         }
-
+        
         $lunch_price = Organization::query()->where('id', auth()->user()->org_id)->first()->lunch_price;
         $total_debit = count($request->input('receivers')) * $request->quantity * $lunch_price;
 

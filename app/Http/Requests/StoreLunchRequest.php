@@ -21,9 +21,10 @@ class StoreLunchRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        // 'exists:users,id'
+          return [
             'receivers' => ['array'],
-            'receivers.*' => ['sometimes', 'distinct'],
+            'receivers.*' => ['sometimes', 'distinct', 'exists:users,id'],
             'quantity' => ['numeric', 'required'],
             'note' => ['string']
         ];

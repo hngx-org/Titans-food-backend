@@ -35,94 +35,10 @@ class OrganizationController extends Controller
     {
         //
     }
-
-    /**
-     * Create a new organization.
-     *
-     * Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.
-     *
-     * @group Organizations
-     * @param \App\Http\Requests\StoreOrganizationRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @bodyParam name string required The name of the organization.
-     * @bodyParam description string The description of the organization (optional).
-     *
-     * @response {
-     *     "data": {
-     *         "id": 1,
-     *         "name": "Example Organization",
-     *         "description": "A sample organization",
-     *         // Add other organization fields here
-     *     },
-     *     "message": "success",
-     *     "statusCode": 200
-     * }
-     * @response 403 {
-     *     "message": "You are not authorized to perform this action!"
-     * }
-     */
-        /**
-     * @OA\Put(
-     *     path="/api/v1/organization/create",
-     *     tags={"Organization"},
-     *     summary="Create a new organization",
-     *     security={
-     *         {"bearerAuth": {}}
-     *     },
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="description",
-     *                     type="string"
-     *                 ),
-     *                 example={"name":"Example Organization", "description":"A sample organization"}
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"success", "statusCode": 200, "data":{}}, summary="Create a new organization"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=403,
-     *         description="UNAUTHORIZED",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"You are not authorized to perform this action!"}, summary="Create a new organization"),
-     *         )
-     *     ),
-     * )
-     */
     
     public function update(StoreOrganizationRequest $request)
     {
-        $user = Auth::user();
-        if(is_null($user->org_id)){
-            $organization = Organization::create($request->validated());
-
-            $user->org_id = $organization->id;
-            $user->save();
-
-            return response()->json([
-                'data' => $organization,
-                "message"=> "success",
-                "statusCode"=> 200,
-            ], 200);
-
-        }else{
-            return response()->json([
-                'message' => 'You are not authorized to perform this action!'
-            ], 403);
-        }
+        //
     }
 
     /**
@@ -165,7 +81,7 @@ class OrganizationController extends Controller
      *                     property="currency_code",
      *                     type="string"
      *                 ),
-     *                 example={"organization_name":"Example Organization", "lunch_price":1000, "currency_code":"123"}
+     *                 example={"organization_name":"Example Organization", "lunch_price":1000, "currency_code":"NGN"}
      *             )
      *         )
      *     ),

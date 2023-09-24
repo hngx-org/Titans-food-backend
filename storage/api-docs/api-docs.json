@@ -147,9 +147,9 @@
             }
         },
         "/api/v1/user/bank": {
-            "post": {
+            "patch": {
                 "summary": "Add bank account details",
-                "operationId": "73b2f0bfed763a9f6d47c8efdb643df7",
+                "operationId": "211b742d35956aa80b6ad6bd7a38aad8",
                 "requestBody": {
                     "content": {
                         "application/json": {

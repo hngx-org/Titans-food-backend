@@ -35,7 +35,7 @@ class BankDetailController extends Controller
      */
 
     /**
-     * @OA\Post(
+     * @OA\Patch(
      *     path="/api/v1/user/bank",
      *     summary="Add bank account details",
      *     security={

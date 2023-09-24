@@ -6,12 +6,15 @@ use App\Http\Requests\StoreWithdrawalRequest;
 use App\Http\Requests\UpdateWithdrawalRequest;
 use App\Models\User;
 use App\Models\Withdrawal;
+use App\Traits\MessageTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class WithdrawalController extends Controller
 {
+    use MessageTrait;
+
     /**
      * @OA\Get(
      *     path="/api/v1/withdrawal/request",
@@ -90,9 +93,9 @@ class WithdrawalController extends Controller
      */
     public function store(StoreWithdrawalRequest $request, Withdrawal $withdrawal)
     {
-        $get_bank_details = User::where('id',Auth::id())->select('bank_number','bank_code','bank_name')->get();
-    
-        if(empty($get_bank_details->bank_number) && empty($get_bank_details->bank_code) && empty($get_bank_details->bank_name)):
+        $user = auth()->user();
+
+        if(empty($user->bank_number) && empty($user->bank_code) && empty($user->bank_name)):
             return response()->json([
                 "status" => "Invalid",
                 "status_code" => 422,
@@ -100,17 +103,25 @@ class WithdrawalController extends Controller
             ], 422);
         endif;
 
+        if($user->lunch_credit_balance < $request->amount):
+            return $this->error('Insufficient balance', 422);
+        endif;
 
-        $withdrawal->user_id = Auth::id(); //Getting Authenticated user Id not Request
+        $user->lunch_credit_balance = $user->lunch_credit_balance - $request->amount;
+        $withdrawal->user_id = $user->id; //Getting Authenticated user Id not Request
         $withdrawal->amount = $request->amount;
-        $checking = $withdrawal->save();
 
-        if (!$checking) :
-            return response()->json([
-                "status"=>"Invalid",
-                "status_code"=>422,
-                "message" => "Withdrawal request not created"
-            ]);
+        if($user->save()):
+            $checking = $withdrawal->save();
+
+            if (!$checking) :
+                return response()->json([
+                    "status"=>"Invalid",
+                    "status_code"=>422,
+                    "message" => "Withdrawal request not created"
+                ]);
+            endif;
+            
         endif;
 
         return response()->json([

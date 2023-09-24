@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|unique:users|email',
-            'phone' => 'required|string',
+            'phone' => 'required|string|unique:users',
             'otp_token' => 'required|string',
             'profile_pic' => 'nullable|image|max:1024'
         ];

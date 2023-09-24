@@ -9,6 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrganizationRefreshController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="Logout a user",
+     *     @OA\Response(
+     *         response=200,
+     *         description="User logout successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User logout successfully"),
+     *             @OA\Property(property="statusCode", type="integer", example=200),
+     *             @OA\Property(property="data", type="array", @OA\Items(type="string")),
+     *         )
+     *     )
+     * )
+     */
     public function logout(Request $request)
     {
         /** @var \App\Models\User $user */

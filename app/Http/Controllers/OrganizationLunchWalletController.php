@@ -55,6 +55,7 @@ class OrganizationLunchWalletController extends Controller
             /**
      * @OA\Patch(
      *     path="/api/v1/wallet",
+     *     tags={"Wallet"},
      *     summary="Update organization wallet",
      *     security={
      *         {"bearerAuth": {}}

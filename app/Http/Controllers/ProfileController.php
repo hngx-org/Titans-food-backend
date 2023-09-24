@@ -8,22 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * @OA\Get(
-     *     path="/api/v1/user/profile",
-     *     summary="Get User Profile Details",
-     *     security={
-     *         {"bearerAuth": {}}
-     *     },
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":"User data fetched successfully", "statusCode": 200, "data":{}}, summary="Get User Profile"),
-     *         )
-     *     )
-     * )
-    */
+ 
     /**
      * Authenticated user profile.
      *
@@ -59,7 +44,23 @@ class ProfileController extends Controller
      *     "error": "Error message"
      * }
      */
-
+   /**
+     * @OA\Get(
+     *     path="/api/v1/user/profile",
+     *     tags={"Profile"},
+     *     summary="Get User Profile Details",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User data fetched successfully", "statusCode": 200, "data":{}}, summary="Get User Profile"),
+     *         )
+     *     )
+     * )
+    */
     public function index()
     {
         try {
@@ -94,6 +95,64 @@ class ProfileController extends Controller
         }
     }
 
+        /**
+     * @OA\Post(
+     *     path="/api/v1/auth/user/change-password",
+     *     tags={"Profile"},
+     *     summary="Change Password",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="current_password",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="new_password",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="confirm_password",
+     *                     type="string"
+     *                 ),
+     *                 example={"current_password":"1Password", "new_password":"password123", "confirm_password":"password123"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Password changed successfully", "statusCode": 200, "data":{}}, summary="Password change response"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":{"[Field] is required", "[Field] is required",}, "statusCode": 422}, summary="Password change response"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="BAD_REQUEST",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Passwords do not match", "statusCode": 400, "status":"error"}, summary="Password change response"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"Current password is incorrect", "statusCode": 403, "status":"error"}, summary="Password change response"),
+     *         )
+     *     ),
+     * )
+     */
     public function changePassword(Request $request){
         $user = auth()->user();
         $fields = Validator::make($request->all(), [

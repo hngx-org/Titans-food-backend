@@ -16,46 +16,51 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
-
-    /**
+        /**
      * @OA\Post(
      *     path="/api/v1/auth/user/forgot-password",
-     *     summary="Send a password reset OTP to the user's email",
-     *     tags={"Authentication"},git re
+     *     summary="Reset user password",
+     *     tags={"Authentication"},
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\RequestBody(
-     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
-     *                 @OA\Property(property="email", type="string", example="user@example.com"),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="note",
+     *                     type="string"
+     *                 ),
+     *                 example={"email":"user@example.com", "note":"Thank you for the good work"}
      *             )
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="OTP sent successfully",
+     *         description="OK",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="OTP sent successfully"),
-     *             @OA\Property(property="statusCode", type="integer", example=200),
-     *             @OA\Property(property="data", type="null"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="User not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="User not found"),
-     *             @OA\Property(property="statusCode", type="integer", example=404),
+     *             @OA\Examples(example="result", value={"message":"OTP sent successfully", "statusCode": 200, "data":{}}, summary="Reset user password"),
      *         )
      *     ),
      *     @OA\Response(
      *         response=422,
-     *         description="Unprocessable Entity",
+     *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="object"),
-     *             @OA\Property(property="statusCode", type="integer", example=422),
+     *             @OA\Examples(example="result", value={"message":{"[Field] is required", "[Field] is required"}, "statusCode":422}, summary="Reset user password"),
      *         )
-     *     )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"User not found", "statusCode":404}, summary="Reset user password"),
+     *         )
+     *     ),
      * )
      */
     public function forgotPassword(Request $request)

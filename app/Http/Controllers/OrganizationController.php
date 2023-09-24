@@ -60,6 +60,7 @@ class OrganizationController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/organization/create",
+     *     tags={"Organization"},
      *     summary="Create Organization",
      *     tags={"Organization"},
      *     security={
@@ -130,8 +131,11 @@ class OrganizationController extends Controller
     /**
      * @OA\Post(
      *     path="/api/v1/organization/staff/signup",
-     *     summary="Create a user within an organization using an invitation token",
-     *     tags={"Organization Staff"},
+     *     tags={"Organization"},
+     *     summary="Create a user within an organization",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -257,6 +261,7 @@ class OrganizationController extends Controller
         /**
      * @OA\Patch(
      *     path="/api/v1/organization/lunch-price",
+     *     tags={"Organization"},
      *     summary="Update lunch price",
      *     tags={"Organization"},
      *     security={
@@ -319,6 +324,7 @@ class OrganizationController extends Controller
     /**
      * @OA\Get(
      *     path="/api/v1/organization",
+     *     tags={"Organization"},
      *     summary="Get a list of organizations not deleted",
      *     tags={"Organization"},
      *     security={

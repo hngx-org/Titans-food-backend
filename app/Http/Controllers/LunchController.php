@@ -20,6 +20,7 @@ class LunchController extends Controller
        /**
      * @OA\Get(
      *     path="/api/v1/lunch",
+     *     tags={"Lunch"},
      *     summary="Get All Lunch for User",
      *     security={
      *         {"bearerAuth": {}}
@@ -99,6 +100,7 @@ class LunchController extends Controller
      * @OA\Post(
      *     path="/api/v1/lunch",
      *     summary="Send lunch credits",
+     *     tags={"Lunch"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -223,6 +225,7 @@ class LunchController extends Controller
     /**
          * @OA\Get(
      *     path="/api/v1/lunch/{id}",
+     *     tags={"Lunch"},
      *     summary="Retrieve a lunch by ID",
      *     security={
      *         {"bearerAuth": {}}

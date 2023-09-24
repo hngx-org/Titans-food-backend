@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "https://titans-food-backend.onrender.com",
             "description": "Base URL"
         }
     ],
@@ -248,6 +248,73 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/v1/auth/user/reset-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset user's password",
+                "operationId": "21b692d0427e45f0489289da677abe86",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "otp_token": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "new_password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "new_password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password reset successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or invalid OTP",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid OTP code"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/v1/user/bank": {
@@ -1178,6 +1245,9 @@
         },
         "/api/v1/logout": {
             "post": {
+                "tags": [
+                    "User"
+                ],
                 "summary": "Logout a user",
                 "operationId": "e8b83e11e03c518202a4045cea755d26",
                 "responses": {
@@ -1207,11 +1277,19 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/refresh-token": {
             "post": {
+                "tags": [
+                    "User"
+                ],
                 "summary": "Refresh user's access token",
                 "operationId": "234c47932aa241dc2957423926ac0cd4",
                 "responses": {
@@ -1244,13 +1322,18 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/user/profile": {
             "get": {
                 "tags": [
-                    "Profile"
+                    "User"
                 ],
                 "summary": "Get User Profile Details",
                 "operationId": "d9fb90defef5300275c33848ffee01d2",
@@ -1284,7 +1367,7 @@
         "/api/v1/auth/user/change-password": {
             "post": {
                 "tags": [
-                    "Profile"
+                    "Authentication"
                 ],
                 "summary": "Change Password",
                 "operationId": "9417bf69388aefbc4e2df020380137a2",

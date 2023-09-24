@@ -59,8 +59,12 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 });
 
 Route::prefix('v1')->group(function(){
-    Route::post('/auth/user/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
-    Route::post('/auth/user/signin', [LoginController::class,'login'])->name('user.signin');
-    Route::post('/auth/user/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('user.forgotPassword');
     Route::post('/organization/staff/signup', [OrganizationController::class, 'createOrganizationUser']);
-});
+    Route::prefix('/auth/user')->group(function (){
+        Route::post('/signup', [OrganisationSignupController::class,'register'])->name('user.signup');
+        Route::post('/signin', [LoginController::class,'login'])->name('user.signin');
+        Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword'])->name('user.forgotPassword');
+        Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('user.resetPassword');
+    });
+    });
+

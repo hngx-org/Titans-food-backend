@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Traits\MessageTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
-        /**
+    use MessageTrait;
+
+    /**
      * @OA\Post(
      *     path="/api/v1/auth/user/forgot-password",
      *     summary="Reset user password",
@@ -68,43 +71,79 @@ class ResetPasswordController extends Controller
         $request->validate([
             'email' => 'required|string|email'
         ]);
-        $fields = Validator::make($request->all(), [
-            'email' => 'required|string|email'
-        ]);
-
-        if ($fields->fails()) {
-            return response()->json([
-                'message' => $fields->messages(),
-                'statusCode' => Response::HTTP_UNPROCESSABLE_ENTITY,
-            ], Response::HTTP_UNPROCESSABLE_ENTITY); // 422
-        }
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return response()->json([
-                'message' => 'User not found',
-                'statusCode' => Response::HTTP_NOT_FOUND,
-            ], Response::HTTP_NOT_FOUND); // 404
+            return $this->error('User not found', Response::HTTP_NOT_FOUND);
         }
 
         $otp = mt_rand(100000, 999999);
 
         // no column in table, storing in cache for 30 minutes
-        Cache::put('password_reset_email', $request->input('email'), now()->addMinutes(30));
+        Cache::put('titans_password_reset', [
+            'password_reset_email' => $request->input('email'),
+            'password_reset_otp' => $otp
+        ], now()->addMinutes(30));
 
-        Cache::put('password_reset_otp', $otp, now()->addMinutes(30));
-
-        // $user->otp = $otp;
-        // $user->save();
+        // Cache::put('password_reset_email', $request->input('email'), now()->addMinutes(30));
+        // Cache::put('password_reset_otp', $otp, now()->addMinutes(30));
 
         Mail::to($request->input('email'))->send(new ResetPasswordMail($otp));
 
-
-        return response()->json([
-            "message" => "OTP sent successfully",
-            "statusCode" => Response::HTTP_OK,
-            "data" => null
-        ], Response::HTTP_OK); // 200
+        return $this->success('OTP sent successfully', Response::HTTP_OK);
     }
+
+
+/**
+ * @OA\Post(
+ *     path="/api/v1/auth/user/reset-password",
+ *     summary="Reset user's password",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="otp_token", type="string", example="123456"),
+ *             @OA\Property(property="password", type="string", example="new_password"),
+ *             @OA\Property(property="password_confirmation", type="string", example="new_password"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Password reset successful",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Password reset successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error or invalid OTP",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Invalid OTP code"),
+ *         )
+ *     ),
+ * )
+ */
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate( [
+            'otp_token' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+       $otp = ((object)Cache::get('titans_password_reset'));
+        $user = User::where('email', $otp->password_reset_email);
+
+        if($otp->password_reset_otp != $request->otp_token){
+            return $this->error('Invalid OTP code', 422);
+        }
+
+        $password = Hash::make($request->password);
+        $response = $user->update([
+            'password_hash' => $password
+        ]);
+        return $this->success('Password reset successfully', Response::HTTP_OK);
+    }
+
 }

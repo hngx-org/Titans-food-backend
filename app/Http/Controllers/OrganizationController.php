@@ -100,7 +100,7 @@ class OrganizationController extends Controller
         //
     }
 
-        /**
+     /**
      * @OA\Put(
      *     path="/api/organization/create",
      *     summary="Create Organization",
@@ -140,12 +140,12 @@ class OrganizationController extends Controller
                     'currency_code' => $request->currency_code,
                     'lunch_price' => $request->lunch_price
                 ]);
-    
+
                 $org_wallet = OrganizationLunchWallet::create([
                     'org_id' => $org->id,
                     'balance' => 40000
                 ]);
-    
+
                 if($org && $org_wallet){
                     User::query()->where('id', Auth::user()->id)->update([
                         'is_admin' => true,
@@ -241,7 +241,28 @@ class OrganizationController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Update lunch price for the organization.
+     *
+     * Updates the lunch price for the organization if the authenticated user is an admin.
+     *
+     * @group Organizations
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @bodyParam lunch_price float required The new lunch price for the organization.
+     *
+     * @response {
+     *     "message": "Lunch price updated successfully",
+     *     "statusCode": 200
+     * }
+     * @response 401 {
+     *     "message": "You are not authorized to perform this action",
+     *     "statusCode": 401
+     * }
+     * @response 422 {
+     *     "message": "Error updating lunch price",
+     *     "statusCode": 422
+     * }
      */
     public function update_lunch_price(Request $request)
     {

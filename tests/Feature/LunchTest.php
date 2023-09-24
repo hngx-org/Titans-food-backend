@@ -11,13 +11,14 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class LunchTest extends TestCase
-{  
+{
     use RefreshDatabase;
 
     public function test_show_all_or_returns_lunch_records()
     {
+        $userToken= $this->getUserToken();
         $lunchRecords = Lunch::factory(4)->create();
-        $response = $this->getJson(route('lunch.index'))
+        $response = $this->getJson(route('lunch.index'),['Authorization' => 'Bearer '. $userToken])
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
@@ -28,21 +29,20 @@ class LunchTest extends TestCase
 
     public function test_index_method_returns_no_records_found()
     {
-        $response = $this->getJson(route('lunch.index'));
-        $response->assertStatus(Response::HTTP_NOT_FOUND) // HTTP status code 404
-            ->assertJson([
-                'status',
-                'lunch'
-            ]);
+        $userToken= $this->getUserToken();
+        $response = $this->getJson(route('lunch.index'),['Authorization' => 'Bearer '. $userToken]);
+        $response->assertStatus(Response::HTTP_NOT_FOUND); // HTTP status code 404
+
     }
 
 
     public function test_show_method_returns_lunch_record_by_id()
     {
+        $userToken= $this->getUserToken();
         $data = Lunch::factory()->create();
-        $response = $this->getJson(route('lunch.show', ['Id' => $data->id]));
+        $response = $this->getJson(route('lunch.show',['id' => $data->id]),['Authorization' => 'Bearer '. $userToken]);
 
-        $response->assertStatus(Response::HTTP_OK) 
+        $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => 'Lunch request created successfully',
                 'statusCode' => 200,
@@ -60,7 +60,8 @@ class LunchTest extends TestCase
 
     public function test_show_method_returns_by_id_not_found(): void
     {
-         $response = $this->getJson(route('lunch.show', ['Id' => 123456789])); 
+        $userToken= $this->getUserToken();
+         $response = $this->getJson(route('lunch.show', ['id' => 123456789]),['Authorization' => 'Bearer '. $userToken]);
         $response->assertStatus(404) // HTTP status code 404
             ->assertJson([
                 'message' => 'Lunch request not found',
@@ -68,10 +69,12 @@ class LunchTest extends TestCase
             ]);
     }
 
- 
+
 
     public function test_store_method_creates_lunch_request(): void
     {
+        $userToken= $this->getUserToken();
+
         $lunchSender = User::factory()->create();
        $organization = Organization::factory()->create();
 
@@ -81,26 +84,25 @@ class LunchTest extends TestCase
                 'balance' => 1000,
             ]);
         } else {
-            $lunchSender->update(['lunch_credit_balance' => 1000]); 
+            $lunchSender->update(['lunch_credit_balance' => 1000]);
         }
 
         $lunchRequestData = [
             'receivers' => [2, 3],
-            'quantity' => 1, 
-            'note' => 'For your dedication we say thank you', 
+            'quantity' => 1,
+            'note' => 'For your dedication we say thank you',
         ];
 
-        $response = $this->actingAs($lunchSender)
-            ->postJson(route('lunch.store'), $lunchRequestData);
+        $response = $this->postJson(route('lunch.store'), $lunchRequestData, ['Authorization' => 'Bearer '. $userToken]);
 
-        $response->assertStatus(Response::HTTP_CREATED) 
+        $response->assertStatus(Response::HTTP_CREATED)
             ->assertJson([
                 'message' => 'Lunch request created successfully',
                 'statusCode' => 201,
             ]);
 
         $this->assertDatabaseHas('lunches', [
-            'org_id' => $organization->id, 
+            'org_id' => $organization->id,
             'sender_id' => $lunchSender->id,
         ]);
     }

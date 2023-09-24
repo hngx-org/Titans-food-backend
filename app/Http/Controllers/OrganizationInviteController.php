@@ -50,6 +50,42 @@ class OrganizationInviteController extends Controller
      *     "data": null
      * }
      */
+        /**
+     * @OA\Post(
+     *     path="/api/v1/organization/invite",
+     *     summary="Create an organization invitation",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 example={"email": "john.doe@example.com"}     
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode":200, "message":"success", "data":null}, summary="Send email invitation from organization"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"message":"You are not authorized to perform this action!"}, summary="Send email invitation from organization"),
+     *         )
+     *     )
+     * )
+     */
+    
     public function store(StoreOrganizationInviteRequest $request)
     {
         //retrieve authenticated user

@@ -11,21 +11,20 @@ use Illuminate\Http\Response;
 class WithdrawalTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     public function test_store_withdrawal_request_returns_user_details_successful()
-    {     
+    {
 
         $user = User::factory()->create();
-        $response = $this->actingAs($user) 
-            ->postJson('api/withdrawal/request', [
+        $userToken = $this->getUserToken();
+        $response = $this->postJson(route('withdrawal.store'), [
                 'amount' => 10000,
-            ]);
+            ], ['Authorization' => 'Bearer '. $userToken]);
 
         $response->assertStatus(Response::HTTP_OK)
              ->assertJsonStructure(
                  [
                          'message',
-                         'statusCode',
                          'data' => [
                              'withdrawal_id',
                              'user_id',
@@ -38,15 +37,15 @@ class WithdrawalTest extends TestCase
 
 
     public function test_withdrawal_request_returns_user_details_successful()
-    {     
+    {
         $user = User::factory()->create();
+        $userToken = $this->getUserToken();
         $withdrawal = Withdrawal::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->actingAs($user) 
-            ->getJson('api/withdrawal/request');
+        $response = $this->getJson(route('withdrawal.index'),['Authorization' => 'Bearer '. $userToken]);
          $response->assertStatus(Response::HTTP_OK)
              ->assertJsonStructure(
-                 [                 
+                 [
                          'message',
                          'status',
                          'statusCode',

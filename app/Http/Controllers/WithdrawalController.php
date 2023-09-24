@@ -14,7 +14,7 @@ class WithdrawalController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/withdrawal/request",
+     *     path="/api/v1/withdrawal/request",
      *     summary="Get Withdrawal Requests from User",
      *     security={
      *         {"bearerAuth": {}}
@@ -60,7 +60,7 @@ class WithdrawalController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/withdrawal/request",
+     *     path="/api/v1/withdrawal/request",
      *     summary="Withdrawal Request",
      *     security={
      *         {"bearerAuth": {}}

@@ -37,54 +37,6 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Create a new organization.
-     *
-     * Creates a new organization if the authenticated user is an admin and associates it with the user by updating the `org_id` field.
-     *
-     * @group Organizations
-     * @param \App\Http\Requests\StoreOrganizationRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @bodyParam name string required The name of the organization.
-     * @bodyParam description string The description of the organization (optional).
-     *
-     * @response {
-     *     "data": {
-     *         "id": 1,
-     *         "name": "Example Organization",
-     *         "description": "A sample organization",
-     *         // Add other organization fields here
-     *     },
-     *     "message": "success",
-     *     "statusCode": 200
-     * }
-     * @response 403 {
-     *     "message": "You are not authorized to perform this action!"
-     * }
-     */
-    public function update(StoreOrganizationRequest $request)
-    {
-        $user = Auth::user();
-        if(is_null($user->org_id)){
-            $organization = Organization::create($request->validated());
-
-            $user->org_id = $organization->id;
-            $user->save();
-
-            return response()->json([
-                'data' => $organization,
-                "message"=> "success",
-                "statusCode"=> 200,
-            ], 200);
-
-        }else{
-            return response()->json([
-                'message' => 'You are not authorized to perform this action!'
-            ], 403);
-        }
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Organization $organization)
@@ -100,9 +52,9 @@ class OrganizationController extends Controller
         //
     }
 
-     /**
-     * @OA\Put(
-     *     path="/api/organization/create",
+    /**
+     * @OA\Post(
+     *     path="/api/v1/organization/create",
      *     summary="Create Organization",
      *     security={
      *         {"bearerAuth": {}}
@@ -117,9 +69,13 @@ class OrganizationController extends Controller
      *                 ),
      *                 @OA\Property(
      *                     property="lunch_price",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="currency_code",
      *                     type="string"
      *                 ),
-     *                 example={"first_name":"John", "last_name":"Mark", "email":"user@example.com", "password":"1Password"}
+     *                 example={"organization_name":"Example Organization", "lunch_price":1000, "currency_code":"123"}
      *             )
      *         )
      *     ),
@@ -127,7 +83,14 @@ class OrganizationController extends Controller
      *         response=200,
      *         description="OK",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"organization_name":"", "lunch_price": ""}, summary="Organization create"),
+     *             @OA\Examples(example="result", value={"status":"success", "message":"Organization Created Successfully", "data":{}}, summary="Organization create"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"You already belong to a company", "data":null}, summary="Organization create"),
      *         )
      *     )
      * )
@@ -157,45 +120,72 @@ class OrganizationController extends Controller
         return $this->error('You already belong to a company', 422);
      }
 
+
     /**
-     * Create a user within an organization using an invitation token.
-     *
-     * Creates a user within an organization based on the provided invitation token and user details.
-     *
-     * @group Users
-     * @param \App\Http\Requests\StoreUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @bodyParam first_name string required The first name of the user.
-     * @bodyParam last_name string required The last name of the user.
-     * @bodyParam email string required The email address of the user.
-     * @bodyParam otp_token string required The OTP token for authentication.
-     * @bodyParam phone string The phone number of the user.
-     * @bodyParam profile_pic file The user's profile picture (optional).
-     * @bodyParam password string required The user's password.
-     *
-     * @response {
-     *     "status_code": 201,
-     *     "status": "success",
-     *     "message": "User signed up successfully",
-     *     "data": {
-     *         "id": 1,
-     *         "first_name": "John",
-     *         "last_name": "Doe",
-     *         "email": "john.doe@example.com",
-     *         "otp_token": "123456",
-     *         "is_admin": false,
-     *         "org_id": 1,
-     *         "phone": "1234567890",
-     *         "profile_pic": "example.jpg" // URL or file path
-     *     }
-     * }
-     * @response 401 {
-     *     "status_code": 401,
-     *     "status": "error",
-     *     "message": "Authentication failed"
-     * }
+     * @OA\Post(
+     *     path="/api/v1/organization/staff/signup",
+     *     summary="Create a user within an organization",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="first_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="last_name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="otp_token",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="is_admin",
+     *                     type="boolean"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="org_id",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="phone",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="profile_pic",
+     *                     type="file",
+     *                     example="picture_url.jpg"
+     *                 ),
+     *                 example={"first_name": "John","last_name": "Doe","email": "john.doe@example.com", "otp_token": "123456", "is_admin": false, "org_id": 1, "phone": "1234567890", "profile_pic": "example.jpg"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status_code":201, "message":"User signed up successfully", "status":"success", "data":{}}, summary="Create a user within an organization using an invitation token"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status_code":401, "status":"failed", "message":"Authentication failed"}, summary="Create a user within an organization using an invitation token"),
+     *         )
+     *     )
+     * )
      */
+
     public function createOrganizationUser(StoreUserRequest $request)
     {
 
@@ -239,30 +229,47 @@ class OrganizationController extends Controller
         );
     }
 
-
-    /**
-     * Update lunch price for the organization.
-     *
-     * Updates the lunch price for the organization if the authenticated user is an admin.
-     *
-     * @group Organizations
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @bodyParam lunch_price float required The new lunch price for the organization.
-     *
-     * @response {
-     *     "message": "Lunch price updated successfully",
-     *     "statusCode": 200
-     * }
-     * @response 401 {
-     *     "message": "You are not authorized to perform this action",
-     *     "statusCode": 401
-     * }
-     * @response 422 {
-     *     "message": "Error updating lunch price",
-     *     "statusCode": 422
-     * }
+        /**
+     * @OA\Patch(
+     *     path="/api/v1/organization/lunch-price",
+     *     summary="Update lunch price",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="lunch_price",
+     *                     type="integer"
+     *                 ),
+     *                 example={"lunch_price":1000}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"success", "message":"Lunch price updated successfully", "data":{}}, summary="Update lunch price"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="UNAUTHORIZED",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"You are not authorized to perform this action", "data":null}, summary="Update lunch price"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE_ENTITY",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status":"failed", "message":"Error updating lunch price", "data":null}, summary="Update lunch price"),
+     *         )
+     *     ),
+     * )
      */
     public function update_lunch_price(Request $request)
     {
@@ -308,6 +315,23 @@ class OrganizationController extends Controller
      *     ]
      * }
      */
+           /**
+     * @OA\Get(
+     *     path="/api/v1/organization",
+     *     summary="Get a list of organizations not deleted",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"data": {}}, summary="Get list of organizations not deleted"),
+     *         )
+     *     ),
+     * )
+    */
+
     public function getOrganization() {
         // Retrieve all organizations that are not deleted
         $organizations = Organization::where('is_deleted', false)->get();

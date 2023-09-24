@@ -52,6 +52,29 @@ class UserController extends Controller
      *     "status_message": "No records found"
      * }
      */
+    /**
+         * @OA\Get(
+     *     path="/api/v1/user/all",
+     *     summary="All all users list",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 200, "message":"All users list", "data":{}}, summary="All all users list"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"status": 404, "status_message":"No records found."}, summary="Search profile by Name or Email"),
+     *         )
+     *     )
+     * )
+    */
     public function index()
     {
         $persons = User::select('first_name', 'last_name', 'email', 'profile_pic', 'org_id')->get();
@@ -179,6 +202,35 @@ class UserController extends Controller
      *     "message": "No users found for the given name or email."
      * }
      */
+        /**
+         * @OA\Get(
+     *     path="/api/v1/user/profile/{nameOrEmail}",
+     *     summary="Search profile by Name or Email",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *         name="nameOrEmail",
+     *         in="path",
+     *         description="Search profile by Name or Email",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 200, "message":"User found", "data":{}}, summary="Search profile by Name or Email"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="NOT_FOUND",
+     *         @OA\JsonContent(
+     *             @OA\Examples(example="result", value={"statusCode": 404, "message":"No users found for the given name or email."}, summary="Search profile by Name or Email"),
+     *         )
+     *     )
+     * )
+    */
     public function search($nameOrEmail)
     {
         $users = User::where('first_name', 'like', '%' . $nameOrEmail . '%')

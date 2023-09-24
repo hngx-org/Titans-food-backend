@@ -13,7 +13,7 @@
   - [Pulling Updates](#pulling-updates)
   - [Issue Tracking](#issue-tracking)
   - [Collaboration Best Practices](#collaboration-best-practices)
-<!-- - [API Endpoints](#api-endpoints) -->
+- [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
 
 ## Installation Setup
@@ -158,6 +158,10 @@ Your laravel api is now fully setup, running on your local machine.
 - Keep sensitive information such as database credentials, API Keys, secure and out of version control using `.gitignore`
 - Backup your code and database regularly
 
+## API Endpoints
+- API Endpoints can are documented [here](https://github.com/hngx-org/Titans-food-backend/blob/main/DOCUMENTATION.md)
+    > The endpoints can be tested on the Project Swagger Docs. Open your browser and access the API docs from the url (https://titans-food-backend.onrender.com/api/docs). *NB: To access authenticated routes, Ensure to login, using the route `api/v1/auth/user/signin` then copy the `access_token` from the login response and input it in the Swagger authorization BearerAuth by clicking on the 'Authorize' button at the top right of the screen.*
+
 ## Contributing
 
 - codelikesuraj
@@ -194,5 +198,6 @@ Your laravel api is now fully setup, running on your local machine.
 - bahd_dev
 - RichmanLoveday
 - splendidabbey
+- ruxy1212
 
 With this guide, you have successfully installed Laravel, initialized your project, and set up a Github team collaboration work flow.

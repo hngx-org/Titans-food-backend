@@ -38,4 +38,28 @@ abstract class TestCase extends BaseTestCase
     {
         return User::factory()->create($args);
     }
+
+    public function getAdminToken()
+    {
+        $user = $this->authAdmin();
+        $response = $this->postJson(route('user.signin'),[
+            'email' => $user->email,
+            'password' => 'password'
+        ]);
+        $adminToken = $response->json('data')['access_token'];
+
+        return $adminToken;
+    }
+
+    public function getUserToken()
+    {
+        $user = $this->authUser();
+        $response = $this->postJson(route('user.signin'),[
+            'email' => $user->email,
+            'password' => 'password'
+        ]);
+        $userToken = $response->json('data')['access_token'];
+
+        return $userToken;
+    }
 }

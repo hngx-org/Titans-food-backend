@@ -27,7 +27,8 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|unique:users,email',
             'phone' => 'required',
             'otp_token' => 'required',
-            'profile_pic' => 'nullable|image'
+            'profile_pic' => 'nullable|image',
+            'password' => 'required'
         ];
     }
 }

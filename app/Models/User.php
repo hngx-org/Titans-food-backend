@@ -42,6 +42,8 @@ class User extends Authenticatable
         'currency_code',
     ];
 
+    // protected $with = ['receivedLunches', 'sentLunches'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -96,7 +98,7 @@ class User extends Authenticatable
     {
         $payload = [
             'user_id' => $this->id,
-            'expiry_date' => time() + (60 * 60), // Token expiration time (1 hour from now)
+            'expiry_date' => time() + (60 * 60 * 24), // Token expiration time (1 day from now)
         ];
 
         $token = JWT::encode($payload, config('jwt.key'), 'HS256');

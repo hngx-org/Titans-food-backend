@@ -10,44 +10,78 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\OrganizationLunchWallet;
 use App\Http\Requests\StoreLunchRequest;
 use App\Http\Requests\UpdateLunchRequest;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class LunchController extends Controller
 {
     use MessageTrait;
-    /**
-     * Display a listing of the resource.
-     */
-       /**
-     * @OA\Get(
-     *     path="/api/v1/lunch",
-     *     tags={"Lunch"},
-     *     summary="Get All Lunch for User",
-     *     security={
-     *         {"bearerAuth": {}}
-     *     },
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status": 200, "lunch":{}}, summary="Get All Lunch for User"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="NOT_FOUND",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status": 404, "lunch":"no record found"}, summary="Get All Lunch for User"),
-     *         )
-     *     )
-     * )
-    */
+/**
+ * @OA\Get(
+ *     path="/api/v1/lunch",
+ *     summary="Retrieve a user's lunch data",
+ *     tags={"Lunch"},
+ *     security={
+ *         {"bearerAuth": {}}
+ *     },
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lunch data retrieved successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="integer", example=200),
+ *             @OA\Property(property="lunch", type="object",
+ *                 @OA\Property(property="received", type="array",
+ *                     @OA\Items(
+ *                         @OA\Property(property="id", type="integer", example=37671158),
+ *                         @OA\Property(property="org_id", type="integer", example=84487725),
+ *                         @OA\Property(property="sender_id", type="integer", example=99993291),
+ *                         @OA\Property(property="receiver_id", type="integer", example=99993287),
+ *                         @OA\Property(property="quantity", type="integer", example=1),
+ *                         @OA\Property(property="redeemed", type="integer", example=0),
+ *                         @OA\Property(property="note", type="string", example="Thank you rahman"),
+ *                         @OA\Property(property="created_at", type="string", example="2023-09-24T12:34:43.000000Z"),
+ *                         @OA\Property(property="updated_at", type="string", example="2023-09-24T12:34:43.000000Z"),
+ *                         @OA\Property(property="is_deleted", type="integer", example=0),
+ *                     )
+ *                 ),
+ *                 @OA\Property(property="sent", type="array",
+ *                     @OA\Items(
+ *                         @OA\Property(property="id", type="integer", example=37671155),
+ *                         @OA\Property(property="org_id", type="integer", example=84487725),
+ *                         @OA\Property(property="sender_id", type="integer", example=99993287),
+ *                         @OA\Property(property="receiver_id", type="integer", example=99993291),
+ *                         @OA\Property(property="quantity", type="integer", example=1),
+ *                         @OA\Property(property="redeemed", type="integer", example=0),
+ *                         @OA\Property(property="note", type="string", example="f"),
+ *                         @OA\Property(property="created_at", type="string", example="2023-09-24T12:20:59.000000Z"),
+ *                         @OA\Property(property="updated_at", type="string", example="2023-09-24T12:20:59.000000Z"),
+ *                         @OA\Property(property="is_deleted", type="integer", example=0),
+ *                     )
+ *                 ),
+ *             ),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="No lunch data found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="integer", example=404),
+ *             @OA\Property(property="lunch", type="string", example="no record found"),
+ *         )
+ *     )
+ * )
+ */
+
     public function index()
     {
-        $lunch = lunch::all();
-        if($lunch->count() >0){
+        $user = auth()->user();
+        
+        if(!empty($user->sentLunches) || !empty($user->receivedLunches)){
             return response()->json([
                 'status' => 200,
-                'lunch' => $lunch
+                'lunch' => [
+                    'received' => JsonResource::collection($user->receivedLunches),
+                    'sent' => JsonResource::collection($user->sentLunches)
+                ]
             ], 200);
         }else{
             return response()->json([
@@ -55,7 +89,6 @@ class LunchController extends Controller
                 'lunch' => 'no record found'
             ], 404);
         }
-
     }
 
     /**

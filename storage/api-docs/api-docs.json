@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "https://titans-food-backend.onrender.com",
+            "url": "http://localhost:8000",
             "description": "Base URL"
         }
     ],
@@ -391,39 +391,142 @@
                 "tags": [
                     "Lunch"
                 ],
-                "summary": "Get All Lunch for User",
+                "summary": "Retrieve a user's lunch data",
                 "operationId": "87f3a7f5828ce0772e22ced0b83a952c",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Lunch data retrieved successfully",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Get All Lunch for User",
-                                        "value": {
-                                            "status": 200,
-                                            "lunch": []
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "lunch": {
+                                            "properties": {
+                                                "received": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 37671158
+                                                            },
+                                                            "org_id": {
+                                                                "type": "integer",
+                                                                "example": 84487725
+                                                            },
+                                                            "sender_id": {
+                                                                "type": "integer",
+                                                                "example": 99993291
+                                                            },
+                                                            "receiver_id": {
+                                                                "type": "integer",
+                                                                "example": 99993287
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "redeemed": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "note": {
+                                                                "type": "string",
+                                                                "example": "Thank you rahman"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:34:43.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:34:43.000000Z"
+                                                            },
+                                                            "is_deleted": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "sent": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 37671155
+                                                            },
+                                                            "org_id": {
+                                                                "type": "integer",
+                                                                "example": 84487725
+                                                            },
+                                                            "sender_id": {
+                                                                "type": "integer",
+                                                                "example": 99993287
+                                                            },
+                                                            "receiver_id": {
+                                                                "type": "integer",
+                                                                "example": 99993291
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "redeemed": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "note": {
+                                                                "type": "string",
+                                                                "example": "f"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:20:59.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:20:59.000000Z"
+                                                            },
+                                                            "is_deleted": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
                                         }
-                                    }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "NOT_FOUND",
+                        "description": "No lunch data found",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Get All Lunch for User",
-                                        "value": {
-                                            "status": 404,
-                                            "lunch": "no record found"
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "lunch": {
+                                            "type": "string",
+                                            "example": "no record found"
                                         }
-                                    }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }

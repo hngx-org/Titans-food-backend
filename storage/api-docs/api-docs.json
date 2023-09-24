@@ -4,6 +4,12 @@
         "title": "Team Titans - Free Lunch API",
         "version": "0.1"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Base URL"
+        }
+    ],
     "paths": {
         "/api/v1/auth/user/signin": {
             "post": {
@@ -460,72 +466,6 @@
             }
         },
         "/api/v1/organization/create": {
-            "put": {
-                "summary": "Create a new organization",
-                "operationId": "37c9e238c8b894be5d7c84ee4aa74f39",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "Example Organization",
-                                    "description": "A sample organization"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a new organization",
-                                        "value": {
-                                            "message": "success",
-                                            "statusCode": 200,
-                                            "data": []
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "UNAUTHORIZED",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a new organization",
-                                        "value": {
-                                            "message": "You are not authorized to perform this action!"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
             "post": {
                 "summary": "Create Organization",
                 "operationId": "cc783a78127b97001fc10c30994efd67",
@@ -601,9 +541,13 @@
         },
         "/api/v1/organization/staff/signup": {
             "post": {
-                "summary": "Create a user within an organization",
+                "tags": [
+                    "Organization Staff"
+                ],
+                "summary": "Create a user within an organization using an invitation token",
                 "operationId": "620e70f3dfc4b9a6177c4c60d520aab8",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -620,18 +564,17 @@
                                     "otp_token": {
                                         "type": "string"
                                     },
-                                    "is_admin": {
-                                        "type": "boolean"
-                                    },
-                                    "org_id": {
-                                        "type": "integer"
+                                    "password": {
+                                        "type": "string"
                                     },
                                     "phone": {
                                         "type": "string"
                                     },
                                     "profile_pic": {
-                                        "type": "file",
-                                        "example": "picture_url.jpg"
+                                        "description": "Optional: Profile picture (if provided)",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "example.jpg"
                                     }
                                 },
                                 "type": "object",
@@ -640,8 +583,7 @@
                                     "last_name": "Doe",
                                     "email": "john.doe@example.com",
                                     "otp_token": "123456",
-                                    "is_admin": false,
-                                    "org_id": 1,
+                                    "password": "your_password",
                                     "phone": "1234567890",
                                     "profile_pic": "example.jpg"
                                 }
@@ -650,49 +592,92 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "User signed up successfully",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a user within an organization using an invitation token",
-                                        "value": {
-                                            "status_code": 201,
-                                            "message": "User signed up successfully",
-                                            "status": "success",
-                                            "data": []
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User signed up successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john.doe@example.com"
+                                                },
+                                                "is_admin": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "org_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "profile_pic": {
+                                                    "type": "string",
+                                                    "example": "example.jpg"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
-                                    }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "401": {
-                        "description": "UNAUTHORIZED",
+                        "description": "Authentication failed",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "examples": {
-                                    "result": {
-                                        "summary": "Create a user within an organization using an invitation token",
-                                        "value": {
-                                            "status_code": 401,
-                                            "status": "failed",
-                                            "message": "Authentication failed"
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Authentication failed"
                                         }
-                                    }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
         "/api/v1/organization/lunch-price": {

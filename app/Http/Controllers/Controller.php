@@ -16,6 +16,10 @@ use Illuminate\Routing\Controller as BaseController;
     *    scheme="bearer",
     *    bearerFormat="JWT",
     * ),
+ * @OA\Server(
+ *    description="Base URL",
+ *    url="http://localhost:8000"
+ *  )
 */
 class Controller extends BaseController
 {

@@ -9,6 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrganizationRefreshController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/v1/logout",
+     *     summary="Logout a user",
+     *     @OA\Response(
+     *         response=200,
+     *         description="User logout successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User logout successfully"),
+     *             @OA\Property(property="statusCode", type="integer", example=200),
+     *             @OA\Property(property="data", type="array", @OA\Items(type="string")),
+     *         )
+     *     )
+     * )
+     */
     public function logout(Request $request)
     {
         /** @var \App\Models\User $user */
@@ -23,6 +38,23 @@ class OrganizationRefreshController extends Controller
         ], Response::HTTP_OK); // returning response
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/refresh-token",
+     *     summary="Refresh user's access token",
+     *     @OA\Response(
+     *         response=200,
+     *         description="User token refreshed successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User token refreshed successfully"),
+     *             @OA\Property(property="statusCode", type="integer", example=200),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="access_token", type="string", example="your_access_token_here")
+     *             ),
+     *         )
+     *     )
+     * )
+     */
     public function refreshToken(Request $request)
     {
         /** @var \App\Models\User $user */

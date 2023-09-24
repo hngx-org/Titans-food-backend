@@ -35,7 +35,7 @@ class OrganizationController extends Controller
     {
         //
     }
-    
+
     public function update(StoreOrganizationRequest $request)
     {
         //
@@ -62,6 +62,7 @@ class OrganizationController extends Controller
      *     path="/api/v1/organization/create",
      *     tags={"Organization"},
      *     summary="Create Organization",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -102,19 +103,19 @@ class OrganizationController extends Controller
      * )
      */
     public function store(StoreOrganizationRequest $request)
-    { 
+    {
         if(is_null(Auth::user()->org_id)){
                 $org = Organization::create([
                     'name' => $request->organization_name,
                     'currency_code' => $request->currency_code,
                     'lunch_price' => $request->lunch_price
                 ]);
-    
+
                 $org_wallet = OrganizationLunchWallet::create([
                     'org_id' => $org->id,
                     'balance' => 40000
                 ]);
-    
+
                 if($org && $org_wallet){
                     User::query()->where('id', Auth::user()->id)->update([
                         'is_admin' => true,
@@ -126,45 +127,7 @@ class OrganizationController extends Controller
         return $this->error('You already belong to a company', 422);
      }
 
-    /**
-     * Create a user within an organization using an invitation token.
-     *
-     * Creates a user within an organization based on the provided invitation token and user details.
-     *
-     * @group Users
-     * @param \App\Http\Requests\StoreUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @bodyParam first_name string required The first name of the user.
-     * @bodyParam last_name string required The last name of the user.
-     * @bodyParam email string required The email address of the user.
-     * @bodyParam otp_token string required The OTP token for authentication.
-     * @bodyParam phone string The phone number of the user.
-     * @bodyParam profile_pic file The user's profile picture (optional).
-     * @bodyParam password string required The user's password.
-     *
-     * @response {
-     *     "status_code": 201,
-     *     "status": "success",
-     *     "message": "User signed up successfully",
-     *     "data": {
-     *         "id": 1,
-     *         "first_name": "John",
-     *         "last_name": "Doe",
-     *         "email": "john.doe@example.com",
-     *         "otp_token": "123456",
-     *         "is_admin": false,
-     *         "org_id": 1,
-     *         "phone": "1234567890",
-     *         "profile_pic": "example.jpg" // URL or file path
-     *     }
-     * }
-     * @response 401 {
-     *     "status_code": 401,
-     *     "status": "error",
-     *     "message": "Authentication failed"
-     * }
-     */
+
     /**
      * @OA\Post(
      *     path="/api/v1/organization/staff/signup",
@@ -174,6 +137,7 @@ class OrganizationController extends Controller
      *         {"bearerAuth": {}}
      *     },
      *     @OA\RequestBody(
+     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
@@ -194,12 +158,8 @@ class OrganizationController extends Controller
      *                     type="string"
      *                 ),
      *                 @OA\Property(
-     *                     property="is_admin",
-     *                     type="boolean"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="org_id",
-     *                     type="integer"
+     *                     property="password",
+     *                     type="string"
      *                 ),
      *                 @OA\Property(
      *                     property="phone",
@@ -207,30 +167,54 @@ class OrganizationController extends Controller
      *                 ),
      *                 @OA\Property(
      *                     property="profile_pic",
-     *                     type="file",
-     *                     example="picture_url.jpg"
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Optional: Profile picture (if provided)"
      *                 ),
-     *                 example={"first_name": "John","last_name": "Doe","email": "john.doe@example.com", "otp_token": "123456", "is_admin": false, "org_id": 1, "phone": "1234567890", "profile_pic": "example.jpg"}     
+     *                 example={
+     *                     "first_name": "John",
+     *                     "last_name": "Doe",
+     *                     "email": "john.doe@example.com",
+     *                     "otp_token": "123456",
+     *                     "password": "your_password",
+     *                     "phone": "1234567890",
+     *                     "profile_pic": "example.jpg",
+     *                 }
      *             )
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status_code":201, "message":"User signed up successfully", "status":"success", "data":{}}, summary="Create a user within an organization using an invitation token"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="UNAUTHORIZED",
-     *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"status_code":401, "status":"failed", "message":"Authentication failed"}, summary="Create a user within an organization using an invitation token"),
-     *         )
-     *     )
+     *      @OA\Response(
+     *      response=201,
+     *      description="User signed up successfully",
+     *      @OA\JsonContent(
+     *          @OA\Property(property="status_code", type="integer", example=201),
+     *          @OA\Property(property="status", type="string", example="success"),
+     *          @OA\Property(property="message", type="string", example="User signed up successfully"),
+     *          @OA\Property(
+     *              property="data",
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example=1),
+     *              @OA\Property(property="first_name", type="string", example="John"),
+     *              @OA\Property(property="last_name", type="string", example="Doe"),
+     *              @OA\Property(property="email", type="string", example="john.doe@example.com"),
+     *              @OA\Property(property="is_admin", type="boolean", example=false),
+     *              @OA\Property(property="org_id", type="integer", example=1),
+     *              @OA\Property(property="phone", type="string", example="1234567890"),
+     *              @OA\Property(property="profile_pic", type="string", example="example.jpg"),
+     *          )
+     *      )
+     *  ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Authentication failed",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status_code", type="integer", example=401),
+     *              @OA\Property(property="status", type="string", example="error"),
+     *              @OA\Property(property="message", type="string", example="Authentication failed")
+     *          )
+     *      )
      * )
      */
-    
     public function createOrganizationUser(StoreUserRequest $request)
     {
 
@@ -274,12 +258,12 @@ class OrganizationController extends Controller
         );
     }
 
-
         /**
      * @OA\Patch(
      *     path="/api/v1/organization/lunch-price",
      *     tags={"Organization"},
      *     summary="Update lunch price",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -338,35 +322,11 @@ class OrganizationController extends Controller
 
 
     /**
-     * Retrieve a list of organizations.
-     *
-     * Retrieves a list of organizations that are not marked as deleted.
-     *
-     * @group Organizations
-     * @authenticated
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @response {
-     *     "data": [
-     *         {
-     *             "id": 1,
-     *             "name": "Organization 1",
-     *             "lunch_price": 2000
-     *         },
-     *          {
-     *              "id": 2,
-     *              "name": "Organization 2",
-     *              "lunch_price": 1000
-     *          },
-     *
-     *     ]
-     * }
-     */
-           /**
      * @OA\Get(
      *     path="/api/v1/organization",
      *     tags={"Organization"},
      *     summary="Get a list of organizations not deleted",
+     *     tags={"Organization"},
      *     security={
      *         {"bearerAuth": {}}
      *     },

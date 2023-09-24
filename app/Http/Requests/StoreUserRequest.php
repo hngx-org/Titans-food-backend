@@ -22,12 +22,13 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|unique:users|email',
-            'phone' => 'required|string|unique:users',
-            'otp_token' => 'required|string',
-            'profile_pic' => 'nullable|image|max:1024'
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:users,email',
+            'phone' => 'required',
+            'otp_token' => 'required',
+            'profile_pic' => 'nullable|image',
+            'password' => 'required|min:8'
         ];
     }
 }

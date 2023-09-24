@@ -46,7 +46,6 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
     Route::patch('/wallet', [OrganizationLunchWalletController::class, 'update'])->name('wallet.update');
     Route::get('/lunch/{id}', [LunchController::class, 'show'])->name('lunch.show');
     Route::get('/lunch', [LunchController::class, 'index'])->name('lunch.index');
-    Route::put('/organization/create', [OrganizationController::class, 'store'])->name('organization.store');
     Route::get('/organization', [OrganizationController::class, 'getOrganization'])->name('organization.getOrganization');
     Route::post('/organization/invite', [OrganizationInviteController::class, 'store'])->name('organization_invite.store');
 

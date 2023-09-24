@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
- 
+
     /**
      * Authenticated user profile.
      *
@@ -78,13 +78,7 @@ class ProfileController extends Controller
             return response()->json([
                 'message' => 'User data fetched successfully',
                 'statusCode' => 200,
-                'data' => [
-                    'id' => $user->id,
-                    'full_name' => $fullName,
-                    'email' => $user->email,
-                    'profile_pic' => $user->profile_pic,
-                    'isAdmin' => $user->is_admin,
-                ],
+                'data' => $user,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -181,7 +175,7 @@ class ProfileController extends Controller
                 'status' => 'error',
                 'message' => 'Current password is incorrect',
             ], Response::HTTP_UNAUTHORIZED); // 403
-        }        
+        }
 
         $password= Hash::make($request->new_password);
         $response = $user->update([

@@ -36,6 +36,11 @@ class OrganizationController extends Controller
         //
     }
 
+    public function update(StoreOrganizationRequest $request)
+    {
+        //
+    }
+
     /**
      * Display the specified resource.
      */
@@ -75,7 +80,7 @@ class OrganizationController extends Controller
      *                     property="currency_code",
      *                     type="string"
      *                 ),
-     *                 example={"organization_name":"Example Organization", "lunch_price":1000, "currency_code":"123"}
+     *                 example={"organization_name":"Example Organization", "lunch_price":1000, "currency_code":"NGN"}
      *             )
      *         )
      *     ),

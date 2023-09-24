@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'phone' => 'required',
             'otp_token' => 'required',
             'profile_pic' => 'nullable|image',
-            'password' => 'required'
+            'password' => 'required|min:8'
         ];
     }
 }

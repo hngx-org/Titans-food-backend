@@ -24,9 +24,6 @@ class ResetPasswordController extends Controller
      *     path="/api/v1/auth/user/forgot-password",
      *     summary="Reset user password",
      *     tags={"Authentication"},
-     *     security={
-     *         {"bearerAuth": {}}
-     *     },
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -35,11 +32,7 @@ class ResetPasswordController extends Controller
      *                     property="email",
      *                     type="string"
      *                 ),
-     *                 @OA\Property(
-     *                     property="note",
-     *                     type="string"
-     *                 ),
-     *                 example={"email":"user@example.com", "note":"Thank you for the good work"}
+     *                 example={"email":"user@example.com"}
      *             )
      *         )
      *     ),
@@ -54,7 +47,7 @@ class ResetPasswordController extends Controller
      *         response=422,
      *         description="UNPROCESSABLE_ENTITY",
      *         @OA\JsonContent(
-     *             @OA\Examples(example="result", value={"message":{"[Field] is required", "[Field] is required"}, "statusCode":422}, summary="Reset user password"),
+     *             @OA\Examples(example="result", value={"message":"[email] is required", "statusCode":422}, summary="Reset user password"),
      *         )
      *     ),
      *     @OA\Response(

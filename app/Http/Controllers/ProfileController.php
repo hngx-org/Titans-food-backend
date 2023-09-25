@@ -60,7 +60,7 @@ class ProfileController extends Controller
         /**
      * @OA\Post(
      *     path="/api/v1/auth/user/change-password",
-     *     tags={"Authentication"},
+     *     tags={"Profile"},
      *     summary="Change Password",
      *     security={
      *         {"bearerAuth": {}}
@@ -74,14 +74,14 @@ class ProfileController extends Controller
      *                     type="string"
      *                 ),
      *                 @OA\Property(
-     *                     property="new_password",
+     *                     property="password",
      *                     type="string"
      *                 ),
      *                 @OA\Property(
-     *                     property="confirm_password",
+     *                     property="password_confirmation",
      *                     type="string"
      *                 ),
-     *                 example={"current_password":"1Password", "new_password":"password123", "confirm_password":"password123"}
+     *                 example={"current_password":"1Password", "password":"password123", "password_confirmation":"password123"}
      *             )
      *         )
      *     ),

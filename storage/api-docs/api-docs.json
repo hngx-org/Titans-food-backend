@@ -1,0 +1,1687 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Team Titans - Free Lunch API",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "https://titans-food-backend.onrender.com",
+            "description": "Base URL"
+        }
+    ],
+    "paths": {
+        "/api/v1/auth/user/signin": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User/Organization login",
+                "operationId": "b25c088b399a97e86d1156957fb2aae3",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "user@example.com",
+                                    "password": "1Password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User/Organization login response",
+                                        "value": {
+                                            "message": "User authenticated successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User/Organization login response",
+                                        "value": {
+                                            "message": [
+                                                "field is required",
+                                                "field is required"
+                                            ],
+                                            "statusCode": 422,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User/Organization login response",
+                                        "value": {
+                                            "message": "Authentication failed",
+                                            "statusCode": 403,
+                                            "status": "error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/user/signup": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Signup (Organization only)",
+                "operationId": "c244b24745e044006c61e7edd0f39cb4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "first_name": "John",
+                                    "last_name": "Mark",
+                                    "email": "user@example.com",
+                                    "password": "1Password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CREATED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User Signup response",
+                                        "value": {
+                                            "message": "User signed up successfully",
+                                            "statusCode": 201,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/user/forgot-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset user password",
+                "operationId": "ed6cd9e3e9b14386ed6324d44f52e990",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "user@example.com",
+                                    "note": "Thank you for the good work"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": "OTP sent successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": [
+                                                "[Field] is required",
+                                                "[Field] is required"
+                                            ],
+                                            "statusCode": 422
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Reset user password",
+                                        "value": {
+                                            "message": "User not found",
+                                            "statusCode": 404
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/user/reset-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset user's password",
+                "operationId": "21b692d0427e45f0489289da677abe86",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "otp_token": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "new_password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "new_password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password reset successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error or invalid OTP",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid OTP code"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/bank": {
+            "patch": {
+                "tags": [
+                    "Bank Details"
+                ],
+                "summary": "Add bank account details",
+                "operationId": "211b742d35956aa80b6ad6bd7a38aad8",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "bank_name": {
+                                        "type": "string"
+                                    },
+                                    "bank_number": {
+                                        "type": "string"
+                                    },
+                                    "bank_code": {
+                                        "type": "string"
+                                    },
+                                    "bank_region": {
+                                        "type": "string"
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "currency_code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "bank_name": "",
+                                    "bank_number": "",
+                                    "bank_code": "",
+                                    "bank_region": "",
+                                    "currency": "",
+                                    "currency_code": ""
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Add bank account details for the authenticated user",
+                                        "value": {
+                                            "message": "successfully added bank account details",
+                                            "statusCode": 200
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "BAD_REQUEST",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Add bank account details for the authenticated user",
+                                        "value": {
+                                            "message": "Error, please try again",
+                                            "statusCode": 200
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/bank_details": {
+            "get": {
+                "tags": [
+                    "Bank Details"
+                ],
+                "summary": "View bank account details",
+                "operationId": "62d320a0d6f12aac5e64b802945f3822",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "View bank account details for the authenticated user",
+                                        "value": {
+                                            "data": [],
+                                            "message": "Bank details found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "View bank account details for the authenticated user",
+                                        "value": {
+                                            "message": "No bank details found for the given user."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/lunch": {
+            "get": {
+                "tags": [
+                    "Lunch"
+                ],
+                "summary": "Retrieve a user's lunch data",
+                "operationId": "87f3a7f5828ce0772e22ced0b83a952c",
+                "responses": {
+                    "200": {
+                        "description": "Lunch data retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "lunch": {
+                                            "properties": {
+                                                "received": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 37671158
+                                                            },
+                                                            "org_id": {
+                                                                "type": "integer",
+                                                                "example": 84487725
+                                                            },
+                                                            "sender_id": {
+                                                                "type": "integer",
+                                                                "example": 99993291
+                                                            },
+                                                            "receiver_id": {
+                                                                "type": "integer",
+                                                                "example": 99993287
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "redeemed": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "note": {
+                                                                "type": "string",
+                                                                "example": "Thank you rahman"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:34:43.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:34:43.000000Z"
+                                                            },
+                                                            "is_deleted": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "sent": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 37671155
+                                                            },
+                                                            "org_id": {
+                                                                "type": "integer",
+                                                                "example": 84487725
+                                                            },
+                                                            "sender_id": {
+                                                                "type": "integer",
+                                                                "example": 99993287
+                                                            },
+                                                            "receiver_id": {
+                                                                "type": "integer",
+                                                                "example": 99993291
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "redeemed": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "note": {
+                                                                "type": "string",
+                                                                "example": "f"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:20:59.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "2023-09-24T12:20:59.000000Z"
+                                                            },
+                                                            "is_deleted": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No lunch data found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "lunch": {
+                                            "type": "string",
+                                            "example": "no record found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Lunch"
+                ],
+                "summary": "Send lunch credits",
+                "operationId": "56df44ec3c310e9ecaab1dd37d8fa0e0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "receivers": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "receivers": "[]",
+                                    "quantity": 5,
+                                    "note": "Thank you for the good work"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Send lunch credits",
+                                        "value": {
+                                            "message": "Lunch request created successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "insufficient_fund": {
+                                        "summary": "Send lunch credits",
+                                        "value": {
+                                            "message": "Insufficient fund!"
+                                        }
+                                    },
+                                    "self_appraisal": {
+                                        "summary": "Send lunch credits",
+                                        "value": {
+                                            "message": "You cannot appraise yourself"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/lunch/{id}": {
+            "get": {
+                "tags": [
+                    "Lunch"
+                ],
+                "summary": "Retrieve a lunch by ID",
+                "operationId": "45f79f9a23efb7e83d0937814a27c68e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Get lunch by ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Retrieve a lunch by ID",
+                                        "value": {
+                                            "statusCode": 200,
+                                            "message": "Lunch request created successfully",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Retrieve a lunch by ID",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "Lunch request not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/organization/create": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Create Organization",
+                "operationId": "cc783a78127b97001fc10c30994efd67",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "organization_name": {
+                                        "type": "string"
+                                    },
+                                    "lunch_price": {
+                                        "type": "integer"
+                                    },
+                                    "currency_code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "organization_name": "Example Organization",
+                                    "lunch_price": 1000,
+                                    "currency_code": "NGN"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Organization create",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Organization Created Successfully",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Organization create",
+                                        "value": {
+                                            "status": "failed",
+                                            "message": "You already belong to a company",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/organization/staff/signup": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Create a user within an organization",
+                "operationId": "620e70f3dfc4b9a6177c4c60d520aab8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "otp_token": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "profile_pic": {
+                                        "description": "Optional: Profile picture (if provided)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "first_name": "John",
+                                    "last_name": "Doe",
+                                    "email": "john.doe@example.com",
+                                    "otp_token": "123456",
+                                    "password": "your_password",
+                                    "phone": "1234567890",
+                                    "profile_pic": "example.jpg"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User signed up successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User signed up successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john.doe@example.com"
+                                                },
+                                                "is_admin": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "org_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "profile_pic": {
+                                                    "type": "string",
+                                                    "example": "example.jpg"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authentication failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Authentication failed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/organization/lunch-price": {
+            "patch": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Update lunch price",
+                "operationId": "c5c1cf536c432da7e6c0861294d9adb0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "lunch_price": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "lunch_price": 1000
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update lunch price",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Lunch price updated successfully",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update lunch price",
+                                        "value": {
+                                            "status": "failed",
+                                            "message": "You are not authorized to perform this action",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update lunch price",
+                                        "value": {
+                                            "status": "failed",
+                                            "message": "Error updating lunch price",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/organization": {
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Get a list of organizations not deleted",
+                "operationId": "2b2c84a4a824831ef20e7a0ba7bca981",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get list of organizations not deleted",
+                                        "value": {
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/organization/invite": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Create an organization invitation",
+                "operationId": "deb4113e8c51bb3a7f4e2344436dfef0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "john.doe@example.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Send email invitation from organization",
+                                        "value": {
+                                            "statusCode": 200,
+                                            "message": "success",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Send email invitation from organization",
+                                        "value": {
+                                            "message": "You are not authorized to perform this action!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/wallet": {
+            "patch": {
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Update organization wallet",
+                "operationId": "1e4798999b5cf6741659e5b6b48b9b5b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": 4000
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update organization wallet balance",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "wallet funded successfully",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update organization wallet balance",
+                                        "value": {
+                                            "status": "failed",
+                                            "message": "You are not authorized to perform this action",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Update organization wallet balance",
+                                        "value": {
+                                            "status": "failed",
+                                            "message": "Error funding wallet",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Logout a user",
+                "operationId": "e8b83e11e03c518202a4045cea755d26",
+                "responses": {
+                    "200": {
+                        "description": "User logout successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logout successfully"
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/refresh-token": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Refresh user's access token",
+                "operationId": "234c47932aa241dc2957423926ac0cd4",
+                "responses": {
+                    "200": {
+                        "description": "User token refreshed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User token refreshed successfully"
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string",
+                                                    "example": "your_access_token_here"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/profile": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get User Profile Details",
+                "operationId": "d9fb90defef5300275c33848ffee01d2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get User Profile",
+                                        "value": {
+                                            "message": "User data fetched successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/user/change-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Change Password",
+                "operationId": "9417bf69388aefbc4e2df020380137a2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "current_password": "1Password",
+                                    "new_password": "password123",
+                                    "confirm_password": "password123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Password changed successfully",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UNPROCESSABLE_ENTITY",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": [
+                                                "[Field] is required",
+                                                "[Field] is required"
+                                            ],
+                                            "statusCode": 422
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "BAD_REQUEST",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Passwords do not match",
+                                            "statusCode": 400,
+                                            "status": "error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Password change response",
+                                        "value": {
+                                            "message": "Current password is incorrect",
+                                            "statusCode": 403,
+                                            "status": "error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/all": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "All all users list",
+                "operationId": "94f739901dd8e83c0d8185cb5884b3ae",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "All all users list",
+                                        "value": {
+                                            "statusCode": 200,
+                                            "message": "All users list",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Search profile by Name or Email",
+                                        "value": {
+                                            "status": 404,
+                                            "status_message": "No records found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/profile/{nameOrEmail}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Search profile by Name or Email",
+                "operationId": "b8c0b4d8cff688b3fc18581ea71cc947",
+                "parameters": [
+                    {
+                        "name": "nameOrEmail",
+                        "in": "path",
+                        "description": "Search profile by Name or Email",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Search profile by Name or Email",
+                                        "value": {
+                                            "statusCode": 200,
+                                            "message": "User found",
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Search profile by Name or Email",
+                                        "value": {
+                                            "statusCode": 404,
+                                            "message": "No users found for the given name or email."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/withdrawal/request": {
+            "get": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Get Withdrawal Requests from User",
+                "operationId": "0f4064b6da1781c0d91cd7bbc590f76b",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "Get Withdrawal Requests",
+                                        "value": {
+                                            "message": "User details fetched",
+                                            "statusCode": 200,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Withdrawal Request",
+                "operationId": "c8147d0db50cb1d94b536db31fd70324",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": "1000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "User Signup response",
+                                        "value": {
+                                            "message": "Withdrawal request created ",
+                                            "statusCode": 201,
+                                            "data": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

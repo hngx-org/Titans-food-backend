@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('lunch_price', 10, 2);
-            $table->string('currency_code', 4);
+            $table->string('currency_code', 4)->default('NGN');
             $table->timestamps();
             $table->boolean('is_deleted')->default(false);
        

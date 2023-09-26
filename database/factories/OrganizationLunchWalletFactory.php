@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class OrganizationLunchWalletFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'org_id' => Organization::all()->random()->id,
+            'balance' => fake()->numberBetween(10000, 99999)
         ];
     }
 }

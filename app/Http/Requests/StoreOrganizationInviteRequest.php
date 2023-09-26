@@ -31,7 +31,10 @@ class StoreOrganizationInviteRequest extends FormRequest
                 'required',
                 Rule::unique('organization_invites', 'email')->where(function($query) use ($authUser) {
                     return $query->where('org_id', $authUser->org_id);
-                })
+                }),
+                Rule::unique('users', 'email')->where(function($query) use ($authUser) {
+                    return $query->where('org_id', $authUser->org_id);
+                }),
             ]
 
             // unique:organization_invites,email,org_id
@@ -48,7 +51,8 @@ class StoreOrganizationInviteRequest extends FormRequest
         return [
             'email.required' => 'The email field is required.',
             'email.email' => 'Invalid email format.',
-            'email.unique' => 'This email has already been invited.',
+            'email.unique:organization_invites' => 'This email has already been invited.',
+            'email.unique:user' => 'This email belongs to an existing.'
         ];
     }
 

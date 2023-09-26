@@ -22,10 +22,10 @@ class OrganizationSignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:8',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
             'phone_number' => 'sometimes'
         ];
     }

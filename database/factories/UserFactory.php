@@ -36,7 +36,7 @@ class UserFactory extends Factory
             'phone' => fake()->numerify('###########'),
             'password_hash' => Hash::make('password'), // all fake user has this same password
             'is_admin' => fake()->boolean(),
-            'lunch_credit_balance' => number_format(fake()->randomFloat(2, 1, 10000), 2),
+            'lunch_credit_balance' => str_replace(",", "", number_format(fake()->randomFloat(2, 1, 10000), 2)),
             'refresh_token' => fake()->regexify('[A-Za-z0-9]{40}'),
             'bank_number' =>  fake()->numberBetween(1000, 9999),
             'bank_code' => fake()->numberBetween(100, 999),
@@ -44,8 +44,6 @@ class UserFactory extends Factory
             'bank_region' => fake()->country(),
             'currency' => fake()->numberBetween(100, 999),
             'currency_code' => 'NGN',
-
-            'remember_token' => Str::random(10),
         ];
     }
 
